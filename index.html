@@ -88,7 +88,7 @@
   </a>
   <ul class="nav-links">
     <li><a onclick="showPage('home')" id="nav-home" class="active">Etusivu</a></li>
-    <li><a onclick="showPage('home'); setTimeout(function(){ document.getElementById('about-section').scrollIntoView({behavior:'smooth'}); }, 50);" id="nav-about">Kuka olen</a></li>
+    <li><a onclick="showPage('about')" id="nav-about">Kuka olen</a></li>
     <li><a onclick="showPage('blog')" id="nav-blog">Kirjoitukset</a></li>
     <li><a onclick="showPage('contact')" id="nav-contact">Yhteystiedot</a></li>
   </ul>
@@ -103,13 +103,7 @@
     </div>
   </div>
   <div class="home-body">
-    <div id="about-section"></div>
-    <a onclick="toggleAbout()" id="about-toggle" style="font-size:0.78rem;letter-spacing:0.07em;text-transform:uppercase;color:var(--muted);cursor:pointer;text-decoration:none;display:inline-block;margin-bottom:1.5rem">Kuka olen &darr;</a>
-    <div id="about-text" style="display:none;margin-bottom:1.5rem">
-      <p>Olen Tuomas Kuusisto. Kirjoitan omalla nimell&auml;ni, analyyttisesti ja ilman kiertelyi&auml;. Mielest&auml;ni kriittinen ajattelu ei ole ideologia vaan velvollisuus.</p>
-      <p>Liian moni keskustelu p&auml;&auml;ttyy siihen, mist&auml; sen pit&auml;isi alkaa. Siksi kirjoitan aiheista, joista puhutaan v&auml;h&auml;n, varovasti tai vain yhdest&auml; n&auml;k&ouml;kulmasta.</p>
-      <p>En usko iskulauseisiin enk&auml; klikkiotsikoihin. Uskon argumentteihin, n&auml;ytt&ouml;&ouml;n ja niiden pohjalta tehtäviin johtop&auml;&auml;t&ouml;ksiin.</p>
-    </div>
+
     <hr class="divider">
     <p class="page-sub" style="margin-bottom:1rem">Uusimmat kirjoitukset</p>
     <ul class="post-list" style="margin-bottom:1.5rem">
@@ -127,6 +121,18 @@
       </li>
     </ul>
     <p class="latest-link"><a onclick="showPage('blog')">Kaikki kirjoitukset &rarr;</a></p>
+  </div>
+</div>
+
+
+<div id="page-about" class="page">
+  <div class="wrap">
+    <h1 class="page-heading">Kuka olen</h1>
+    <div class="post-body" style="margin-top:1.5rem">
+      <p>Olen Tuomas Kuusisto. Kirjoitan omalla nimell&auml;ni, analyyttisesti ja ilman kiertelyi&auml;. Mielest&auml;ni kriittinen ajattelu ei ole ideologia vaan velvollisuus.</p>
+      <p>Liian moni keskustelu p&auml;&auml;ttyy siihen, mist&auml; sen pit&auml;isi alkaa. Siksi kirjoitan aiheista, joista puhutaan v&auml;h&auml;n, varovasti tai vain yhdest&auml; n&auml;k&ouml;kulmasta.</p>
+      <p>En usko iskulauseisiin enk&auml; klikkiotsikoihin. Uskon argumentteihin, n&auml;ytt&ouml;&ouml;n ja niiden pohjalta tehtäviin johtop&auml;&auml;t&ouml;ksiin.</p>
+    </div>
   </div>
 </div>
 
