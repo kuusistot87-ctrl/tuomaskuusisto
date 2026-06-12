@@ -73,6 +73,16 @@
   .contact-val a:hover { color: var(--text); }
   .contact-note { margin-top: 2.5rem; font-size: 0.88rem; color: var(--muted); line-height: 1.8; max-width: 480px; }
 
+
+  .home-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+  .home-grid-item { cursor: pointer; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.2s; }
+  .home-grid-item:hover { border-color: #444; }
+  .home-grid-item:hover .home-grid-title { color: var(--accent); }
+  .home-grid-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; filter: brightness(0.85); }
+  .home-grid-body { padding: 0.9rem 1rem; }
+  .home-grid-meta { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.35rem; }
+  .home-grid-title { font-size: 0.88rem; font-weight: 500; line-height: 1.4; transition: color 0.2s; }
+  @media (max-width: 600px) { .home-grid { grid-template-columns: 1fr; } }
   @media (max-width: 600px) {
     nav { padding: 1rem 1.2rem; }
     .nav-links { gap: 1.2rem; }
@@ -106,23 +116,29 @@
 
     <hr class="divider">
     <p class="page-sub" style="margin-bottom:1rem">Uusimmat kirjoitukset</p>
-    <ul class="post-list" style="margin-bottom:1.5rem">
-      <li class="post-item" onclick="showPage('blog', true); openPost('post8')">
-        <div class="post-item-meta">6.6.2026 &middot; Yhteiskunta</div>
-        <div class="post-item-title">Tasavalta ja vapaa maailma</div>
-        <div class="post-item-excerpt">Rikkain 10&nbsp;% omistaa yli puolet kaikesta. K&ouml;yhin 50&nbsp;% omistaa 4&nbsp;%. Mik&auml;si j&auml;rjestelm&auml; ei korjaa itse&auml;&auml;n &mdash; ja mik&auml; pit&auml;&auml; sen paikallaan.</div>
-      </li>
-      <li class="post-item" onclick="showPage('blog', true); openPost('post5')">
-        <div class="post-item-meta">5.6.2026 &middot; Yhteiskunta</div>
-        <div class="post-item-title">Kela ja Pride: julkinen virasto poliittisen kumppanin rahoittajana</div>
-        <div class="post-item-excerpt">Kela on solminut kolmivuotisen kumppanuussopimuksen Helsinki Priden kanssa &mdash; organisaation, joka sulki keskustan ja kokoomuksen ulos arvojen perusteella. Veronmaksajien rahoilla.</div>
-      </li>
-      <li class="post-item" onclick="showPage('blog', true); openPost('post1')">
-        <div class="post-item-meta">1.6.2026 &middot; Media</div>
-        <div class="post-item-title">Keskustelu on p&auml;&auml;ttynyt &ndash; s&auml;&auml;st&ouml;syist&auml;</div>
-        <div class="post-item-excerpt">Julkisen palvelun media vet&auml;ytyy alustalta, jonka kautta se tavoitti eniten kansalaisia. S&auml;&auml;st&ouml;t ovat perustelu, mutta eiv&auml;t selitys.</div>
-      </li>
-    </ul>
+    <div class="home-grid">
+      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post8')">
+        <img class="home-grid-img" src="Kuvat/post8-tasavalta.png" alt="Tasavalta ja vapaa maailma">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">6.6.2026 &middot; Yhteiskunta</div>
+          <div class="home-grid-title">Tasavalta ja vapaa maailma</div>
+        </div>
+      </div>
+      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post5')">
+        <img class="home-grid-img" src="Kuvat/post5-kela.png" alt="Kela ja Pride">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">5.6.2026 &middot; Yhteiskunta</div>
+          <div class="home-grid-title">Kela ja Pride: julkinen virasto poliittisen kumppanin rahoittajana</div>
+        </div>
+      </div>
+      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post1')">
+        <img class="home-grid-img" src="Kuvat/post1-yle.png" alt="Keskustelu on päättynyt">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">1.6.2026 &middot; Media</div>
+          <div class="home-grid-title">Keskustelu on p&auml;&auml;ttynyt &ndash; s&auml;&auml;st&ouml;syist&auml;</div>
+        </div>
+      </div>
+    </div>
     <p class="latest-link"><a onclick="showPage('blog')">Kaikki kirjoitukset &rarr;</a></p>
   </div>
 </div>
@@ -143,8 +159,7 @@
   <div class="wrap">
     <div id="blog-list">
       <h1 class="page-heading">Kirjoitukset</h1>
-      <p class="page-sub">Yhteiskunta &middot; Media &middot; Politiikka</p>
-      <ul class="post-list">
+        <ul class="post-list">
 
 
         <li class="post-item" onclick="openPost('post8')">
@@ -431,6 +446,20 @@
 </div>
 
 <script>
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var openPost = document.querySelector('.post-full[style*="display: block"], .post-full[style*="display:block"]');
+    if (openPost) {
+      backToList();
+    } else {
+      var activePage = document.querySelector('.page.active');
+      if (activePage && activePage.id !== 'page-home') {
+        showPage('home');
+      }
+    }
+  }
+});
+
 function toggleAbout() {
   var el = document.getElementById('about-text');
   var btn = document.getElementById('about-toggle');
