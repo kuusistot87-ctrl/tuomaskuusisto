@@ -130,6 +130,13 @@
     <hr class="divider">
     <p class="page-sub" style="margin-bottom:1rem">Uusimmat kirjoitukset</p>
     <div class="home-grid">
+      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post12')">
+        <img class="home-grid-img" src="Kuvat/post12-tasa-arvon-nimissa.jpg" alt="Tasa-arvon nimiss&auml;">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">21.8.2026 &middot; Yhteiskunta</div>
+          <div class="home-grid-title">Tasa-arvon nimiss&auml;</div>
+        </div>
+      </div>
       <div class="home-grid-item" onclick="showPage('blog', true); openPost('post10')">
         <img class="home-grid-img" src="Kuvat/post10-kehitysapu.png" alt="1,2 biljoonaa dollaria">
         <div class="home-grid-body">
@@ -142,13 +149,6 @@
         <div class="home-grid-body">
           <div class="home-grid-meta">6.6.2026 &middot; Yhteiskunta</div>
           <div class="home-grid-title">Tasavalta ja vapaa maailma</div>
-        </div>
-      </div>
-      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post5')">
-        <img class="home-grid-img" src="Kuvat/post5-kela.png" alt="Kela ja Pride">
-        <div class="home-grid-body">
-          <div class="home-grid-meta">5.6.2026 &middot; Yhteiskunta</div>
-          <div class="home-grid-title">Kela ja Pride: julkinen virasto poliittisen kumppanin rahoittajana</div>
         </div>
       </div>
     </div>
@@ -174,6 +174,12 @@
       <h1 class="page-heading">Kirjoitukset</h1>
         <ul class="post-list">
 
+
+        <li class="post-item" onclick="openPost('post12')">
+          <div class="post-item-meta">21.8.2026 &middot; Yhteiskunta</div>
+          <div class="post-item-title">Tasa-arvon nimiss&auml;</div>
+          <div class="post-item-excerpt">Nainen vapautetaan perinteisest&auml; hoivaajan roolista, mutta hoivavietti&auml; ei poisteta. Mit&auml; tasa-arvolla oikeastaan tarkoitetaan &mdash; ja kuka m&auml;&auml;rittelee hyv&auml;ksytt&auml;v&auml;n puheen rajat?</div>
+        </li>
 
         <li class="post-item" onclick="openPost('post10')">
           <div class="post-item-meta">15.6.2026 &middot; Ulkopolitiikka</div>
@@ -240,6 +246,43 @@
         </li>
 
       </ul>
+    </div>
+
+    <div id="post12" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
+      <h1 class="post-full-title">Tasa-arvon nimiss&auml;</h1>
+      <div class="post-full-meta">21.8.2026 &middot; Yhteiskunta &middot; tuomaskuusisto.fi/#tasa-arvon-nimissa</div>
+      <img class="post-image" src="Kuvat/post12-tasa-arvon-nimissa.jpg" alt="Tasa-arvon nimiss&auml;">
+      <div class="post-body">
+        <p>Nuorelle l&auml;nsimaiselle naiselle on vuosikymmenten ajan kerrottu, ett&auml; perheen perustaminen merkitsee alistumista, kun taas ty&ouml;el&auml;m&auml;&auml;n osallistuminen, taloudellinen itsen&auml;isyys ja urakehitys merkitsev&auml;t vapautta. Nainen ik&auml;&auml;n kuin vapautuu perinteisest&auml; perheroolistaan p&auml;&auml;tyess&auml;&auml;n ty&ouml;skentelem&auml;&auml;n monikansallisen yrityksen palveluksessa osakkeenomistajien tavoitteiden hyv&auml;ksi ja samalla valtion veronmaksajaksi.</p>
+        <p>Yksi feminismin keskeisist&auml; yhteiskunnallisista seurauksista on ollut se, ett&auml; l&auml;nsimaisille yhteiskunnille vapautui valtava m&auml;&auml;r&auml; uutta ty&ouml;voimaa. Feministisen liikkeen tavoitteet ja taloudellisen j&auml;rjestelm&auml;n tarpeet ovat t&auml;ss&auml; mieless&auml; my&ouml;s sopineet varsin hyvin yhteen. Samalla naisille alettiin myyd&auml; viholliskuvastoa, jossa &ldquo;valkoiset heteromiehet&rdquo; esitet&auml;&auml;n helposti yhten&auml;isen&auml; sortavana monoliittina, vaikka kyseess&auml; on joukko kesken&auml;&auml;n hyvin erilaisia yksil&ouml;it&auml;.</p>
+        <p>Feminismill&auml; on kuitenkin my&ouml;s toinen, paljon v&auml;hemm&auml;n keskusteltu vaikutus.</p>
+        <p>Biologinen hoivavietti ei katoa, vaikka yhteiskunta muuttaisi k&auml;sityst&auml;&auml;n perheest&auml; tai &auml;itiydest&auml;. Tarve hoivata, suojella ja tarjota turvaa s&auml;ilyy, vaikkei omaa lasta syntyisik&auml;&auml;n. Jos perinteinen perhe ei en&auml;&auml; tarjoa sille ensisijaista kanavaa, vietti voi l&ouml;yt&auml;&auml; muita kohteita.</p>
+        <p>On mahdollista, ett&auml; osa perheen perustamista lykk&auml;&auml;vist&auml; nuorista naisista on nykyisess&auml; kulttuurisodassa kanavoinut t&auml;m&auml;n hoivavietin l&auml;nsimaiden ulkopuolelta tuleviin maahanmuuttajiin ja turvapaikanhakijoihin. Siirtolaiset kuvataan usein ensisijaisesti haavoittuvina j&auml;rjestelmien uhreina, jotka tarvitsevat l&auml;nsimaisen yhteiskunnan suojelua. Asetelma voi toisinaan muistuttaa vanhemman ja lapsen v&auml;list&auml; suhdetta: suojelija ja suojeltava, vahva ja heikko, auttaja ja uhri.</p>
+        <p>T&auml;st&auml; syntyy my&ouml;s er&auml;s feminismin nykyisen ideologian ristiriidoista. Nainen vapautetaan perinteisest&auml; hoivaajan roolista, mutta hoivavietti&auml; ei poisteta. Se voi vain saada uuden moraalisesti hyv&auml;ksytyn kohteen.</p>
+        <p>Feminismi on t&auml;ss&auml; mieless&auml; muuttunut alkuper&auml;ist&auml; tasa-arvokysymyst&auml; laajemmaksi ideologiseksi projektiksi. &Auml;&auml;rimmill&auml;&auml;n siit&auml; on tullut osa sivilisaatioiden v&auml;list&auml; kulttuurista valtataistelua, jossa l&auml;nsimainen, erityisesti valkoinen, kristillinen ja eurooppalainen enemmist&ouml;kulttuuri kehystet&auml;&auml;n helposti sortavana, kun taas l&auml;nnen ulkopuolinen esitet&auml;&auml;n ensisijaisesti uhrina.</p>
+        <p>&ldquo;Voi poloiset. Kuka teit&auml; suojelisi, jos en min&auml;?&rdquo;</p>
+        <p>N&auml;in nuori l&auml;nsimainen nainen voidaan saada ajattelemaan toisesta ihmisryhm&auml;st&auml;. Ei yksil&ouml;ist&auml;, vaan abstraktista uhrien joukosta, jonka puolustamisesta tulee osa h&auml;nen omaa moraalista identiteetti&auml;&auml;n.</p>
+        <p>Puolustukseksi feministit puhuvat k&auml;sitteist&auml; kuten &ldquo;tasa-arvo&rdquo; ja &ldquo;yhdenvertaisuus&rdquo;. Ongelma ei ole siin&auml;, etteiv&auml;tk&ouml; n&auml;m&auml; k&auml;sitteet voisi tarkoittaa jotakin arvokasta. Ongelma syntyy silloin, kun niiden moraalinen lataus korvaa tarkan m&auml;&auml;rittelyn.</p>
+        <p>Mit&auml; tasa-arvolla oikeastaan tarkoitetaan?</p>
+        <p>Ovatko pomo ja ty&ouml;ntekij&auml; tasa-arvoisia ty&ouml;paikalla? Ent&auml; lapsi ja vanhempi? Ent&auml; oman alansa mestari ja vasta-alkaja? Heill&auml; on erilaiset asemat, vastuut ja velvollisuudet.</p>
+        <p>Yhteiskunta joutuu jatkuvasti tekem&auml;&auml;n erotteluja kansalaisten ja ulkomaalaisten, asukkaiden ja vierailijoiden, rikollisten ja lainkuuliaisten sek&auml; oikeuksia k&auml;ytt&auml;vien ja velvollisuuksia t&auml;ytt&auml;vien ihmisten v&auml;lill&auml;. N&auml;m&auml; erottelut synnytt&auml;v&auml;t v&auml;ist&auml;m&auml;tt&auml; erilaisia hierarkioita.</p>
+        <p>Jos yhdenvertaisuus tarkoittaisi, ett&auml; kaikki ihmiset ovat kaikissa merkityksellisiss&auml; suhteissa samanarvoisia, k&auml;site muuttuisi absurdiksi. Miksi meill&auml; olisi kansalaisuus, passeja, rajoja tai maahantulos&auml;&auml;nt&ouml;j&auml;? Miksi kansalaisuuteen liittyisi erityisi&auml; oikeuksia ja velvollisuuksia? Miksi toiset maksaisivat veroja ja noudattaisivat lakeja, jos kaikki olisivat kaikesta riippumatta aina yhdenvertaisia?</p>
+        <p>Ihmisill&auml; on yht&auml;l&auml;inen ihmisarvo, ja he ovat yhdenvertaisia lain edess&auml;. Se ei kuitenkaan tarkoita, ett&auml; ihmiset, teot tai yhteiskunnalliset asemat olisivat samanarvoisia. Todellinen kysymys on, mitk&auml; erot ovat oikeutettuja, mill&auml; perusteella ja kuka niiden perusteet m&auml;&auml;rittelee.</p>
+        <p>Tasa-arvon ja yhdenvertaisuuden k&auml;sitteit&auml; k&auml;ytet&auml;&auml;n nykypolitiikassa toisinaan tylppin&auml; valtapoliittisina ty&ouml;kaluina.</p>
+        <p>Koetko sin&auml; olevasi valtaapit&auml;vien kanssa tasa-arvoinen tai yhdenvertainen?</p>
+        <p>Heill&auml; on valta. Heill&auml; on raha. Heill&auml; on instituutioiden suoma erityisasema. Sinulle j&auml;&auml; rooli veroja loputtomiin maksavana orjana, ja sinut voidaan vaientaa yhdell&auml; jos toisella k&auml;sitteell&auml; aina silloin, kun esit&auml;t ep&auml;miellytt&auml;vi&auml; kysymyksi&auml;.</p>
+        <p>Olet rasisti, islamofoobikko, misogyyni, &auml;&auml;rioikeistolainen, valkoisen ylivallan kannattaja.</p>
+        <p>T&auml;llaisista m&auml;&auml;ritelmist&auml; on muodostunut tyhji&auml; retorisia ly&ouml;m&auml;aseita, joilla keskustelu lopetetaan ennen kuin itse v&auml;itteeseen tarvitsee vastata. Monimutkaiset yhteiskunnalliset kysymykset typistet&auml;&auml;n moraalisiksi leimoiksi.</p>
+        <p>Taustalla on valtataistelu.</p>
+        <p>Taistelu siit&auml;, kuka m&auml;&auml;rittelee hyv&auml;ksytt&auml;v&auml;n puheen rajat.</p>
+        <p>Taistelu siit&auml;, millaiseksi yhteiskuntasi muuttuu.</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Jaa:</span>
+        <button class="share-btn" onclick="shareFacebook('tasa-arvon-nimissa')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('tasa-arvon-nimissa')">Kopioi linkki</button>
+      </div>
     </div>
 
     <div id="post6" class="post-full">
@@ -585,7 +628,7 @@ function openPost(id) {
   document.getElementById('blog-list').style.display = 'none';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   document.getElementById(id).style.display = 'block';
-  var anchors = { post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
+  var anchors = { post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
   if (anchors[id]) { window.location.hash = anchors[id]; }
   window.scrollTo(0, 0);
 }
@@ -612,7 +655,7 @@ function copyLink(anchor) {
 
 (function checkHash() {
   var hash = window.location.hash.replace('#','');
-  var map = { 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
+  var map = { 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
   if (map[hash]) { showPage('blog'); openPost(map[hash]); }
 })();
 </script>
