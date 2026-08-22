@@ -114,7 +114,6 @@
   </a>
   <ul class="nav-links">
     <li><a onclick="showPage('home')" id="nav-home" class="active">Etusivu</a></li>
-    <li><a onclick="showPage('about')" id="nav-about">Kuka olen</a></li>
     <li><a onclick="showPage('blog')" id="nav-blog">Kirjoitukset</a></li>
     <li><a onclick="showPage('contact')" id="nav-contact">Yhteystiedot</a></li>
   </ul>
@@ -159,18 +158,6 @@
   </div>
 </div>
 
-
-<div id="page-about" class="page">
-  <div class="wrap">
-    <h1 class="page-heading">Kuka olen</h1>
-    <div class="post-body" style="margin-top:1.5rem">
-      <p>Olen Tuomas Kuusisto.</p>
-      <p>Kirjoitan siit&auml; kuka p&auml;&auml;tt&auml;&auml;, mill&auml; valtuudella ja kuka vastaa. Kolme kysymyst&auml;, joita Suomessa kysyt&auml;&auml;n harvoin. Se on itsess&auml;&auml;n tieto.</p>
-      <p>Antropologi ja oikeustieteen opiskelija. Sama ty&ouml;kalu kahdella nimell&auml;: toinen kysyy miksi ihminen toimii n&auml;in, toinen mill&auml; oikeudella.</p>
-      <p>Tekstit ovat pitki&auml; ja l&auml;hteet ovat niiss&auml;. Jos se on liikaa, t&auml;m&auml; ei ole sinua varten.</p>
-    </div>
-  </div>
-</div>
 
 <div id="page-blog" class="page">
   <div class="wrap">
@@ -606,18 +593,6 @@ document.addEventListener('keydown', function(e) {
     }
   }
 });
-
-function toggleAbout() {
-  var el = document.getElementById('about-text');
-  var btn = document.getElementById('about-toggle');
-  if (el.style.display === 'none') {
-    el.style.display = 'block';
-    btn.innerHTML = 'Kuka olen &uarr;';
-  } else {
-    el.style.display = 'none';
-    btn.innerHTML = 'Kuka olen &darr;';
-  }
-}
 
 function showPage(name, skipReset) {
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
