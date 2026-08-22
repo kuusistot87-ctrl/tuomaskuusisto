@@ -26,13 +26,16 @@
   .page { display: none; padding-top: 60px; }
   .page.active { display: block; }
 
-  .hero { position: relative; height: 70vh; min-height: 420px; overflow: hidden; display: flex; align-items: flex-end; }
+  .hero { position: relative; height: 46vh; min-height: 320px; max-height: 520px; overflow: hidden; display: flex; align-items: flex-end; }
   .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; filter: brightness(0.35); }
-  .hero-content { position: relative; z-index: 2; max-width: var(--max); margin: 0 auto; width: 100%; padding: 3rem 2rem; }
+  .hero-content { position: relative; z-index: 2; max-width: var(--max); margin: 0 auto; width: 100%; padding: 2.2rem 2rem; }
   .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
   .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 400; line-height: 1.25; max-width: 560px; }
 
-  .home-body { max-width: var(--max); margin: 0 auto; padding: 3rem 2rem 5rem; }
+  .home-body { max-width: var(--max); margin: 0 auto; padding: 1.6rem 2rem 5rem; }
+  /* Heron jalkeinen ensimmainen viiva ei tarvitse omaa ylamarginaalia: se
+     tyonsi "Uusimmat kirjoitukset" -lohkon taitteen alle 22.08.2026. */
+  .home-body > hr.divider:first-child { margin-top: 0; }
   .home-body p { color: var(--accent); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1.2rem; }
   hr.divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
   .latest-link { font-size: 0.82rem; color: var(--muted); }
@@ -89,10 +92,10 @@
     .nav-logo img { height: 22px; }
     .nav-links { gap: 0.9rem; }
     .nav-links a { font-size: 0.7rem; letter-spacing: 0.04em; }
-    .hero { height: 50vh; min-height: 300px; }
+    .hero { height: 38vh; min-height: 240px; }
     .hero h1 { font-size: 1.5rem; }
     .hero-content, .home-body, .wrap { padding-left: 1rem; padding-right: 1rem; }
-    .home-body { padding-top: 2rem; padding-bottom: 3rem; }
+    .home-body { padding-top: 1.1rem; padding-bottom: 3rem; }
     .wrap { padding-top: 2rem; padding-bottom: 3rem; }
     .post-full-title { font-size: 1.3rem; }
     .share-row { flex-wrap: wrap; gap: 0.6rem; }
@@ -128,7 +131,7 @@
   <div class="home-body">
 
     <hr class="divider">
-    <p class="page-sub" style="margin-bottom:1rem">Uusimmat kirjoitukset</p>
+    <p class="page-sub" style="margin-bottom:1.2rem">Uusimmat kirjoitukset</p>
     <div class="home-grid">
       <div class="home-grid-item" onclick="showPage('blog', true); openPost('post12')">
         <img class="home-grid-img" src="Kuvat/post12-tasa-arvon-nimissa.jpg" alt="Tasa-arvon nimiss&auml;">
