@@ -132,6 +132,13 @@
     <hr class="divider">
     <p class="page-sub" style="margin-bottom:1.2rem">Uusimmat kirjoitukset</p>
     <div class="home-grid">
+      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post13')">
+        <img class="home-grid-img" src="Kuvat/post13-pyoroovi.jpg" alt="Py&ouml;r&ouml;ovi saa saranat">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">25.8.2026 &middot; Yhteiskunta</div>
+          <div class="home-grid-title">Py&ouml;r&ouml;ovi saa saranat &mdash; mutta ovi k&auml;y viel&auml; vapaasti</div>
+        </div>
+      </div>
       <div class="home-grid-item" onclick="showPage('blog', true); openPost('post12')">
         <img class="home-grid-img" src="Kuvat/post12-tasa-arvon-nimissa.jpg" alt="Tasa-arvon nimiss&auml;">
         <div class="home-grid-body">
@@ -144,13 +151,6 @@
         <div class="home-grid-body">
           <div class="home-grid-meta">15.6.2026 &middot; Ulkopolitiikka</div>
           <div class="home-grid-title">1 200 000 000 000 $</div>
-        </div>
-      </div>
-      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post8')">
-        <img class="home-grid-img" src="Kuvat/post8-tasavalta.png" alt="Tasavalta ja vapaa maailma">
-        <div class="home-grid-body">
-          <div class="home-grid-meta">6.6.2026 &middot; Yhteiskunta</div>
-          <div class="home-grid-title">Tasavalta ja vapaa maailma</div>
         </div>
       </div>
     </div>
@@ -166,6 +166,11 @@
         <ul class="post-list">
 
 
+        <li class="post-item" onclick="openPost('post13')">
+          <div class="post-item-meta">25.8.2026 &middot; Yhteiskunta</div>
+          <div class="post-item-title">Py&ouml;r&ouml;ovi saa saranat &mdash; mutta ovi k&auml;y viel&auml; vapaasti</div>
+          <div class="post-item-excerpt">Uusi karenssilaki rajoittaa ministerin siirtymist&auml; edunvalvojaksi &mdash; mutta se ei koske yht&auml;k&auml;&auml;n nykyist&auml; ministeri&auml;, ilmoitus tulee julkiseksi vasta j&auml;lkik&auml;teen, ja kansanedustajista laki vaikenee.</div>
+        </li>
         <li class="post-item" onclick="openPost('post12')">
           <div class="post-item-meta">21.8.2026 &middot; Yhteiskunta</div>
           <div class="post-item-title">Tasa-arvon nimiss&auml;</div>
@@ -239,6 +244,23 @@
       </ul>
     </div>
 
+    <div id="post13" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
+      <h1 class="post-full-title">Py&ouml;r&ouml;ovi saa saranat &mdash; mutta ovi k&auml;y viel&auml; vapaasti</h1>
+      <div class="post-full-meta">25.8.2026 &middot; Yhteiskunta &middot; tuomaskuusisto.fi/#pyoroovi</div>
+      <img class="post-image" src="Kuvat/post13-pyoroovi.jpg" alt="Py&ouml;r&ouml;ovi saa saranat">
+      <div class="post-body">
+        <p>Suomi sai t&auml;n&auml; kes&auml;n&auml; lain, jota valmisteltiin kahden hallituskauden ajan. Laki valtioneuvoston j&auml;senen teht&auml;v&auml;&auml;n liittyv&auml;st&auml; karenssista (738/2026) vahvistettiin hein&auml;kuussa, ja se tulee voimaan 15. syyskuuta. Ensimm&auml;ist&auml; kertaa Suomessa on laki siit&auml;, mit&auml; ministeri saa tehd&auml; heti sen j&auml;lkeen, kun h&auml;n lakkaa olemasta ministeri.</p>
+        <p>Ilmi&ouml;ll&auml; on nimi: py&ouml;r&ouml;ovi. P&auml;&auml;tt&auml;j&auml; siirtyy teht&auml;v&auml;st&auml;, jossa h&auml;n valvoi jotakin alaa, saman alan palvelukseen &mdash; edunvalvojaksi, hallitukseen, konsultiksi. Ovi py&ouml;rii molempiin suuntiin, ja juuri siin&auml; on sen ongelma. Kysymys ei ole siit&auml;, ett&auml; siirtyminen olisi v&auml;&auml;rin. Ihmisell&auml; on oikeus ty&ouml;h&ouml;n, eik&auml; osaaminen katoa eron my&ouml;t&auml;. Kysymys on siit&auml;, mit&auml; siirtyj&auml; vie mukanaan: tietoa, jota muilla ei ole, ja suhteita, joita muilla ei ole.</p>
+        <p>Mit&auml; laki tekee? Se velvoittaa ministerin ilmoittamaan etuk&auml;teen, jos h&auml;n aikoo vuoden sis&auml;ll&auml; erostaan siirty&auml; yksityisen ty&ouml;nantajan palvelukseen, yrityksen hallitukseen tai yritt&auml;j&auml;ksi. Ilmoituksen k&auml;sittelee uusi, riippumaton karenssilautakunta, joka voi kielt&auml;&auml; siirtym&auml;n enint&auml;&auml;n kahdentoista kuukauden ajaksi &mdash; jos ministerill&auml; on ollut p&auml;&auml;sy salassa pidett&auml;v&auml;&auml;n tietoon, jota uudessa teht&auml;v&auml;ss&auml; voisi k&auml;ytt&auml;&auml; hy&ouml;dyksi, tai jos siirtym&auml; muusta syyst&auml; johtaa eturistiriitaan ja selv&auml;sti vaarantaa luottamusta hallitusvallan k&auml;ytt&ouml;&ouml;n. Odotusajalta valtio maksaa korvausta, 60 prosenttia ministerin palkkiosta. Kielto ei siis ole rangaistus vaan j&auml;&auml;hy, ja j&auml;&auml;hyll&auml; istumisesta maksetaan.</p>
+        <p>T&auml;m&auml; on oikeansuuntainen laki, ja sanon sen ilman ironiaa. T&auml;h&auml;n asti ministerin siirtymist&auml; on ohjannut vain vapaaehtoinen sitoumus, jota virkamieseettinen neuvottelukunta on suositellut hallituksille vuodesta 2014. Kolme yksityiskohtaa kuitenkin ansaitsee tulla luetuksi &auml;&auml;neen, koska ne kertovat vallasta enemm&auml;n kuin lain otsikko.</p>
+        <p>Ensimm&auml;inen: laki ei koske ket&auml;&auml;n nykyist&auml; ministeri&auml;. Voimaantulop&auml;iv&auml; on 15.9.2026, mutta siirtym&auml;s&auml;&auml;nn&ouml;ksen mukaan lakia sovelletaan vasta niihin valtioneuvoston j&auml;seniin, joiden toimikausi alkaa vuoden 2027 eduskuntavaalien j&auml;lkeen. Istuva hallitus s&auml;&auml;ti itselleen s&auml;&auml;nn&ouml;t, jotka astuvat voimaan vasta seuraajille. Sille on hallinnollisia perusteluja &mdash; taannehtiva s&auml;&auml;ntely on oikeusvaltiossa aina hankalaa &mdash; mutta lopputulos on silti t&auml;m&auml;: py&ouml;r&ouml;ovi k&auml;y vapaasti viel&auml; koko vaalikauden loppuun.</p>
+        <p>Toinen: ministerin ilmoitus aikeistaan ei ole julkinen heti. Lain 13 &sect; lykk&auml;&auml; julkisuutta niin, ett&auml; ilmoitus tulee julkiseksi vasta kun lautakunta on tehnyt p&auml;&auml;t&ouml;ksens&auml; tai ministeri on saanut eron &mdash; kumpi n&auml;ist&auml; tapahtuu ensin. Perustelu on ymm&auml;rrett&auml;v&auml;: keskener&auml;inen ty&ouml;paikkaneuvottelu on arkaluontoinen asia. Mutta se tarkoittaa my&ouml;s, ett&auml; yleis&ouml; saa tiet&auml;&auml; harkitusta siirtym&auml;st&auml; vasta j&auml;lkik&auml;teen. Valvonta tapahtuu suljetussa huoneessa, ja me luemme siit&auml; p&ouml;yt&auml;kirjan.</p>
+        <p>Kolmas: laki koskee vain valtioneuvoston j&auml;sent&auml;. Kansanedustajasta, joka siirtyy valiokuntapaikaltaan saman alan edunvalvojaksi, t&auml;m&auml; laki ei sano mit&auml;&auml;n &mdash; soveltamisala on rajattu 2 &sect;:ss&auml; yksiselitteisesti. Valtion virkamiehi&auml; koskevat omat karenssis&auml;&auml;nt&ouml;ns&auml;. V&auml;liin j&auml;&auml; se joukko, joka s&auml;&auml;t&auml;&auml; lait.</p>
+        <p>Karenssilautakunta aloittaa ty&ouml;ns&auml; aikanaan, ja sen p&auml;&auml;t&ouml;ksist&auml; syntyy julkinen asiakirjaj&auml;lki. Aion lukea sit&auml;. En siksi, ett&auml; odottaisin skandaaleja, vaan siksi, ett&auml; laki on t&auml;sm&auml;lleen niin hyv&auml; kuin sen soveltaminen &mdash; ja soveltaminen alkaa vasta vaalien j&auml;lkeen.</p>
+        <p><em>L&auml;hteet: <a href="https://www.finlex.fi/fi/lainsaadanto/saadoskokoelma/2026/738" target="_blank" rel="noopener">Laki valtioneuvoston j&auml;senen teht&auml;v&auml;&auml;n liittyv&auml;st&auml; karenssista (738/2026), Finlex</a> &mdash; erityisesti 2, 3, 5&ndash;8, 13 ja 19 &sect;. <a href="https://www.finlex.fi/fi/hallituksen-esitykset/2024/90" target="_blank" rel="noopener">Hallituksen esitys HE 90/2024</a> ja <a href="https://www.eduskunta.fi/lakihankkeiden-tietopaketit/ministereiden-karenssi" target="_blank" rel="noopener">eduskunnan kirjaston lakihankkeen tietopaketti &rdquo;Ministereiden karenssi&rdquo;</a>.</em></p>
+      </div>
+    </div>
     <div id="post12" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
       <h1 class="post-full-title">Tasa-arvon nimiss&auml;</h1>
@@ -607,7 +629,7 @@ function openPost(id) {
   document.getElementById('blog-list').style.display = 'none';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   document.getElementById(id).style.display = 'block';
-  var anchors = { post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
+  var anchors = { post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
   if (anchors[id]) { window.location.hash = anchors[id]; }
   window.scrollTo(0, 0);
 }
@@ -634,7 +656,7 @@ function copyLink(anchor) {
 
 (function checkHash() {
   var hash = window.location.hash.replace('#','');
-  var map = { 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
+  var map = { 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
   if (map[hash]) { showPage('blog'); openPost(map[hash]); }
 })();
 </script>
