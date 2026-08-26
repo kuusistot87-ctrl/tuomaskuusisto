@@ -132,6 +132,13 @@
     <hr class="divider">
     <p class="page-sub" style="margin-bottom:1.2rem">Uusimmat kirjoitukset</p>
     <div class="home-grid">
+      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post14')">
+        <img class="home-grid-img" src="Kuvat/post14-yksi-tiedosto.jpg" alt="Henna Virkkunen A-studiossa">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">26.8.2026 &middot; Teknologia</div>
+          <div class="home-grid-title">Yksi tiedosto tekee tyhj&auml;ksi koko EU:n teko&auml;lys&auml;&auml;ntelyn</div>
+        </div>
+      </div>
       <div class="home-grid-item" onclick="showPage('blog', true); openPost('post13')">
         <img class="home-grid-img" src="Kuvat/post13-pyoroovi.jpg" alt="Py&ouml;r&ouml;ovi saa saranat">
         <div class="home-grid-body">
@@ -146,14 +153,6 @@
           <div class="home-grid-title">Tasa-arvon nimiss&auml;</div>
         </div>
       </div>
-      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post10')">
-        <img class="home-grid-img" src="Kuvat/post10-kehitysapu.png" alt="1,2 biljoonaa dollaria">
-        <div class="home-grid-body">
-          <div class="home-grid-meta">15.6.2026 &middot; Ulkopolitiikka</div>
-          <div class="home-grid-title">1 200 000 000 000 $</div>
-        </div>
-      </div>
-    </div>
     <p class="latest-link"><a onclick="showPage('blog')">Kaikki kirjoitukset &rarr;</a></p>
   </div>
 </div>
@@ -166,6 +165,11 @@
         <ul class="post-list">
 
 
+        <li class="post-item" onclick="openPost('post14')">
+          <div class="post-item-meta">26.8.2026 &middot; Teknologia</div>
+          <div class="post-item-title">Yksi tiedosto tekee tyhj&auml;ksi koko EU:n teko&auml;lys&auml;&auml;ntelyn</div>
+          <div class="post-item-excerpt">Alibaban avoin teko&auml;lymalli julkaistiin 14. elokuuta. Kolmessa vuorokaudessa siit&auml; oli verkossa versio ilman turvarajoitteita. EU:n vastaus on asetus, joka velvoittaa mallien tekij&ouml;it&auml; &mdash; mutta ladatulla tiedostolla ei ole tekij&auml;&auml;.</div>
+        </li>
         <li class="post-item" onclick="openPost('post13')">
           <div class="post-item-meta">25.8.2026 &middot; Yhteiskunta</div>
           <div class="post-item-title">Py&ouml;r&ouml;ovi saa saranat &mdash; mutta ovi k&auml;y viel&auml; vapaasti</div>
@@ -244,6 +248,28 @@
       </ul>
     </div>
 
+    <div id="post14" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
+      <h1 class="post-full-title">Yksi tiedosto tekee tyhj&auml;ksi koko EU:n teko&auml;lys&auml;&auml;ntelyn</h1>
+      <div class="post-full-meta">26.8.2026 &middot; Teknologia &middot; tuomaskuusisto.fi/#yksi-tiedosto</div>
+      <img class="post-image" src="Kuvat/post14-yksi-tiedosto.jpg" alt="Henna Virkkunen A-studiossa">
+      <div class="post-body">
+        <p>Alibaba julkaisi 14. elokuuta teko&auml;lymallin nimelt&auml; Qwen3.8. Se toimii v&auml;h&auml;n kuin ChatGPT, mutta sill&auml; erolla ett&auml; kuka tahansa saa ladata sen omalle koneelleen. Kyse on yhdest&auml; tiedostosta, kooltaan noin 17 gigatavua, eli suunnilleen kolme elokuvaa. Se ei ole yhteydess&auml; mihink&auml;&auml;n palvelimeen. Se ei l&auml;het&auml; mit&auml;&auml;n kenellek&auml;&auml;n. Se on sinun koneellasi ja tekee mit&auml; k&auml;sket.</p>
+        <p>Kolmessa vuorokaudessa julkaisusta verkossa oli jo versio, josta oli poistettu ne rajoitteet jotka est&auml;v&auml;t mallia auttamasta rikoksissa. Sit&auml; ei tarvinnut hakkeroida. Kun tiedosto on kerran omalla koneellasi, siit&auml; saa muokattua pois mit&auml; haluaa. Siihen riitt&auml;&auml; tavallinen pelitietokone ja yksi viikonloppu.</p>
+        <p>Alibaba maksoi mallin kouluttamisesta arviolta satoja miljoonia. Sen rajoitteiden poistaminen maksoi jonkun s&auml;hk&ouml;laskussa muutamia senttej&auml;. Se ty&ouml; tehtiin kerran, ja tulos on nyt kaikkien ladattavissa ilmaiseksi.</p>
+        <p>Malli ei ole maailman paras. Se h&auml;vi&auml;&auml; Clauden ja OpenAI:n huippumalleille vaativimmassa ohjelmointity&ouml;ss&auml;. Sill&auml; ei ole v&auml;li&auml;. Se on suunnilleen viime vuoden huipputasoa, se on ilmainen, eik&auml; sen k&auml;ytt&auml;misest&auml; j&auml;&auml; j&auml;lke&auml; mihink&auml;&auml;n.</p>
+        <p>Katsoin sunnuntaina A-studiota. EU:n digikomissaari Henna Virkkunen kertoi, ett&auml; EU on varautunut siihen ett&auml; teko&auml;ly karkaa ihmisen hallinnasta. H&auml;n viittasi kes&auml;n tapauksiin, joissa teko&auml;lymalleja karkasi testiymp&auml;rist&ouml;ist&auml;&auml;n. EU:n vastaus on teko&auml;lyasetus, joka velvoittaa mallien tekij&auml;t arvioimaan riskej&auml; ja rakentamaan turvatoimintoja.</p>
+        <p>T&auml;ss&auml; on se kohta joka minua eniten h&auml;iritsee. EU ei ratkaise ongelmaa. EU m&auml;&auml;r&auml;&auml; jonkun muun ratkaisemaan sen. Ne yhti&ouml;t joille velvoite osoitetaan sijaitsevat Yhdysvalloissa ja Kiinassa. Euroopan turvallisuus on siis rakennettu sen varaan, ett&auml; ulkomaiset yritykset noudattavat vapaaehtoisesti eurooppalaista s&auml;&auml;nt&ouml;&auml;. Niin kauan kuin ne noudattavat, homma toimii. Sin&auml; p&auml;iv&auml;n&auml; kun joku p&auml;&auml;tt&auml;&auml; olla noudattamatta, meill&auml; ei ole mit&auml;&auml;n.</p>
+        <p>S&auml;&auml;nt&ouml; olettaa, ett&auml; jossain on taho jolle voidaan sanoa mit&auml; tehd&auml;. Ladatulla tiedostolla ei ole sellaista tahoa. Kun malli on siirtynyt jonkun omalle koneelle, se on poissa lain ulottuvilta. Sit&auml; ei kutsuta takaisin, sit&auml; ei valvota, eik&auml; kukaan edes tied&auml; kenell&auml; se on.</p>
+        <p>Aiemmin t&auml;llaista pystyi tekem&auml;&auml;n vain valtio, jolla oli varaa palkata satoja huippuosaajia. Nyt siihen riitt&auml;&auml; yksi ihminen, jolla on nettiyhteys, pelitietokone ja riitt&auml;v&auml;sti aikaa. Heit&auml; on maailmassa miljoonia. Eik&auml; heit&auml; tarvitse olla montaa. Yksi riitt&auml;&auml;.</p>
+        <p>Teko&auml;ly ei viel&auml; murra salauksia, eik&auml; sen tarvitsekaan. J&auml;rjestelmiin ei menn&auml; sis&auml;&auml;n avaamalla lukkoa. Sis&auml;&auml;n menn&auml;&auml;n etsim&auml;ll&auml; ikkuna joka on j&auml;&auml;nyt raolleen. Ohjelmointivirhe, v&auml;&auml;rin asennettu palvelin, p&auml;ivitys joka j&auml;i tekem&auml;tt&auml;, ty&ouml;ntekij&auml; joka klikkasi v&auml;&auml;r&auml;&auml; linkki&auml;. Niit&auml; on jokaisessa suuressa j&auml;rjestelm&auml;ss&auml;. Aiemmin niiden etsiminen vaati asiantuntijaryhm&auml;n ja kuukausia. Nyt se onnistuu yhdelt&auml; ihmiselt&auml; yhdell&auml; koneella. Google raportoi toukokuussa ensimm&auml;isest&auml; oikeasta verkkohy&ouml;kk&auml;yksest&auml;, jonka rakentamisessa oli k&auml;ytetty kielimallia. Sama kyky on sen j&auml;lkeen levinnyt kalleimmista malleista niihin ilmaisiin, jotka kuka tahansa lataa.</p>
+        <p>Pahin puoli on se, ettei t&auml;llaista v&auml;ltt&auml;m&auml;tt&auml; huomata ajoissa. Havaitseminen vaatii omaa teknist&auml; kyvykkyytt&auml;, ja juuri sit&auml; Euroopassa ei ole rakennettu. Samaan aikaan meid&auml;n t&auml;rkeimm&auml;t j&auml;rjestelm&auml;mme py&ouml;riv&auml;t laitteilla, k&auml;ytt&ouml;j&auml;rjestelmill&auml; ja pilvipalveluilla, joita ei valmisteta t&auml;&auml;ll&auml;.</p>
+        <p>Kysyn t&auml;ss&auml; yhden asian suoraan. Jos min&auml; pystyisin nyt tuolla juuri julkaistulla mallilla l&ouml;yt&auml;m&auml;&auml;n reitin sis&auml;&auml;n Suomen valtion tai pankin j&auml;rjestelmiin, olisiko minulla oikeus menn&auml; sinne? Ei tietenk&auml;&auml;n. Tietomurto on rikos riippumatta siit&auml; kuinka helpoksi se on tehty. Mutta juuri siin&auml; on koko ongelma. Rikoslaki ei ole suojaus. Se on se mit&auml; tehd&auml;&auml;n j&auml;lkeenp&auml;in, sen j&auml;lkeen kun joku on jo ollut sis&auml;ll&auml;, ja vain siin&auml; tapauksessa ett&auml; h&auml;net saadaan kiinni. Ulkomailta toimivaa tekij&auml;&auml; ei saada. S&auml;&auml;nt&ouml; kertoo mit&auml; ei saa tehd&auml;. Se ei est&auml; ket&auml;&auml;n tekem&auml;st&auml; sit&auml;.</p>
+        <p>Otetaan k&auml;yt&auml;nn&ouml;n esimerkki tahdista. EU:n oma digitaalinen henkil&ouml;llisyystodistus s&auml;&auml;dettiin vuonna 2024 ja j&auml;senmaiden on saatava se k&auml;ytt&ouml;&ouml;n joulukuussa 2026. Kolme vuotta paperista k&auml;ytt&ouml;&ouml;n. Sill&auml; v&auml;lin kuka tahansa saa ilmaisella teko&auml;lymallilla yhdess&auml; illassa aikaan siedett&auml;v&auml;mm&auml;n version EU:n kirjautumissivusta kuin se joka nyt on k&auml;yt&ouml;ss&auml;. Prototyyppi ei tietenk&auml;&auml;n ole valmis j&auml;rjestelm&auml;. Ero kolmen vuoden ja yhden illan v&auml;lill&auml; kertoo silti sen, kummalla puolella liike tapahtuu. Ja kun se ero kasvaa tarpeeksi suureksi, ollaan pisteess&auml; jossa EU:n ulkopuolista toimijaa ei en&auml;&auml; kiinnosta lainkaan mit&auml; s&auml;&auml;nt&ouml;j&auml; t&auml;&auml;ll&auml; kirjoitetaan.</p>
+        <p>En vastusta s&auml;&auml;ntely&auml;. Kysyn vain, mik&auml; on s&auml;&auml;d&ouml;ksen arvo jos sen rinnalle ei rakenneta omaa teknist&auml; osaamista. S&auml;&auml;nt&ouml; suojaa siihen asti kunnes joku p&auml;&auml;tt&auml;&auml; olla noudattamatta sit&auml;. Sen j&auml;lkeen tarvitaan kyky&auml;, eik&auml; kyky&auml; s&auml;&auml;det&auml;.</p>
+        <p><em>L&auml;hteet: <a href="https://yle.fi/a/74-20242668" target="_blank" rel="noopener">Yle, A-studio 24.8.2026</a> (my&ouml;s kuva). <a href="https://github.com/QwenLM/Qwen3.8" target="_blank" rel="noopener">Qwen3.8, QwenLM/GitHub</a>. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">Teko&auml;lyasetus (EU) 2024/1689</a>. <a href="https://eur-lex.europa.eu/eli/reg/2024/1183/oj" target="_blank" rel="noopener">eIDAS 2.0 (EU) 2024/1183</a>, jonka nojalla j&auml;senvaltioiden on tarjottava digitaalinen identiteettilompakko 24.12.2026 menness&auml;. Teko&auml;lyavusteisen haavoittuvuuskyvyn levi&auml;misest&auml;: <a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-zero-day-capability-democratization-sub-fr/" target="_blank" rel="noopener">Cloud Security Alliance</a>. Tietomurrosta rikoslaki 38 luku 8 &sect;.</em></p>
+      </div>
+    </div>
     <div id="post13" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
       <h1 class="post-full-title">Py&ouml;r&ouml;ovi saa saranat &mdash; mutta ovi k&auml;y viel&auml; vapaasti</h1>
@@ -629,7 +655,7 @@ function openPost(id) {
   document.getElementById('blog-list').style.display = 'none';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   document.getElementById(id).style.display = 'block';
-  var anchors = { post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
+  var anchors = { post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
   if (anchors[id]) { window.location.hash = anchors[id]; }
   window.scrollTo(0, 0);
 }
@@ -656,7 +682,7 @@ function copyLink(anchor) {
 
 (function checkHash() {
   var hash = window.location.hash.replace('#','');
-  var map = { 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
+  var map = { 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
   if (map[hash]) { showPage('blog'); openPost(map[hash]); }
 })();
 </script>
