@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tuomas Kuusisto &mdash; Writer</title>
+<link rel="alternate" hreflang="fi" href="https://tuomaskuusisto.fi/">
+<link rel="alternate" hreflang="en" href="https://tuomaskuusisto.fi/en/">
+<link rel="alternate" hreflang="x-default" href="https://tuomaskuusisto.fi/">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #141414; --text: #ffffff; --muted: #9b9b9b;
+    --border: #222222; --accent: #d0d0d0; --max: 720px;
+  }
+  body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; min-height: 100vh; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 1.1rem 2rem; background: rgba(20,20,20,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); }
+  .nav-logo { display: flex; align-items: center; gap: 0.6rem; text-decoration: none; color: var(--text); cursor: pointer; }
+  .nav-logo img { height: 28px; width: auto; opacity: 0.9; }
+  .nav-logo-text { font-size: 0.95rem; font-weight: 500; }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.07em; text-transform: uppercase; transition: color 0.2s; cursor: pointer; }
+  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+
+  .page { display: none; padding-top: 60px; }
+  .page.active { display: block; }
+
+  .hero { position: relative; height: 46vh; min-height: 320px; max-height: 520px; overflow: hidden; display: flex; align-items: flex-end; }
+  .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; filter: brightness(0.35); }
+  .hero-content { position: relative; z-index: 2; max-width: var(--max); margin: 0 auto; width: 100%; padding: 2.2rem 2rem; }
+  .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+  .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 400; line-height: 1.25; max-width: 560px; }
+
+  .home-body { max-width: var(--max); margin: 0 auto; padding: 1.6rem 2rem 5rem; }
+  /* Heron jalkeinen ensimmainen viiva ei tarvitse omaa ylamarginaalia: se
+     tyonsi "Uusimmat kirjoitukset" -lohkon taitteen alle 22.08.2026. */
+  .home-body > hr.divider:first-child { margin-top: 0; }
+  .home-body p { color: var(--accent); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1.2rem; }
+  hr.divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  .latest-link { font-size: 0.82rem; color: var(--muted); }
+  .latest-link a { color: var(--accent); text-decoration: none; cursor: pointer; }
+  .latest-link a:hover { color: var(--text); }
+
+  .wrap { max-width: var(--max); margin: 0 auto; padding: 3rem 2rem 5rem; }
+  .page-heading { font-size: 1.4rem; font-weight: 500; margin-bottom: 0.3rem; }
+  .page-sub { color: var(--muted); font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 2.5rem; }
+
+  .post-list { list-style: none; }
+  .post-item { padding: 1.6rem 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .post-item:first-child { border-top: 1px solid var(--border); }
+  .post-item:hover .post-item-title { color: var(--accent); }
+  .post-item-meta { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
+  .post-item-title { font-size: 1.15rem; font-weight: 500; margin-bottom: 0.5rem; transition: color 0.2s; line-height: 1.35; }
+  .post-item-excerpt { font-size: 0.84rem; color: #787878; line-height: 1.65; }
+
+  .post-full { display: none; }
+  .back-btn { background: none; border: none; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.07em; text-transform: uppercase; cursor: pointer; padding: 0; margin-bottom: 2.5rem; font-family: 'Inter', sans-serif; transition: color 0.2s; }
+  .back-btn:hover { color: var(--text); }
+  .post-full-title { font-size: clamp(1.3rem, 3.5vw, 1.9rem); font-weight: 500; line-height: 1.3; margin-bottom: 0.5rem; max-width: 620px; }
+  .post-full-meta { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .post-body { color: #c8c8c8; font-size: 0.97rem; line-height: 1.9; max-width: 640px; }
+  .post-body p { margin-bottom: 1.3rem; }
+  .post-body a { color: inherit; text-decoration: underline; text-decoration-color: #6a6a6a; text-underline-offset: 3px; transition: text-decoration-color 0.2s; }
+  .post-body a:hover { text-decoration-color: var(--text); }
+  .post-body a:visited { color: inherit; }
+
+  .post-image { width: 100%; max-width: 640px; border-radius: 4px; margin-bottom: 2rem; display: block; }
+  .share-row { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; }
+  .share-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
+  .share-btn { background: none; border: 1px solid #333; color: var(--muted); font-size: 0.75rem; padding: 0.3rem 0.85rem; border-radius: 3px; cursor: pointer; font-family: 'Inter', sans-serif; letter-spacing: 0.04em; transition: border-color 0.2s, color 0.2s; }
+  .share-btn:hover { border-color: var(--muted); color: var(--text); }
+
+  .contact-block { margin-top: 1rem; }
+  .contact-row { display: flex; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--border); align-items: baseline; }
+  .contact-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; width: 110px; flex-shrink: 0; }
+  .contact-val { font-size: 0.95rem; color: var(--accent); }
+  .contact-val a { color: inherit; text-decoration: none; }
+  .contact-val a:hover { color: var(--text); }
+  .contact-note { margin-top: 2.5rem; font-size: 0.88rem; color: var(--muted); line-height: 1.8; max-width: 480px; }
+
+
+  .home-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+  .home-grid-item { cursor: pointer; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.2s; }
+  .home-grid-item:hover { border-color: #444; }
+  .home-grid-item:hover .home-grid-title { color: var(--accent); }
+  .home-grid-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; filter: brightness(0.85); }
+  .home-grid-body { padding: 0.9rem 1rem; }
+  .home-grid-meta { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.35rem; }
+  .home-grid-title { font-size: 0.88rem; font-weight: 500; line-height: 1.4; transition: color 0.2s; }
+  @media (max-width: 600px) { .home-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 640px) {
+    nav { padding: 0.8rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
+    .nav-logo-text { font-size: 0.85rem; }
+    .nav-logo img { height: 22px; }
+    .nav-links { gap: 0.9rem; }
+    .nav-links a { font-size: 0.7rem; letter-spacing: 0.04em; }
+    .hero { height: 38vh; min-height: 240px; }
+    .hero h1 { font-size: 1.5rem; }
+    .hero-content, .home-body, .wrap { padding-left: 1rem; padding-right: 1rem; }
+    .home-body { padding-top: 1.1rem; padding-bottom: 3rem; }
+    .wrap { padding-top: 2rem; padding-bottom: 3rem; }
+    .post-full-title { font-size: 1.3rem; }
+    .share-row { flex-wrap: wrap; gap: 0.6rem; }
+    .contact-row { flex-direction: column; gap: 0.2rem; }
+    .contact-label { width: auto; }
+    .page-heading { font-size: 1.2rem; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-logo" onclick="showPage('home')">
+    <img src="../Kuvat/logo.png" alt="K">
+    <span class="nav-logo-text">Tuomas Kuusisto</span>
+  </a>
+  <ul class="nav-links">
+    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
+    <li><a onclick="showPage('blog')" id="nav-blog">Writings</a></li>
+    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    <li><a href="/" title="Suomeksi">FI</a></li>
+  </ul>
+</nav>
+
+<div id="page-home" class="page active">
+  <div class="hero">
+    <div class="hero-bg" style="background-image:url('../Kuvat/hero.jpg')"></div>
+    <div class="hero-content">
+      <div class="hero-eyebrow">Tuomas Kuusisto</div>
+      <h1>Writings on power</h1>
+    </div>
+  </div>
+  <div class="home-body">
+
+    <hr class="divider">
+    <p class="page-sub" style="margin-bottom:1.2rem">Latest writings</p>
+    <div class="home-grid">
+      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post15')">
+        <img class="home-grid-img" src="../Kuvat/post15-same-lindsay.jpg" alt="Illustration: protesters outside a courthouse and the Same, Lindsay trend">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">September 1, 2026 &middot; Society</div>
+          <div class="home-grid-title">Lindsay Clancy. When empathy overrides justice.</div>
+        </div>
+      </div>
+      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post14')">
+        <img class="home-grid-img" src="../Kuvat/post14-yksi-tiedosto.jpg" alt="Henna Virkkunen on Finnish television">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">August 26, 2026 &middot; Technology</div>
+          <div class="home-grid-title">One file nullifies the EU&rsquo;s entire AI regulation</div>
+        </div>
+      </div>
+      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post13')">
+        <img class="home-grid-img" src="../Kuvat/post13-pyoroovi.jpg" alt="The revolving door gets hinges">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">August 25, 2026 &middot; Society</div>
+          <div class="home-grid-title">The revolving door gets hinges &mdash; but it still swings freely</div>
+        </div>
+      </div>
+    </div>
+    <p class="latest-link"><a onclick="showPage('blog')">All writings &rarr;</a></p>
+  </div>
+</div>
+
+
+<div id="page-blog" class="page">
+  <div class="wrap">
+    <div id="blog-list">
+      <h1 class="page-heading">Writings</h1>
+        <ul class="post-list">
+
+        <li class="post-item" onclick="openPost('post15')">
+          <div class="post-item-meta">September 1, 2026 &middot; Society</div>
+          <div class="post-item-title">Lindsay Clancy. When empathy overrides justice.</div>
+          <div class="post-item-excerpt">A mother strangled her three children and admits it. Yet hundreds of women stand outside the courthouse in &ldquo;Believe&rdquo; shirts, and on TikTok mothers declare they identify with her. Whose interests does a movement like this serve?</div>
+        </li>
+        <li class="post-item" onclick="openPost('post14')">
+          <div class="post-item-meta">August 26, 2026 &middot; Technology</div>
+          <div class="post-item-title">One file nullifies the EU&rsquo;s entire AI regulation</div>
+          <div class="post-item-excerpt">Alibaba&rsquo;s open AI model was released on August 14. Within three days there was a version online with the safety limits stripped out. The EU&rsquo;s answer is a regulation that obligates the makers of models &mdash; but a downloaded file has no maker.</div>
+        </li>
+        <li class="post-item" onclick="openPost('post13')">
+          <div class="post-item-meta">August 25, 2026 &middot; Society</div>
+          <div class="post-item-title">The revolving door gets hinges &mdash; but it still swings freely</div>
+          <div class="post-item-excerpt">Finland&rsquo;s new cooling-off law restricts ministers from moving into lobbying &mdash; but it applies to no sitting minister, the notification becomes public only after the fact, and about members of parliament the law says nothing.</div>
+        </li>
+        <li class="post-item" onclick="openPost('post12')">
+          <div class="post-item-meta">August 21, 2026 &middot; Society</div>
+          <div class="post-item-title">In the name of equality</div>
+          <div class="post-item-excerpt">The woman is liberated from the traditional caregiver&rsquo;s role, but the caregiving instinct is not removed. What does equality actually mean &mdash; and who defines the limits of acceptable speech?</div>
+        </li>
+
+        <li class="post-item" onclick="openPost('post10')">
+          <div class="post-item-meta">June 15, 2026 &middot; Foreign policy</div>
+          <div class="post-item-title">$1,200,000,000,000</div>
+          <div class="post-item-excerpt">In 30 years the West has transferred 1.2 trillion dollars of development aid to Africa. In 1990 Africa accounted for 14&nbsp;% of the world&rsquo;s poor. In 2024 the figure is 67&nbsp;%.</div>
+        </li>
+
+        <li class="post-item" onclick="openPost('post8')">
+          <div class="post-item-meta">June 6, 2026 &middot; Society</div>
+          <div class="post-item-title">The republic and the free world</div>
+          <div class="post-item-excerpt">The richest 10&nbsp;% own more than half of everything. The poorest 50&nbsp;% own 4&nbsp;%. Why the system does not correct itself &mdash; and what holds it in place.</div>
+        </li>
+
+        <li class="post-item" onclick="openPost('post5')">
+          <div class="post-item-meta">June 5, 2026 &middot; Society</div>
+          <div class="post-item-title">Kela and Pride: a public agency funding a political partner</div>
+          <div class="post-item-excerpt">Kela, Finland&rsquo;s social insurance institution, has signed a three-year partnership with Helsinki Pride &mdash; an organization that shut two mainstream parties out on the grounds of values. With taxpayers&rsquo; money.</div>
+        </li>
+
+        <li class="post-item" onclick="openPost('post1')">
+          <div class="post-item-meta">June 1, 2026 &middot; Media</div>
+          <div class="post-item-title">The conversation has ended &ndash; to save money</div>
+          <div class="post-item-excerpt">The public broadcaster withdraws from the platform through which it reached the most citizens. Savings are the justification, but not the explanation.</div>
+        </li>
+
+        <li class="post-item" onclick="openPost('post6')">
+          <div class="post-item-meta">June 1, 2026 &middot; Foreign policy</div>
+          <div class="post-item-title">Noble double standards</div>
+          <div class="post-item-excerpt">Values-based realism sounds fine. In practice it means that double standards are the system&rsquo;s values &mdash; not a problem outside it.</div>
+        </li>
+
+        <li class="post-item" onclick="openPost('post7')">
+          <div class="post-item-meta">May 30, 2026 &middot; Society</div>
+          <div class="post-item-title">Would you go?</div>
+          <div class="post-item-excerpt">If, because of the structure of the system, you have no property, no home and no realistic future in Finland, what exactly are the concrete things you would go and defend?</div>
+        </li>
+
+        <li class="post-item" onclick="openPost('post4')">
+          <div class="post-item-meta">May 28, 2026 &middot; Society</div>
+          <div class="post-item-title">The victimhood exchange: the contradiction of identity politics</div>
+          <div class="post-item-excerpt">The rhetoric of identity politics is appealing &mdash; diversity, inclusion, equality. The problem appears when the groups gathered under the same umbrella carry values that cannot be reconciled.</div>
+        </li>
+
+        <li class="post-item" onclick="openPost('post11')">
+          <div class="post-item-meta">May 25, 2026 &middot; Society</div>
+          <div class="post-item-title">Riemu &mdash; a world full of opportunities</div>
+          <div class="post-item-excerpt">Finland has over 100,000 registered associations. Riemu Finland received nearly 7 million euros of public money in ten years. The activity amounted to a few Teams quizzes a year.</div>
+        </li>
+
+        <li class="post-item" onclick="openPost('post9')">
+          <div class="post-item-meta">May 1, 2026 &middot; Media</div>
+          <div class="post-item-title">Yle, the watchdog of power</div>
+          <div class="post-item-excerpt">Finland&rsquo;s public broadcaster produced over 20 stories in a week about one May Day demonstration. The watchdog snaps at the police&rsquo;s ankles &mdash; but licks the mayor&rsquo;s boot as he tramples on fundamental rights.</div>
+        </li>
+
+        <li class="post-item" onclick="openPost('post3')">
+          <div class="post-item-meta">March 18, 2026 &middot; Politics</div>
+          <div class="post-item-title">The mayor of Tampere and the media&rsquo;s double standard</div>
+          <div class="post-item-excerpt">When an event is politically convenient, it gets the editorials. When it is not, it gets the statistics. This is not a coincidence.</div>
+        </li>
+
+      </ul>
+    </div>
+
+    <div id="post15" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">Lindsay Clancy. When empathy overrides justice.</h1>
+      <div class="post-full-meta">September 1, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#same-lindsay</div>
+      <img class="post-image" src="../Kuvat/post15-same-lindsay.jpg" alt="Illustration: protesters outside a courthouse and the Same, Lindsay trend">
+      <div class="post-body">
+        <p>Most people in Finland have never heard of this case, so I will start with the facts. They come from court records and American news sources.</p>
+        <p>On January 24, 2023, Lindsay Clancy, a nurse from Duxbury, Massachusetts, strangled her three children to death with exercise bands: five-year-old Cora, three-year-old Dawson and eight-month-old Callan. She then attempted suicide by jumping from a second-floor window and was paralyzed.</p>
+        <p>The trial began in July 2026, and the prosecution&rsquo;s evidence of premeditation is public. Searches were found on Clancy&rsquo;s devices, including for the location of the carotid artery, and she sent her husband out on takeout and pharmacy errands to create a window of roughly half an hour, during which the children died (<a href="https://www.nbcnews.com/news/us-news/lindsay-clancy-murder-trial-what-to-know-rcna593473" target="_blank" rel="noopener">NBC News</a>, <a href="https://en.wikipedia.org/wiki/Killing_of_the_Clancy_children" target="_blank" rel="noopener">Wikipedia</a>).</p>
+        <p>No one disputes the act, not even the defense. The dispute is solely about whether Clancy was criminally responsible. According to the defense, she suffered from undiagnosed postpartum psychosis. As I write this, the jury is still deliberating, and the options are first-degree murder or a lesser verdict (<a href="https://www.bostonglobe.com/2026/08/31/metro/lindsay-clancy-trial-live-updates/" target="_blank" rel="noopener">Boston Globe</a>). So there is no verdict yet, and it will be decided in court, in due time.</p>
+        <p>One more fact, because it matters for this piece: the Clancy family was not abandoned. They had a nanny three days a week, a good income, a husband working from home and a wide support network. Clancy herself was a labor and delivery nurse with access to care.</p>
+        <p>It is not so much the act itself that troubles me. There have been parents who killed their children throughout human history, and psychosis is a real illness. Assessing it belongs to the court and to doctors.</p>
+        <p>What disturbs me is what has grown up around the act.</p>
+        <p>In August 2026, hundreds of women dressed in pink gathered outside the Plymouth courthouse to show their support for Clancy. Their shirts read &ldquo;Believe&rdquo; and &ldquo;She Needed Help&rdquo; (<a href="https://www.wbur.org/news/2026/08/20/hundreds-rally-plymouth-courthouse-support-lindsay-clancy-postpartum" target="_blank" rel="noopener">WBUR</a>, <a href="https://www.pbs.org/newshour/health/women-rally-in-support-of-lindsay-clancy-at-her-trial" target="_blank" rel="noopener">PBS</a>).</p>
+        <p>At the same time a trend called &ldquo;Same, Lindsay&rdquo; spread on TikTok, in which mothers film themselves crying with their babies and reading Clancy&rsquo;s journal entries, identifying with a woman who admits to strangling her three children. According to The Free Press, the phenomenon has been received almost unanimously favorably in mothers&rsquo; social media circles (<a href="https://www.thefp.com/p/the-moms-tiktok-insane-manosphere-momosphere-children-lindsey-clancy" target="_blank" rel="noopener">The Free Press</a>). Some creators have gone further and spoken of Clancy&rsquo;s children as if they were objects in the mother&rsquo;s life.</p>
+        <p>The supporters say this is about mothers&rsquo; mental health and about cries for help not being taken seriously. As a goal that is good, and insofar as the movement demands better recognition of postpartum psychosis, I agree. But honestly: you can build a mental health campaign without elevating as its figurehead a woman whose premeditation a court is weighing evidence of at this very moment. A &ldquo;Believe&rdquo; shirt outside a courthouse is not a statement about the healthcare system. It is a statement about guilt, past the court and before the verdict.</p>
+        <p>Clancy has been made into an ideological symbol. Not because her case is unique, but because she fits a narrative in which a woman is always first and foremost a victim of the system, even when the victims are lying on the basement floor. Notice what happens here: the gravity of the act does not weaken the identification but strengthens it. The more incomprehensible the act, the greater the need to explain it with structures, hormones, an absent husband, anything other than the perpetrator herself. The victim narrative has become so total that it can withstand three strangled children without breaking.</p>
+        <p>Women&rsquo;s suffrage, the right to own property and equal treatment before the law were demands that appealed to a shared sense of justice, and that is why they won. That feminism demanded for women the same responsibility and the same worth as men. What is being demanded outside the courthouse now is the opposite: that sex and a diagnosis together should be enough to lift the perpetrator above responsibility before the court has even had time to decide the matter. A movement that began with a demand for full agency ends up denying agency precisely at the moment when responsibility would follow from it.</p>
+        <p>Whose interests does the ideology actually serve, if its most visible fruit is encouraging Western women to look sympathetically on the killing of their own children? Not women&rsquo;s, at least. Not mothers&rsquo;, whose real distress drowns under the trend. Not mental health work&rsquo;s, which gets a strangler for a face.</p>
+        <p>In a culture war, however, content like this is a perfect weapon: it tears the dividing line through the middle of the family, between man and woman, and convinces both sides that the other is a monster. Nor can anyone say whether the trend&rsquo;s most extreme videos are genuine, manufactured or AI-generated. And it does not matter: the content works exactly the same way regardless of whether there is a real person behind it, or individuals, institutions or a state actor. The beneficiary is not the woman in front of the camera. The beneficiary is anyone whose interest is a Western society that has stopped trusting its own institutions, its own families and its own sense of justice.</p>
+        <p>If an ideology produces a support movement of hundreds of people, but not one visible voice saying that strangling three children is wrong without a &ldquo;but&rdquo; clause, is it a constructive or a corrosive force in society? To me, asking that question is the duty of every Western adult.</p>
+        <p>The verdict will come in due course. But what is happening outside the courthouse and on social media has already happened.</p>
+      </div>
+    </div>
+    <div id="post14" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">One file nullifies the EU&rsquo;s entire AI regulation</h1>
+      <div class="post-full-meta">August 26, 2026 &middot; Technology &middot; tuomaskuusisto.fi/en/#yksi-tiedosto</div>
+      <img class="post-image" src="../Kuvat/post14-yksi-tiedosto.jpg" alt="Henna Virkkunen on Finnish television">
+      <div class="post-body">
+        <p>On August 14, Alibaba released an AI model called Qwen3.8. It works a bit like ChatGPT, with the difference that anyone may download it onto their own computer. It is a single file, roughly 17 gigabytes in size. It does not connect to any server. It does not send anything to anyone. It sits on your machine and does what it is told.</p>
+        <p>Within three days of the release there was already a version online with the restraints removed &mdash; the ones that prevent the model from assisting in crimes. It did not need to be hacked. Once the file is on your own computer, you can edit out of it whatever you want. An ordinary gaming PC and one weekend are enough.</p>
+        <p>Alibaba paid an estimated hundreds of millions to train the model. Removing its restraints cost someone a few cents on their electricity bill. That work was done once, and the result is now free for anyone to download.</p>
+        <p>The model is not the best in the world. It loses to the top models from Claude and OpenAI in the most demanding programming work. That does not matter. It is roughly last year&rsquo;s state of the art, it is free, and using it leaves no trace anywhere.</p>
+        <p>On Monday I watched A-studio, a current affairs program on Finnish television. The EU&rsquo;s digital commissioner Henna Virkkunen explained that the EU has prepared for AI escaping human control. She referred to cases this summer in which AI models escaped their test environments. The EU&rsquo;s answer is the AI Act, which obligates the makers of models to assess risks and build safety functions.</p>
+        <p>Here is the part that disturbs me the most. The EU is not solving the problem. The EU is ordering someone else to solve it. The companies to whom the obligation is addressed are located in the United States and China. The problem is not that the EU cannot order a company to follow a rule. The problem arises at the point where the model being regulated is no longer in the company&rsquo;s possession.</p>
+        <p>A rule assumes that somewhere there is a party who can be told what to do. A downloaded file has no such party. Once the model has moved onto someone&rsquo;s own machine, it is beyond the reach of the law. It cannot be recalled, it cannot be monitored, and no one even knows who has it.</p>
+        <p>Previously only a state could do this kind of thing &mdash; one that could afford to hire hundreds of top experts. Now one person with an internet connection, a gaming PC and enough time is sufficient. There are millions of them in the world. And there do not need to be many. One is enough.</p>
+        <p>AI does not yet break encryption, and it does not need to. You do not get into systems by opening the lock. You get in by finding a window left ajar. A programming error, a misconfigured server, an update that was never installed, an employee who clicked the wrong link. Every large system has them. Finding them used to require a team of experts and months. Now one person with one machine can do it. In May, Google reported the first vulnerability it had detected whose development had involved a language model. Since then the same capability has spread from the most expensive models to the free ones anyone can download.</p>
+        <p>The worst part is that this kind of thing is not necessarily noticed in time. Detection requires technical capability of your own, and that is precisely what Europe has not built. The same open model gives tools to the defender too, not only the attacker. But defending requires the ability to use them, and that ability is exactly what is missing here. Meanwhile our most important systems run on hardware, operating systems and cloud services that are not made here. Virkkunen raised the same point: according to the Commission, about 80 percent of all of Europe&rsquo;s technology comes from outside the union, and in her words Europe cannot be too dependent on outside suppliers. That is an accurate description of the problem. It just is not solved by a regulation that obligates precisely those outside suppliers.</p>
+        <p>Let me ask one thing directly. If I could right now, with that newly released model, find a route into the systems of the Finnish state or a bank, would I have the right to go in? Of course not. Breaking into a system is a crime regardless of how easy it has been made. But that is exactly the whole problem. Criminal law is not protection. It is what happens afterwards, after someone has already been inside, and only in the event that they are caught. A perpetrator operating from abroad will not be caught. A rule states what must not be done. It does not prevent anyone from doing it.</p>
+        <p>Take a practical example of pace. The EU&rsquo;s own digital identity was legislated in 2024 and member states must have it in use by December 2026. Three years from paper to deployment. In the meantime, anyone with a free AI model can, in one evening of reverse-engineering, produce a more tolerable version of the EU&rsquo;s login app than the one now in use. A prototype is of course not a finished system. But the difference between three years and one evening still tells you which side the momentum is on. And when that difference grows large enough, we reach the point where an actor outside the EU no longer cares in the slightest what rules are written in the EU.</p>
+        <p>I do not oppose regulation. I only ask what a statute is worth if there is no technical capability of our own alongside it. A rule protects until someone decides not to follow it. After that you need capability, and capability cannot be legislated.</p>
+        <p><em>Sources: <a href="https://yle.fi/a/74-20242668" target="_blank" rel="noopener">Yle, A-studio, August 24, 2026</a> (also the image). <a href="https://github.com/QwenLM/Qwen3.8" target="_blank" rel="noopener">Qwen3.8, QwenLM/GitHub</a>. <a href="https://eur-lex.europa.eu/eli/reg/2024/1689/oj" target="_blank" rel="noopener">The AI Act (EU) 2024/1689</a>. <a href="https://eur-lex.europa.eu/eli/reg/2024/1183/oj" target="_blank" rel="noopener">eIDAS 2.0 (EU) 2024/1183</a>, under which member states must offer a digital identity wallet by December 24, 2026. On the spread of AI-assisted vulnerability capability: <a href="https://labs.cloudsecurityalliance.org/research/csa-research-note-zero-day-capability-democratization-sub-fr/" target="_blank" rel="noopener">Cloud Security Alliance</a>. On Europe&rsquo;s technology dependence (c. 80&nbsp;%) and Virkkunen&rsquo;s quote: <a href="https://yle.fi/a/74-20229273" target="_blank" rel="noopener">Yle</a>. On unauthorized access, Chapter 38, Section 8 of the Finnish Criminal Code.</em></p>
+      </div>
+    </div>
+    <div id="post13" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">The revolving door gets hinges &mdash; but it still swings freely</h1>
+      <div class="post-full-meta">August 25, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#pyoroovi</div>
+      <img class="post-image" src="../Kuvat/post13-pyoroovi.jpg" alt="The revolving door gets hinges">
+      <div class="post-body">
+        <p>This summer Finland got a law that was in preparation across two governments. The act on a cooling-off period for members of the government (738/2026) was confirmed in July and enters into force on September 15. For the first time, Finland has a law about what a minister may do immediately after ceasing to be a minister.</p>
+        <p>The phenomenon has a name: the revolving door. A decision-maker moves from a position in which they supervised a sector into the service of that same sector &mdash; as a lobbyist, a board member, a consultant. The door revolves in both directions, and that is exactly its problem. The question is not that moving on would be wrong. A person has the right to work, and expertise does not vanish with resignation. The question is what the mover takes along: information others do not have, and relationships others do not have.</p>
+        <p>What does the law do? It obligates a minister to give advance notice of an intention, within a year of leaving office, to move into the service of a private employer, onto a company board or into business. The notice is handled by a new, independent cooling-off board, which can prohibit the move for up to twelve months &mdash; if the minister has had access to confidential information that could be exploited in the new position, or if the move otherwise leads to a conflict of interest and clearly endangers trust in the exercise of governmental power. For the waiting period the state pays compensation, 60 percent of the minister&rsquo;s remuneration. So the prohibition is not a punishment but a time-out, and sitting out the time-out is paid.</p>
+        <p>This is a law pointing in the right direction, and I say that without irony. Until now, a minister&rsquo;s career moves have been guided only by a voluntary commitment that an advisory board on civil service ethics has recommended to governments since 2014. Three details, however, deserve to be read out loud, because they say more about power than the law&rsquo;s title does.</p>
+        <p>First: the law applies to no sitting minister. The entry into force is September 15, 2026, but under the transitional provision the law is applied only to those members of the government whose term begins after the 2027 parliamentary elections. The sitting government legislated rules for itself that take effect only for its successors. There are administrative justifications for this &mdash; retroactive regulation is always difficult in a state governed by the rule of law &mdash; but the outcome is still this: the revolving door swings freely until the end of the current electoral term.</p>
+        <p>Second: a minister&rsquo;s notice of their intentions is not public immediately. Section 13 of the act defers publicity so that the notice becomes public only once the board has made its decision or the minister has been granted resignation &mdash; whichever happens first. The justification is understandable: an unfinished job negotiation is a sensitive matter. But it also means the public learns of a contemplated move only after the fact. The oversight happens in a closed room, and we read the minutes.</p>
+        <p>Third: the law applies only to members of the government. About a member of parliament who moves from a committee seat to lobbying in the same sector, this law says nothing &mdash; the scope is delimited unambiguously in Section 2. Civil servants have their own cooling-off rules. Left in the gap is the group that writes the laws.</p>
+        <p>The cooling-off board will begin its work in due course, and its decisions will generate a public paper trail. I intend to read it. Not because I expect scandals, but because a law is exactly as good as its application &mdash; and the application begins only after the elections.</p>
+        <p><em>Sources: <a href="https://www.finlex.fi/fi/lainsaadanto/saadoskokoelma/2026/738" target="_blank" rel="noopener">Act on a cooling-off period for members of the government (738/2026), Finlex</a> &mdash; especially Sections 2, 3, 5&ndash;8, 13 and 19. <a href="https://www.finlex.fi/fi/hallituksen-esitykset/2024/90" target="_blank" rel="noopener">Government bill HE 90/2024</a> and the <a href="https://www.eduskunta.fi/lakihankkeiden-tietopaketit/ministereiden-karenssi" target="_blank" rel="noopener">Finnish Parliament library&rsquo;s information package on the ministers&rsquo; cooling-off law</a>.</em></p>
+      </div>
+    </div>
+
+    <div id="post12" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">In the name of equality</h1>
+      <div class="post-full-meta">August 21, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#tasa-arvon-nimissa</div>
+      <img class="post-image" src="../Kuvat/post12-tasa-arvon-nimissa.jpg" alt="In the name of equality">
+      <div class="post-body">
+        <p>For decades, young Western women have been told that starting a family means submission, while participation in working life, financial independence and career advancement mean freedom. The woman is, as it were, liberated from her traditional family role by ending up working for a multinational corporation in the service of shareholders&rsquo; goals, and at the same time becoming a taxpayer for the state.</p>
+        <p>One of the central social consequences of feminism has been that an enormous amount of new labor was freed up for Western societies. In this sense the goals of the feminist movement and the needs of the economic system have also fit together rather well. At the same time, women began to be sold an enemy image in which &ldquo;white heterosexual men&rdquo; are readily presented as a unified oppressive monolith, even though they are a collection of very different individuals.</p>
+        <p>Feminism, however, also has another, far less discussed effect.</p>
+        <p>The biological caregiving instinct does not disappear even if society changes its conception of family or motherhood. The need to nurture, protect and provide safety remains, even if no child of one&rsquo;s own is born. If the traditional family no longer offers it a primary channel, the instinct can find other objects.</p>
+        <p>It is possible that some of the young women postponing family formation have, in the current culture war, channeled this caregiving instinct toward immigrants and asylum seekers arriving from outside the West. Migrants are often depicted primarily as vulnerable victims of systems who need the protection of Western society. The arrangement can at times resemble the relationship between parent and child: protector and protected, strong and weak, helper and victim.</p>
+        <p>From this arises one of the contradictions of feminism&rsquo;s current ideology. The woman is liberated from the traditional caregiver&rsquo;s role, but the caregiving instinct is not removed. It can only be given a new, morally approved object.</p>
+        <p>In this sense feminism has changed from the original question of equality into a broader ideological project. At its extreme it has become part of a cultural power struggle between civilizations, in which the Western, especially white, Christian and European majority culture is readily framed as oppressive, while the non-Western is presented primarily as a victim.</p>
+        <p>&ldquo;Oh, you poor things. Who would protect you, if not me?&rdquo;</p>
+        <p>This is how a young Western woman can be led to think about another group of people. Not about individuals, but about an abstract mass of victims whose defense becomes part of her own moral identity.</p>
+        <p>In their defense, feminists speak of concepts like &ldquo;equality&rdquo; and &ldquo;non-discrimination.&rdquo; The problem is not that these concepts could not mean something valuable. The problem arises when their moral charge replaces precise definition.</p>
+        <p>What does equality actually mean?</p>
+        <p>Are a boss and an employee equal in the workplace? What about a child and a parent? A master of a craft and a beginner? They have different positions, responsibilities and obligations.</p>
+        <p>Society constantly has to draw distinctions between citizens and foreigners, residents and visitors, criminals and the law-abiding, those exercising rights and those fulfilling obligations. These distinctions inevitably give rise to different hierarchies.</p>
+        <p>If equality meant that all people are of equal standing in every relevant respect, the concept would become absurd. Why would we have citizenship, passports, borders or entry rules? Why would citizenship carry particular rights and obligations? Why would some pay taxes and obey laws, if everyone were always equal regardless of everything?</p>
+        <p>People have equal human dignity, and they are equal before the law. That does not mean, however, that people, acts or social positions are of equal value. The real question is which differences are justified, on what grounds, and who defines those grounds.</p>
+        <p>The concepts of equality and non-discrimination are at times used in today&rsquo;s politics as blunt instruments of power politics.</p>
+        <p>Do you feel you are equal with those in power?</p>
+        <p>They have the power. They have the money. They have the special status granted by institutions. Your role is that of a slave endlessly paying taxes, and you can be silenced with one concept or another whenever you ask uncomfortable questions.</p>
+        <p>You are a racist, an Islamophobe, a misogynist, a far-right extremist, a white supremacist.</p>
+        <p>Labels like these have become empty rhetorical cudgels with which a conversation is ended before the actual claim needs to be answered. Complex social questions are compressed into moral stamps.</p>
+        <p>Underneath is a power struggle.</p>
+        <p>A struggle over who defines the limits of acceptable speech.</p>
+        <p>A struggle over what your society becomes.</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share:</span>
+        <button class="share-btn" onclick="shareFacebook('tasa-arvon-nimissa')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('tasa-arvon-nimissa')">Copy link</button>
+      </div>
+    </div>
+
+    <div id="post6" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">Noble double standards</h1>
+      <div class="post-full-meta">June 1, 2026 &middot; Foreign policy &middot; tuomaskuusisto.fi/en/#jaloa-kaksinaismoraalia</div>
+      <img class="post-image" src="../Kuvat/post6-kaksinaismoraalia.png" alt="Noble double standards">
+      <div class="post-body">
+        <p>Values-based realism sounds fine. What does it mean in practice?</p>
+        <p>The rules of the rules-based world order are applied arbitrarily depending on the situation. They were written from the outset to serve the interests of certain parties in power. The purpose is to create an illusion of a sense of freedom and justice.</p>
+        <p>Realism means that raw power decides who writes the rules of the rules-based world order, who ultimately interprets them, and from what perspective they are chosen to be interpreted. It is realism that the victor of wars predictably appears in the history books as morally righteous. All contradictory evidence is excluded from the interpretations, so that a shared understanding forms: the good won and the monsters lost.</p>
+        <p>It is also realism that the system cannot in reality be changed from within. If some new phenomenon emerges that threatens the position of those in power within the system, the violence that secures the continuity of power is justified from the rules. Or a new rule is invented.</p>
+        <p>The purpose of the values-based part is to signal that our team is on the side of the good. The purpose of the realism part is to signal that there is a &ldquo;but,&rdquo; as in &ldquo;but we acknowledge that in the end only force decides, as always.&rdquo; The role of realism is to entrench the idea that the double standards of the rules system are natural and morally acceptable. Realism is that exactly the same violations of the rules system are permitted to the good ones, but not to the others.</p>
+        <p>The whole pair of concepts opens up once you understand that the double standards are the system&rsquo;s values. They are not morality external to the system; they are its built-in operating logic. Rules are rules, but if this particular time they are applied inconsistently, it is done only because the more magnanimous moral understanding of our good team demands it.</p>
+        <p>Same pattern, different decade, different continent. The victors did not convict themselves for Dresden or Hiroshima. Nor for the Bengal famine, in which the British colonial administration produced millions of deaths through conscious political choices.</p>
+        <p>The International Criminal Court was born after the Western powers had made sure they themselves were not subject to its jurisdiction. The UN Security Council veto was built so that the great powers can always protect themselves. The USA and Israel have not ratified the Rome Statute.</p>
+        <p>The United States has enacted national laws that literally authorize the use of military force against the International Criminal Court if a single American citizen were ever brought before it. The architect of the rules-based world order has ensured it is never itself subject to that order&rsquo;s jurisdiction. Not through treaties. Not through diplomacy. Through the threat of violence.</p>
+        <p>Not one impartial judge sat in the Nuremberg trials. All the judges came from the victor states. Sentences were handed down for crimes that were not crimes under international law before the trials, contrary to the basic principle of legal practice that law is not applied retroactively. At Nuremberg, 161 people were convicted.</p>
+        <p>At the same time, each victorious power carried out its own program to transfer Germany&rsquo;s intellectual capital to itself. The United States moved over 1,600 German scientists in Operation Paperclip. Britain drew up a list of 1,500 experts in Operation Surgeon, with the aim of moving them &ldquo;whether they liked it or not.&rdquo; Operation Osoaviakhim: over 2,500 experts with their families, more than 6,000 people in total, were loaded onto trains and transported to the Soviet Union in a single night.</p>
+        <p>The builders of the system were not convicted. They were competed over.</p>
+        <p>Nuremberg was justice, but it was selective justice. Justice that defined who was a criminal based on who lost the war.</p>
+        <p>The ICC&rsquo;s first thirty years tell you everything. Nearly all prosecutions, nearly all convictions, nearly all arrest warrants have targeted Africa. Not the occupation of Iraq. Not Afghanistan. Africa. It is true that some of the cases came from African states&rsquo; own requests for investigation. But the end result is still the same: a system born in the name of universal justice has in practice functioned as a Western instrument for judging those who lack the power to protect themselves. Colonialism has not disappeared. It has swapped the uniform for a robe and the sword for a gavel.</p>
+        <p>The system is not broken. It works exactly as designed.</p>
+        <p>Those with the most power write the rules and decide how they are interpreted at any given time. They also write the history and decide how it is interpreted. They script how things are reported and what children are taught.</p>
+        <p>The rules-based world order is a pyramid scheme in which institutions ensure that power flows through every channel of society in the same direction, always.</p>
+        <p>Values-based realism is the claim that our double standards are better than others&rsquo; double standards. And because they are better, they are not double standards at all. They are values. It is a two-word circular argument. The system needs no justification other than that it itself defines what is justified.</p>
+        <p>Noble double standards.</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share:</span>
+        <button class="share-btn" onclick="shareFacebook('jaloa-kaksinaismoraalia')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('jaloa-kaksinaismoraalia')">Copy link</button>
+      </div>
+    </div>
+
+    <div id="post10" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">$1,200,000,000,000</h1>
+      <div class="post-full-meta">June 15, 2026 &middot; Foreign policy &middot; tuomaskuusisto.fi/en/#kehitysapu</div>
+      <img class="post-image" src="../Kuvat/post10-kehitysapu.png" alt="Africa vs Japan development aid">
+      <div class="post-body">
+        <p>In 30 years the West has transferred 1.2 trillion dollars of development aid to Africa. One million two hundred thousand million. The number is so large it is hard to grasp. Let us look at what it has bought.</p>
+        <p>In 1990, sub-Saharan Africa accounted for 14 percent of the world&rsquo;s poor. In 2024 the figure is 67 percent. In the same period in which Asia lifted hundreds of millions of people out of poverty, Africa fell so far behind that two thirds of the world&rsquo;s poorest now live there. And the bill for this failure does not stay in Africa.</p>
+        <p>The World Bank reported that the more it paid in development aid, the more money appeared in the offshore accounts of recipient countries. Same money, different account.</p>
+        <p>In Congo, the government sold mining stakes at below-market prices to offshore companies. In just two years, 1.36 billion dollars disappeared down this route. In Nigeria, billions meant for power plants, schools and hospitals ended up in foreign bank accounts. In Mozambique, 2 billion in loans meant for fishing infrastructure ended up in officials&rsquo; accounts. The list is long.</p>
+        <p>The mechanism repeats from country to country. Money moves along official routes from Western taxpayers and donors to Africa. There it is steered from the parties overseeing the aid to private accounts. Almost without exception, somewhere in tax havens. Illicit capital flows out of Africa exceed 88 billion dollars a year. More than is given to it.</p>
+        <p>Development aid has not merely failed to root out corruption. It has rewarded it. A government that builds a functioning economy loses the foreign money. A government that keeps its people poor and unstable gets more. The incentive is wrong and it has been wrong from the start.</p>
+        <p>The situation did not arise by accident. The structure of the aid benefits consultants, NGO bureaucrats and local elites more than ordinary people.</p>
+        <p>First the peoples and governments of Africa became dependent on foreign money. As the system was allowed to grow in peace, the arrangement slowly changed.</p>
+        <p>Today, a truthful description of the arrangement sounds more like a threat than development cooperation. If the foreign money stops, masses of people will start moving, and they have only one direction. Europe. European taxpayers are hostages of this system. At this point it is no longer development cooperation.</p>
+        <p>Over the decades, the nature of development cooperation has come to resemble extortion. Send more money or the Mediterranean fills with boats. The result is the same regardless of whether that was the original intention.</p>
+        <p>There is also a point of comparison. In 1945, Japan&rsquo;s economic output had collapsed to ten percent of its pre-war level. Hiroshima and Nagasaki had been destroyed with nuclear bombs. The country paid war reparations. Between 1955 and 1970, Japan&rsquo;s economic growth was 15 percent a year. In 1969 it was the world&rsquo;s second-largest economy. Toyota, Sony and Honda rose from the ashes without a single euro of development aid.</p>
+        <p>Japan&rsquo;s rise demonstrates one thing: genuine economic growth is born from within. External money cannot create it. It can even prevent it from being born.</p>
+        <p>In Japan, money served the people. In Africa, the people serve the money. The difference is not culture and it is not resources. The difference is whose benefit the system is built for.</p>
+        <p>Development aid has solved the donors&rsquo; own problem: how to do something visible without doing anything structural. The NGOs get budgets. The consultants bill. The dictators are stabilized. The donor countries get influence and a polished moral shield. Everyone benefits except those in whose name the money moves.</p>
+        <p>The EU and Finland channel into this system tax money about which citizens have never been asked. That is not charity. It is forced participation in a mechanism whose outcome is known in advance.</p>
+        <p>In 2026, the development cooperation appropriations in the Finnish state budget total 1,034 million euros. On top of the costs arising from immigration. Should the Finnish taxpayer some day be shown what, concretely, the money has achieved, exactly?</p>
+        <p>1.2 trillion dollars. 30 years. How many decades of failure are needed before the system may be called a failure?</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share:</span>
+        <button class="share-btn" onclick="shareFacebook('kehitysapu')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('kehitysapu')">Copy link</button>
+      </div>
+    </div>
+
+    <div id="post8" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">The republic and the free world</h1>
+      <div class="post-full-meta">June 6, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#tasavalta</div>
+      <img class="post-image" src="../Kuvat/post8-tasavalta.png" alt="The republic">
+      <div class="post-body">
+        <p>The millionaire Seppo Pennanen told the media that the Finnish system favors the rich. The Finnish system has been built, through conscious choices, so that the richest tenth owns more than half of everything. Pennanen has paid no tax at all on the returns from over 600,000 euros of index investments in a year. He also draws an annual income of over 100,000 euros without paying a cent of tax on it.</p>
+        <p>The richest 5&nbsp;% of the population owns about 40&nbsp;% of everything. The poorest 50&nbsp;% of the population, which already includes a large part of the &ldquo;middle class,&rdquo; owns 4&nbsp;% of Finland&rsquo;s entire net wealth.</p>
+        <p>This means that the poorer half does not consist only of the poor. It includes nurses, teachers, office workers, shop assistants, construction workers, bus drivers. People who go to work every day, pay their taxes and feel they are getting by, but whose net wealth is still close to zero. One half has 96&nbsp;% of the national wealth at its disposal. The other has 4&nbsp;%.</p>
+        <p>Why does the system not correct itself?</p>
+        <p>Finland has about 400 prosecutors. That is all. They know each other from the same workplaces, the same schools. Their social circles are often the same, they have the same hobbies, they sit in the same sauna evenings and meet at the same conferences. People who move in the same circles also end up marrying each other. The circle closes.</p>
+        <p>They act as gatekeepers of who is let in. At the top waits the highest prosecutorial office of the state system. The appointment is made by &ldquo;the president of the republic.&rdquo; A pair of concepts whose meanings literally cancel each other out.</p>
+        <p>When the highest prosecuting authority makes, say, an erroneous decision not to prosecute, they are trapped. If the same matter returned to their desk, with the clear evidence of the police&rsquo;s pre-trial investigation records, and the Supreme Court had already ruled on the question, they would still have only one path: stand by the original decision. Prosecuting on the second round would mean admitting misconduct in office.</p>
+        <p>Why is this avoided? The state would become liable for damages. The president would have to answer for the appointment. Citizens&rsquo; trust in the system would erode. The system would have to admit that it is broken.</p>
+        <p>So justice goes unrealized for the victim. The system protects itself.</p>
+        <p>A prosecutor can of course be taken to court for misconduct, but that would mean someone from these small circles starting a legal battle against a friend. In practice, few lawyers want to build their career by challenging the most influential figures of their own profession in a country this small. One could in principle appeal to the European Court of Human Rights, but that too requires a lawyer, and none can be found.</p>
+        <p>The legal profession is no exception. Every field has the same culture. The police, the church, doctors, journalists.</p>
+        <p>A raven does not peck out another raven&rsquo;s eye.</p>
+        <p>Before anyone notices how things got here, concealment becomes the profession&rsquo;s entry requirement. No amount of education or expertise is enough. No opportunities open up for outsiders. Nepotism is not the exception in such a system. It is the only natural direction of development.</p>
+        <p>This phenomenon, the old boys&rsquo; network, operates in politics too. The system elevates into positions those on whom dirt is known, because precisely they are safe. They do not bite the hand that feeds them. If necessary, they can be forced into silence. And if one of them should ever want to do the right thing, the dirt finds its way to the newspaper pages very quickly. No reward for doing right is on offer.</p>
+        <p>The journey in the machinery of power begins with noble thoughts. But power changes almost everyone. And before long one&rsquo;s own conduct is justified like this: the system needs secrecy and concealment for its protection, and my task is to protect it.</p>
+        <p>Power corrupts and corruption brings more power. The same pattern repeats in every position of social power.</p>
+        <p>Finland is called a republic. But is it just a rhetorical trick? A way to make people believe that opportunities are the same for everyone, though the facts say otherwise. Can a republic truly exist? No, it cannot. It is a promise that has never been kept anywhere.</p>
+        <p>Still, everyone can understand this system and choose what they fight for. In politics, an honest member of parliament is a threat to the system. In the judiciary, a just person is a threat to the system. Advocates of peace are a threat to the arms industry. In a world of liars, truth is a threat. A person who cannot be bought or blackmailed is the greatest threat to the system.</p>
+        <p>Ironic, that we are the &ldquo;free world.&rdquo;</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share:</span>
+        <button class="share-btn" onclick="shareFacebook('tasavalta')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('tasavalta')">Copy link</button>
+      </div>
+    </div>
+
+    <div id="post5" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">Kela and Pride: a public agency funding a political partner</h1>
+      <div class="post-full-meta">June 5, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#kela-pride</div>
+      <img class="post-image" src="../Kuvat/post5-kela.png" alt="Kela morning of Pride week">
+      <div class="post-body">
+        <p>Kela, Finland&rsquo;s social insurance institution, is an official partner of Helsinki Pride, with a multi-year partnership agreement for 2025&ndash;2027. The agreement covers the Pride events of Kuopio and Turku in addition to Helsinki. Kela takes part in the parade, works the park festival, and flies the flag at its headquarters.</p>
+        <p>Kela has a rainbow network of 230 employees whose activities are coordinated as part of working hours. If each spends 2 hours a month on network activities (a cautious estimate), that is 5,520 hours a year. The public sector&rsquo;s hourly cost with overheads is about 50 euros. The network activity alone costs an estimated 276,000 euros a year. On top come the partnership agreement, materials, events in three cities and an autumn panel discussion. A moderate total estimate approaches 300,000 euros a year; over the three-year agreement, nearly a million euros.</p>
+        <p>The Kela Act defines Kela&rsquo;s tasks precisely: health insurance, pensions, unemployment security, housing benefits. A Pride partnership does not fall under these on any interpretation.</p>
+        <p>But there is a further dimension. Helsinki Pride is not some neutral folk festival. In 2023, the Centre Party and the National Coalition Party were shut out of community partnership because they did not meet Pride&rsquo;s values. Party parade blocs have since been removed entirely, and participation requires committing to Pride&rsquo;s own rainbow-political action program.</p>
+        <p>This, then, is an organization that makes clear political rulings on who is welcome and who is not. And Kela, a public agency, has signed a three-year agreement with it using taxpayers&rsquo; money.</p>
+        <p>This cannot be explained away with any rhetorical device. In the grand scheme, the monetary value of a three-year agreement is perhaps small, but that is not the point. The point is the moral effect on society.</p>
+        <p>A national sense of belonging requires that the people feel public institutions are their own. Here a dangerous trade is being made with that feeling. Not even all members of minorities feel Pride is theirs. Many want to live their lives without a month-long annual parade. Among the electorate of the Centre and the National Coalition there are also members of minorities, but Pride ruled them out too. Pride does not advance the cause of even all the minorities it claims. All the more reason it cannot be financed through the operations of a public agency.</p>
+        <p>Where is the sense of proportion? Mother&rsquo;s Day is celebrated for one day. Pride has grown into a month-long phenomenon to which public institutions commit financially and operationally. No other population group receives comparable institutional support. Is this even about minority rights anymore, or has institutional support turned into something else?</p>
+        <p>This is yet another example of how a public institution chooses, on ideological and political grounds, to breach its statutory functions, morally poses as the champion of a small group&rsquo;s interests, and at the same time erodes a larger part of the population&rsquo;s sense that society&rsquo;s institutions belong to everyone. Kela is not alone. The education system with its national agency, the universities, the judiciary and the police have all drifted in the same direction.</p>
+        <p>Either they are institutions of the whole people, in which case Kela should sponsor the events of every political-ideological current even-handedly, or they are not institutions of the whole people, in which case they advance the interests of a small political-ideological fringe at everyone else&rsquo;s expense.</p>
+        <p>Which is it?</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share:</span>
+        <button class="share-btn" onclick="shareFacebook('kela-pride')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('kela-pride')">Copy link</button>
+      </div>
+    </div>
+
+    <div id="post7" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">Would you go?</h1>
+      <div class="post-full-meta">May 30, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#menisitko-sina</div>
+      <img class="post-image" src="../Kuvat/post7-menisitko.png" alt="Would you go?">
+      <div class="post-body">
+        <p>If, because of the structure of the system, you have no property, no home and no realistic future in Finland, what exactly are the concrete things you would go and defend?</p>
+        <p>In social contract theory, the citizen&rsquo;s obligations toward the state have always been conditional. The state provides safety and opportunities, and the citizen gives their loyalty and, if necessary, their life. But if the contract is one-sided, is it still a contract?</p>
+        <p>Let us look at how Finland&rsquo;s institutions are functioning right now.</p>
+        <p>The judiciary sentences violent crime leniently by international comparison. Sentences are often suspended. The victim frequently suffers needlessly from the process. Trials drag on for years and the guilty party may be at liberty throughout. Gang violence is punished so lightly that it works as no deterrent. People convicted of serious crimes complain about the consistency of the prison&rsquo;s cinnamon apple mousse. Prison is a reward for crime, and the bill is paid by the victims, in taxes.</p>
+        <p>The education system was once Finland&rsquo;s pride. Now learning outcomes are collapsing, there is violence and unrest in schools, teaching has become value-laden and the academic level falls every year. More and more parents vote with their feet and move their children out of the public system.</p>
+        <p>In healthcare, waiting times are internationally shameful. Mental health services cannot be accessed even when the need is acute. Elderly care has repeatedly been in the news for neglect and mistreatment. Private healthcare works, but only for those with money.</p>
+        <p>The social security system punishes activity. What is on offer is mostly short-term gig work, and the gig worker falls easily through the system&rsquo;s cracks. The same department store&rsquo;s three-week summer jobs draw 25,000 applicants. AI will inevitably reduce the demand for labor further still.</p>
+        <p>Entrepreneurship is punished. Even if a young person has a good business idea, bureaucracy buries the enthusiasm before it can grow.</p>
+        <p>The pension system, which the younger generation funds with high taxes, will most likely never pay back to them what it has paid to the older generations. For those born in the 2000s, the retirement age is tied directly to life expectancy and is not even known in advance. Many of the previous generations enjoy their pensions for well over 30 years.</p>
+        <p>As an inheritance, the young are being left so much state debt that literally no more can be obtained.</p>
+        <p>Each age cohort is smaller than the last, because there is no money or time for children. The elderly are the most active voters and politicians accommodate their views, though they live in an entirely different reality from the young.</p>
+        <p>The young do not even have a functioning parliamentary channel to influence their position, because there are simply fewer of them. Proportional representation and a system favoring large parties ensure that the same faces rotate in power in turn without anything changing. This decline has continued for 20 years.</p>
+        <p>The language is becoming unrecognizable, the culture comes from outside, and families are not formed because no one can afford them. A growing number of people find that the things for which people have historically been willing to sacrifice their lives are foreign to them or impossible to attain &mdash; but the duty to defend the country would remain unchanged?</p>
+        <p>One could speak credibly of a duty of defense when genuine reciprocity prevailed in society. If it does not exist, one may justifiably ask whether the duty exists either.</p>
+        <p>Would any young person sign such a social contract if they knew in advance the truth about their own role in it?</p>
+        <p>No one at the top seems to bear responsibility for anything. Mistakes are covered up, failures are explained away, and citizens are served a curated reality.</p>
+        <p>The Finnish state cannot detect drones reliably, misidentifies them and cannot defend against them. Even a warning system cannot be got up and running. In the younger generation there is a growing number of people who own nothing in Finland and never will. Public debate has advanced to the point where those same young people are expected, in the last resort, to go and shoot down drones with a shotgun at the risk of their lives in a conflict. Onto forests and lands owned by international investors and banks.</p>
+        <p>Would you go?</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share:</span>
+        <button class="share-btn" onclick="shareFacebook('menisitko-sina')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('menisitko-sina')">Copy link</button>
+      </div>
+    </div>
+
+    <div id="post4" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">The victimhood exchange: the contradiction of identity politics</h1>
+      <div class="post-full-meta">May 28, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#uhriporssi</div>
+      <img class="post-image" src="../Kuvat/post4-uhriporssi.png" alt="The victimhood exchange">
+      <div class="post-body">
+        <p>The rhetoric of identity politics is appealing: diversity, inclusion, equality, non-discrimination. Who could be against these? The words sound so self-evidently good that they are easy to support without considering what they mean in practice.</p>
+        <p>The problem is revealed at the point where the identity groups gathered under the same umbrella carry values that cannot be reconciled with one another.</p>
+        <p>Take a concrete example: the rights of sexual minorities and conservative religious communities. Some such communities hold that homosexuality should not be taught about in schools, because it is contrary to doctrine. Neither group yields, because these beliefs are the immutable core of both worldviews. If teaching continues as before, the risk is that separate schools emerge and segregation deepens. If the teaching is abandoned, one protected group&rsquo;s central right is forsaken for the other&rsquo;s benefit.</p>
+        <p>At the same time, the social capital on which Finnish society was built crumbles: the shared experience of common institutions, common education, common rules of the game.</p>
+        <p>Identity politics does not strengthen diversity; it divides the population into parallel realities that no longer meet.</p>
+        <p>At the core of worldviews one often finds absolute beliefs that are logically contradictory with one another. One doctrine says &ldquo;yes&rdquo; where another says &ldquo;no.&rdquo; When such groups are forced into the same space, one must give way. The politician who has promised everything to both is eventually forced to choose whose rights to defend. At that moment the groups fall into a hierarchy and are no longer equal in the decision-maker&rsquo;s eyes.</p>
+        <p>In such a system, fundamental rights are distributed from above depending on the situation, and the outcome is determined by whatever makes the incumbent look most credibly like the magnanimous defender of some victim identity.</p>
+        <p>The leader needs no real vision for solving problems, no vision of the future, no other skills. It is enough to know how to play the credulous voter who votes on feeling. The promises never need to be honored, because the identity groups can always be made to blame one another.</p>
+        <p>From childhood on, citizens learn to position themselves in whichever victim-identity category they believe will bring them the most social attention and benefits. When an ever-widening crowd notices that this victimhood exchange is how an individual&rsquo;s market value is determined, society&rsquo;s productivity falls. Instead of fulfilling their own potential, people compete over who can appear the most pitiable victim.</p>
+        <p>The costs show. Every new victim category means a new form of support, new administration, new support structures. In the end the taxpayer funds a system that rewards abandoning one&rsquo;s own potential and punishes those who strive to support themselves.</p>
+        <p>In international comparison this weakens competitiveness relative to nations where people are encouraged toward independence and the development of skills. If social competition centers on victimhood, no one strives to create anything new anymore.</p>
+        <p>At the same time, enemy images arise toward those who succeed and strive for better, and precisely those individuals are driven out of the country. Success is punished twice: first with the position of net payer, then with the label of oppressor. In such a society it is wiser to hide one&rsquo;s talents.</p>
+        <p>This also exposes how vague the entire concept of equality is in this rhetoric. Are a boss and an employee equal? A child and a parent? Society is full of necessary hierarchies that no one seriously wants to dismantle. &ldquo;Equality&rdquo; functions mainly as a slogan whose content is filled in as the situation requires.</p>
+        <p>Genuine equality is equality of opportunity: everyone with an equal right to strive, to develop and to take responsibility for their own life. The equality of outcomes that identity politics pursues is something else entirely &mdash; a demand to level differences from the outside regardless of where they spring from. It leads not to equality but to a spiral of new injustices, in which raising one group always requires trampling the others.</p>
+        <p>The end result is a cynical power game: fragment the population into as many categories as possible, promise each one protection, and when the groups inevitably come into conflict, set yourself up as the judge who dispenses &ldquo;equality&rdquo; according to your own preferences.</p>
+        <p>Whether the fragmentation is the goal or a side effect, it serves the same outcome. When the people are divided into competing victim groups that all need a protector, the state decision-maker becomes indispensable. He hands out crumbs by turns, makes sure the groups never unite to challenge his power, and takes the largest slice for himself.</p>
+        <p>A voter caught in a relationship of dependency does not rebel. He re-elects the one from whose hand he receives his living.</p>
+        <p>What remains is a society in which the most skillful victim ends up in the most advantageous position and the most useful individuals are driven out. This continues until the money runs out. Then the search for culprits begins. And that is precisely where the danger of this system lies: those who climbed to the top through victimhood have never borne responsibility for anything. Why would they now?</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share:</span>
+        <button class="share-btn" onclick="shareFacebook('uhriporssi')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('uhriporssi')">Copy link</button>
+      </div>
+    </div>
+
+    <div id="post1" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">The conversation has ended &ndash; to save money</h1>
+      <div class="post-full-meta">June 1, 2026 &middot; Media &middot; tuomaskuusisto.fi/en/#yle-facebook</div>
+      <img class="post-image" src="../Kuvat/post1-yle.png" alt="Yle public discussion space closed">
+      <div class="post-body">
+        <p>Yle-aamu, the morning show of Finland&rsquo;s public broadcaster Yle, is closing its Facebook account and with it a public discussion channel of 45,000 followers. From now on, feedback is requested by email. The stated reason is savings, even though Facebook is free and the only cost is working time, the same working time that is used for other content production too.</p>
+        <p>At the same time, Yle produces news in Somali, citing its programming obligations under the law. 182 episodes. About 21,000 plays in total in its streaming service, an average of 115 plays per episode. Not viewers &mdash; plays. The same person can start the same episode several times, so the real viewing figures are probably even smaller. At the weakest, a single episode has only 25 plays.</p>
+        <p>The program&rsquo;s target group is Finland&rsquo;s Somali-speaking population of 25,000. They are probably exactly where everyone else is: on social media. If Yle really wants to serve this population, why does it not distribute this news where the people are? A low viewing figure does not automatically mean the program is pointless. It can mean many things, but none of the options is flattering to Yle.</p>
+        <p>Yle makes content to fulfill a legal obligation, but at the same time gives up the free channels through which it could actually reach people.</p>
+        <p>Facebook is not merely a distribution channel. It is a space in which citizens can challenge Yle publicly. Email feedback is seen only at Yle, where it is easy to disregard. A Facebook comment is visible to everyone. By closing the Facebook account, Yle simultaneously closes the space in which the framing of news stories can be questioned. When that space is closed, the possibility of public accountability disappears with it.</p>
+        <p>The same logic shows in Yle&rsquo;s moderated live broadcasts and news comment sections. According to Yle&rsquo;s updated discussion guidelines, moderation uses an AI that makes moderation decisions. This is said to happen under human supervision, but what does that mean in practice? If a legitimate comment is moderated away, can the algorithm always be invoked? No one would then ultimately be responsible for the moderation.</p>
+        <p>Yle&rsquo;s discussion guidelines also state: &ldquo;We may also leave messages unpublished due to a technical fault.&rdquo;</p>
+        <p>Does such a system in practice enable faceless moderation? In the comment field of a news article, one can always hide behind a technical error, an AI algorithm or &ldquo;off-topic&rdquo; commenting. No one has to explain why this particular comment disappeared.</p>
+        <p>Moderation rules like &ldquo;stay on topic&rdquo; and &ldquo;all perspectives are important&rdquo; leave significant discretion to whoever is given the moderator&rsquo;s role and to the values they operate on. In practice, every moderation decision can be justified by some rule. The only question is whose worldview defines what counts as staying on topic and what does not.</p>
+        <p>By choosing accordingly, moderation can make the comment sections look as though a broad consensus prevailed on the topic. Or like anything else. Those who disagree imagine they are in the minority with their opinions and do not dare bring their view forward. And if a comment gets moderated, many begin to doubt whether something was wrong with their message, even if it was entirely appropriate. According to Yle&rsquo;s discussion guidelines, anyone dissatisfied with an individual moderation decision can seek redress at the Helsinki district court. In practice the legal process takes years. By then the topic has long since left the public conversation.</p>
+        <p>Is the removal of Yle&rsquo;s social media accounts a saving? Or a conscious choice about what public discussion is allowed to look like? Or a way to justify additional funding, when 600 million is not enough even to maintain a Facebook account.</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share:</span>
+        <button class="share-btn" onclick="shareFacebook('yle-facebook')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('yle-facebook')">Copy link</button>
+      </div>
+    </div>
+
+    <div id="post11" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">Riemu &mdash; a world full of opportunities</h1>
+      <div class="post-full-meta">May 25, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#riemu</div>
+      <img class="post-image" src="../Kuvat/post11-riemu.png" alt="Riemu association money">
+      <div class="post-body">
+        <p>Finland has over 100,000 registered associations. A considerable share of them live directly or indirectly on taxpayers&rsquo; money &mdash; from STEA (the state&rsquo;s funding center for social and health organizations), from ministries, municipalities and the EU. On top come the associations&rsquo; umbrella organizations, the umbrella organizations&rsquo; umbrella organizations, and their payrolls.</p>
+        <p>Scratch beneath the surface of any of these and the same pattern is repeatedly revealed. Self-interest dressed in a benefactor&rsquo;s cloak.</p>
+        <p>Riemu Finland is the textbook example of the whole system. A substance abuse prevention organization that received nearly 7 million euros from STEA over the last ten years, over 1.1 million in its peak year, at times as seven overlapping grants for the same activity.</p>
+        <p>What did the money buy? An executive director, a development manager, an administrative manager, a project manager and coordinators. Managers and coordinators leading, developing, administering and coordinating. One (1) project worker doing the actual work.</p>
+        <p>The activity amounted to a few Teams quizzes a year for secondary school pupils.</p>
+        <p>The executive director simultaneously served as chair of the board, and the entire board consisted of salaried staff. Taxpayers&rsquo; money paid for a company apartment, train journeys from Tampere to Jyv&auml;skyl&auml;, per diems for working in one&rsquo;s own office, hotel nights for a performance review and employee benefit rewards contrary to the rules.</p>
+        <p>STEA itself stated in its audit report that the activity did not appear to be open civil society activity but the closed operation of an established circle. In plain language: a club of one&rsquo;s own friends at the taxpayers&rsquo; expense.</p>
+        <p>The association was founded in 2010 and received taxpayers&rsquo; money year after year without a single auditor, authority, ministry, newspaper or politician asking one critical question. And although the improprieties were known to STEA, the association still received over 730,000 euros in 2025, and after that, in 2026, a quarter of a million on top as a wind-down grant. The matter was not taken to a prosecutor.</p>
+        <p>An ordinary entrepreneur would lose their company and end up in court for subsidy fraud and embezzlement. In association bureaucracy you get a soft landing with a parting gift on top.</p>
+        <p>And here is the actual thought. Riemu was one association out of 100,000. Its activity went unquestioned for over a decade.</p>
+        <p>If one examined the entire association field over the last twenty years, how many Riemus would be found there? Ten? A hundred? A thousand?</p>
+        <p>No one knows, because no one looks. The whole system is built on the assumption that no one has the stamina or the ability to go through the bookkeeping, board compositions and payrolls of 100,000 associations.</p>
+        <p>The same logic shows in the Hitas case. The high-earning member of parliament Eveliina Hein&auml;luoma owns three Hitas apartments subsidized by the City of Helsinki, two of which she rents out as investment properties. Hitas was built to provide affordable homes for middle-income earners, not business for investors &mdash; and at the same time her party, the Social Democrats, publicly pushes for restrictions on owning multiple Hitas apartments. Society&rsquo;s subsidies for one&rsquo;s own, the market&rsquo;s risks for everyone else.</p>
+        <p>And what is the real value of these 100,000 associations to Finns? The answer is always the same roundabout phrase about &ldquo;social impact accumulating years into the future,&rdquo; which cannot be measured, disputed or demonstrated. As long as no real return has to be shown, money can be requested without end.</p>
+        <p>This is the work that should be done. Shine a light through those 100,000 associations down to the names, faces and connections. AI does this work in days, where a human would need a decade.</p>
+        <p>What in Finland is called &ldquo;the way of the land&rdquo; would be a scandal in most Western countries. Finns simply do not see it, because no one has shown it to them at once, as a whole.</p>
+        <p>It is about time.</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share:</span>
+        <button class="share-btn" onclick="shareFacebook('riemu')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('riemu')">Copy link</button>
+      </div>
+    </div>
+
+    <div id="post9" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">Yle, the watchdog of power</h1>
+      <div class="post-full-meta">May 1, 2026 &middot; Media &middot; tuomaskuusisto.fi/en/#yle-vahtikoira</div>
+      <img class="post-image" src="../Kuvat/post9-yle-vahtikoira.png" alt="Yle, the watchdog of power">
+      <div class="post-body">
+        <p>Yle, Finland&rsquo;s public broadcaster, produced over 20 separate stories, videos and discussions about a May Day demonstration in Tampere within one week (May 1&ndash;8), in Finnish, Swedish and English. In social media distribution the number multiplies. The volume corresponds to the coverage of a terrorist attack or a large-scale crisis. Behind it are three suspected assaults under investigation, none of which has led to a conviction.</p>
+        <p>One of the stories (May 4) is headlined: &ldquo;New information on the Blue-and-Black Movement&rsquo;s May Day march in Tampere: complaint about the police to the Parliamentary Ombudsman.&rdquo; That is, a single citizen&rsquo;s complaint about police conduct is, to Yle, an independent news item, its own headline, its own story. The watchdog barks.</p>
+        <p>At the same time, Tampere&rsquo;s mayor Ilmari Nurminen (Social Democrats) says in his official capacity in front of the camera: &ldquo;As the mayor of Tampere I can say that groups like this are not welcome in Tampere.&rdquo; Yle interviews. Yle reports. Yle quotes him in the headline.</p>
+        <p>But it is precisely as the mayor of Tampere that he cannot say that. As a private person Nurminen may say what he likes, for freedom of speech protects him as it protects every other citizen. As mayor he bears official responsibility and is bound by the fundamental rights provisions of the constitution. The authority conferred by the mayor&rsquo;s office is not a personal opinion column but public power, which may be used only for purposes defined in law.</p>
+        <p>The mayor does not decide who has the right to walk the streets of Tampere. Freedom of assembly (Section 13 of the Constitution) and equality (Section 6) are fundamental rights, not permits granted by the municipality. Finland is committed to human rights conventions that prohibit collective punishments. An individual answers for their own act in a legal process: pre-trial investigation, consideration of charges, prosecution, court proceedings, judgment. After that, the convicted person answers for their act themselves. Not their entire group.</p>
+        <p>So what is Nurminen doing? He is using the public power of his office to pass a collective judgment on a political group whose members have not been convicted of anything that happened on May Day. The pre-trial investigation is still open. The presumption of innocence is in force. Yet the mayor, in his official capacity, has already pronounced judgment, not on individual suspects, but on the whole group. He does in the name of the office what the holder of the office is not permitted to do. Yle&rsquo;s journalists nod along.</p>
+        <p>The watchdog, then, is ready to bark at the police for not happening to be on exactly the right stretch of street at exactly the right moment to prevent an individual assault. But it is silent about the mayor, who consciously chose to step in front of the camera, chose his words, and chose to do it as the mayor of Tampere. Chance produces a headline about one official&rsquo;s conduct. The deliberate use of official position is not even a question when it comes to the other.</p>
+        <p>If this can happen to one group, it can happen to any group. The principle is the same regardless of who is involved: if an official can, in their official capacity, declare a political group undesirable without legal grounds, the same power is available against every group. Today it is aimed at a movement you do not support. Tomorrow it can be aimed at your trade union, your religion, your party or your opinion group. The protection of the constitution is equal, or it is nothing.</p>
+        <p>The tax-fattened watchdog knows its place: it bites the police&rsquo;s ankle with the master&rsquo;s permission, but licks the mayor&rsquo;s boot as he tramples on fundamental rights and the principles of the rule of law. The taxpayer pays for barking that is aimed against the taxpayer and their own legal protection.</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share:</span>
+        <button class="share-btn" onclick="shareFacebook('yle-vahtikoira')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('yle-vahtikoira')">Copy link</button>
+      </div>
+    </div>
+
+    <div id="post3" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">The mayor of Tampere and the media&rsquo;s double standard</h1>
+      <div class="post-full-meta">March 18, 2026 &middot; Politics &middot; tuomaskuusisto.fi/en/#tampereen-pormestari</div>
+      <div class="post-body">
+        <p>The mayor of Tampere demanded constitutional amendments on the basis of one event. The same media that reported this as a significant statement treated a violent event of comparable scale in another context as statistics and a lack of news value.</p>
+        <p>This is not an individual journalist&rsquo;s choice. This is an editorial line that repeats regularly. When it repeats enough times, it stops being coincidence and becomes structure.</p>
+        <p>The structure is that some events justify a diagnosis of society and others do not. The division does not follow the severity of the event. It follows whose arguments the event reinforces.</p>
+        <p>The disproportion in media treatment does not mean journalists are dishonest. It means journalism is unable to examine the grounds of its own choices. This is a structural problem, not an individual one.</p>
+      </div>
+      <div class="share-row">
+        <span class="share-label">Share:</span>
+        <button class="share-btn" onclick="shareFacebook('tampereen-pormestari')">Facebook</button>
+        <button class="share-btn" onclick="copyLink('tampereen-pormestari')">Copy link</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div id="page-contact" class="page">
+  <div class="wrap">
+    <h1 class="page-heading">Contact</h1>
+    <p class="page-sub">Feedback &middot; Collaboration &middot; Comments</p>
+    <div class="contact-block">
+      <div class="contact-row">
+        <span class="contact-label">Email</span>
+        <span class="contact-val"><a href="mailto:info@valtavahti.fi">info@valtavahti.fi</a></span>
+      </div>
+      <div class="contact-row" style="border-bottom:none">
+        <span class="contact-label">Location</span>
+        <span class="contact-val">Turku, Finland</span>
+      </div>
+    </div>
+    <p class="contact-note">I write analytically about society, media and politics. Feedback, tips and proposals for collaboration are welcome by email.</p>
+  </div>
+</div>
+
+<script>
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') {
+    var openPost = document.querySelector('.post-full[style*="display: block"], .post-full[style*="display:block"]');
+    if (openPost) {
+      backToList();
+    } else {
+      var activePage = document.querySelector('.page.active');
+      if (activePage && activePage.id !== 'page-home') {
+        showPage('home');
+      }
+    }
+  }
+});
+
+function showPage(name, skipReset) {
+  document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+  document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); });
+  document.getElementById('page-' + name).classList.add('active');
+  document.getElementById('nav-' + name).classList.add('active');
+  if (name === 'blog' && !skipReset) { backToList(); }
+  window.scrollTo(0, 0);
+}
+
+function openPost(id) {
+  document.getElementById('blog-list').style.display = 'none';
+  document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
+  document.getElementById(id).style.display = 'block';
+  var anchors = { post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
+  if (anchors[id]) { window.location.hash = anchors[id]; }
+  window.scrollTo(0, 0);
+}
+
+function backToList() {
+  document.getElementById('blog-list').style.display = 'block';
+  document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
+  window.location.hash = '';
+}
+
+function shareFacebook(anchor) {
+  var url = encodeURIComponent('https://tuomaskuusisto.fi/en/#' + anchor);
+  window.open('https://www.facebook.com/sharer/sharer.php?u=' + url, '_blank', 'width=600,height=400');
+}
+
+function copyLink(anchor) {
+  var url = 'https://tuomaskuusisto.fi/en/#' + anchor;
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(url).then(function() { alert('Link copied: ' + url); });
+  } else {
+    prompt('Copy the link:', url);
+  }
+}
+
+(function checkHash() {
+  var hash = window.location.hash.replace('#','');
+  var map = { 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
+  if (map[hash]) { showPage('blog'); openPost(map[hash]); }
+})();
+</script>
+</body>
