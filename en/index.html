@@ -139,6 +139,13 @@
     <hr class="divider">
     <p class="page-sub" style="margin-bottom:1.2rem">Latest writings</p>
     <div class="home-grid">
+      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post16')">
+        <img class="home-grid-img" src="../Kuvat/post16-robotti-juoksi.jpg" alt="Illustration: a running humanoid robot in a stadium and a jar of jam in front of the EU flag">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">September 3, 2026 &middot; Technology</div>
+          <div class="home-grid-title">The robot ran. Europe regulated.</div>
+        </div>
+      </div>
       <div class="home-grid-item" onclick="showPage('blog', true); openPost('post15')">
         <img class="home-grid-img" src="../Kuvat/post15-same-lindsay.jpg" alt="Illustration: protesters outside a courthouse and the Same, Lindsay trend">
         <div class="home-grid-body">
@@ -153,13 +160,6 @@
           <div class="home-grid-title">One file nullifies the EU&rsquo;s entire AI regulation</div>
         </div>
       </div>
-      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post13')">
-        <img class="home-grid-img" src="../Kuvat/post13-pyoroovi.jpg" alt="The revolving door gets hinges">
-        <div class="home-grid-body">
-          <div class="home-grid-meta">August 25, 2026 &middot; Society</div>
-          <div class="home-grid-title">The revolving door gets hinges &mdash; but it still swings freely</div>
-        </div>
-      </div>
     </div>
     <p class="latest-link"><a onclick="showPage('blog')">All writings &rarr;</a></p>
   </div>
@@ -172,6 +172,11 @@
       <h1 class="page-heading">Writings</h1>
         <ul class="post-list">
 
+        <li class="post-item" onclick="openPost('post16')">
+          <div class="post-item-meta">September 3, 2026 &middot; Technology</div>
+          <div class="post-item-title">The robot ran. Europe regulated.</div>
+          <div class="post-item-excerpt">The fruit content of jam went up in June. In the same months a robot ran the 100 metres in 8.64 seconds, AI carried a drug candidate into phase 3 and disproved a conjecture that had been open for eighty years. Europe's answer was a postponement.</div>
+        </li>
         <li class="post-item" onclick="openPost('post15')">
           <div class="post-item-meta">September 1, 2026 &middot; Society</div>
           <div class="post-item-title">Lindsay Clancy. When empathy overrides justice.</div>
@@ -254,6 +259,34 @@
         </li>
 
       </ul>
+    </div>
+
+    <div id="post16" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h1 class="post-full-title">The robot ran. Europe regulated.</h1>
+      <div class="post-full-meta">September 3, 2026 &middot; Technology &middot; tuomaskuusisto.fi/en/#robotti-juoksi</div>
+      <img class="post-image" src="../Kuvat/post16-robotti-juoksi.jpg" alt="Illustration: a running humanoid robot in a stadium and a jar of jam in front of the EU flag">
+      <div class="post-body">
+        <p>This is about <a href="https://www.finlex.fi/fi/lainsaadanto/2025/226" target="_blank" rel="noopener">decree 226/2025 of the Finnish Ministry of Agriculture and Forestry</a>, which entered into force on June 14, 2026. It implements <a href="http://data.europa.eu/eli/dir/2024/1438/oj" target="_blank" rel="noopener">Directive (EU) 2024/1438</a>. The content is simple: jam must contain at least 450 grams of fruit or berries per kilo. The previous limit was 350 grams. For extra jam the limit rose from 450 grams to 500 grams. If a product does not meet the limit, it may not be called jam.</p>
+        <p>The problem is not the rule. The problem is the proportions.</p>
+        <p>Let us look at what has been done elsewhere in the meantime.</p>
+        <p>In November 2025 XPeng presented its IRON humanoid robot in China. It walked onto the stage so much like a human that the audience refused to believe it was a robot. The next day XPeng's CEO He Xiaopeng brought the robot back on stage, where an engineer cut open the covering fabric and foam padding on its leg to prove there was no person inside (<a href="https://newatlas.com/ai-humanoids/watch-iron-humanoid/" target="_blank" rel="noopener">New Atlas</a>).</p>
+        <p>The second World Humanoid Robot Games were held in Beijing at the end of August.</p>
+        <p>Tiangong Ultra ran the 100 metres in 8.86 seconds in the semifinal (<a href="https://apnews.com/article/chinese-humanoid-robot-beijing-world-games-record-069b76ee6748154fd67bec39fa927cf6" target="_blank" rel="noopener">AP</a>). In the final the time dropped to 8.64 seconds (<a href="https://news.cgtn.com/news/2026-08-27/Tiangong-Ultra-sets-100m-record-as-World-Humanoid-Robot-Games-close-1PWx9LjZDC8/p.html" target="_blank" rel="noopener">CGTN</a>). Usain Bolt's human record is 9.58. A year earlier the same event was won in 21.50. In twelve months the time fell by more than half.</p>
+        <p>The games had 2,056 robots, 666 teams and <a href="https://www.whrgoc.com/resources//uploads/20260822/1787382689139022892.pdf" target="_blank" rel="noopener">51 events</a>. Thirty of them were sporting events and 21 were so-called scenario events: household work, hotel work, industrial work, firefighting and rescue tasks. It is not really a sporting event. It is a competition over who can do which human job without the human. <a href="https://www.forbes.com/sites/johnkoetsier/2026/08/19/the-world-humanoid-robot-games-events-are-a-market-map/" target="_blank" rel="noopener">Forbes</a> called the games the most honest document that exists right now on where robotics stands.</p>
+        <p>So the games showed machines that ran faster than Bolt. Picking up beans with tweezers and connecting a cable were events of their own, and they did not go well. Some of the robots fell over, some came apart, some caught fire. This is the point where many people relax and decide that nothing will come of it. I would point back at the running time. A year ago it was 21.5 seconds.</p>
+        <p>The United States had already responded a month before the games. On July 29 the Federal Communications Commission <a href="https://www.pbs.org/newshour/world/u-s-bans-foreign-made-humanoid-robots-targeting-china-over-national-security" target="_blank" rel="noopener">banned imports</a> of foreign-made humanoid and quadruped robots. The stated grounds were national security and the vulnerability of supply chains. China's share of the global humanoid robot market is estimated at 85 percent.</p>
+        <p>New language models come out of the United States so fast that one is barely released before the next one arrives. Each is more capable than the one before it.</p>
+        <p>Generative AI has already carried a drug candidate into clinical trials. Insilico Medicine's rentosertib is a drug candidate discovered and designed with generative AI, and its phase 2a results were published in <a href="https://www.nature.com/articles/s41591-025-03743-2" target="_blank" rel="noopener">Nature Medicine</a>. The phase 3 trial <a href="https://www.prnewswire.com/news-releases/insilico-initiates-phase-iii-clinical-trial-for-rentosertib-its-ai-empowered-tnik-inhibitor-for-idiopathic-pulmonary-fibrosis-302819553.html" target="_blank" rel="noopener">began on July 7, 2026</a>.</p>
+        <p>In May 2026 an OpenAI reasoning model <a href="https://openai.com/index/model-disproves-discrete-geometry-conjecture/" target="_blank" rel="noopener">disproved the unit distance conjecture that Erd&#337;s posed in 1946</a>. A problem that had been open for eighty years was resolved without human hints or guidance, and outside mathematicians checked the proof.</p>
+        <p>And what is Europe doing? It is postponing its own AI rules. The so-called omnibus amending the AI Act <a href="https://digital-strategy.ec.europa.eu/en/news/ai-omnibus-enters-force" target="_blank" rel="noopener">entered into force on July 27</a>, in the same week and two days before the American import ban. Obligations for high-risk AI systems were pushed back to December 2, 2027, and obligations for AI embedded in machinery and equipment to August 2, 2028.</p>
+        <p>This is Europe's answer to intensifying great power competition. Build nothing more. Postpone your own rules by one year to one and a half, because nobody managed to comply with them in time. Meanwhile there is a war on Europe's eastern border and a war in the Middle East.</p>
+        <p>The jam rule is the only decision on this list whose consequences are in our own hands. The amount of berry in the jar is ours. To everything else we respond by regulating, and the regulation is addressed to somebody else's factory.</p>
+        <p>A week ago I wrote about the same thing in the case of AI models. A rule assumes that somewhere there is a party that can be told what to do.</p>
+        <p>In the case of jam that party exists. It is a Finnish factory, and it complies. That is why this rule works, and that is why it made the news.</p>
+        <p>In the case of the robot there is no such party. It is in Beijing, it runs the 100 metres in under nine seconds. It does not care about our directives.</p>
+        <p>But at least in Europe we can now sleep soundly knowing that almost half of the jam is probably berries.</p>
+      </div>
     </div>
 
     <div id="post15" class="post-full">
@@ -688,7 +721,7 @@ function openPost(id) {
   document.getElementById('blog-list').style.display = 'none';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   document.getElementById(id).style.display = 'block';
-  var anchors = { post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
+  var anchors = { post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
   if (anchors[id]) { window.location.hash = anchors[id]; }
   window.scrollTo(0, 0);
 }
@@ -715,7 +748,7 @@ function copyLink(anchor) {
 
 (function checkHash() {
   var hash = window.location.hash.replace('#','');
-  var map = { 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
+  var map = { 'robotti-juoksi':'post16', 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
   if (map[hash]) { showPage('blog'); openPost(map[hash]); }
 })();
 </script>
