@@ -114,7 +114,7 @@
   .contact-note { margin-top: 2.5rem; font-size: 0.88rem; color: var(--muted); line-height: 1.8; max-width: 480px; }
 
 
-  .home-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
+  .home-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-bottom: 2rem; }
   .home-grid-item { cursor: pointer; border: 0; border-radius: 0; overflow: visible; }
   .home-grid-item:hover .home-grid-title,
   .home-grid-item:focus-visible .home-grid-title { color: var(--text); }
@@ -127,6 +127,19 @@
   .home-grid-title { font-size: 0.88rem; font-weight: 500; line-height: 1.4; color: var(--accent);
     transition: color var(--t-nopea) var(--ease); }
   @media (max-width: 600px) { .home-grid { grid-template-columns: 1fr; } }
+  @media (max-width: 1023px) and (min-width: 601px) {
+    .home-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  /* Kaksi mittaa (AAG): juokseva teksti 656 px, korttiruudukko 956 px.
+     Negatiivinen marginaali sailyttaa .home-bodyn keskityksen eika
+     vaadi muutosta DOM-rakenteeseen. 1020 = 956 + 2 x 32 px pehmuste. */
+  @media (min-width: 1024px) {
+    .hero-content { max-width: 1020px; }
+    .home-body > hr.divider,
+    .home-body > .page-sub,
+    .home-body > .home-grid,
+    .home-body > .latest-link { margin-left: -150px; margin-right: -150px; }
+  }
   @media (max-width: 640px) {
     nav { padding: 0.8rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
     .nav-logo-text { font-size: 0.85rem; }
@@ -156,6 +169,41 @@
       animation-iteration-count: 1 !important;
       scroll-behavior: auto !important;
     }
+  }
+  /* Aihesuodatin. Ei pillereita eika reunuksia: aktiivinen erottuu kullalla
+     ja alleviivauksella, muut ovat pelkkaa versaalitekstia kuten muutkin
+     kyltit. Napit ovat oikeita <button>-elementteja eli nappaimistolla
+     tavoitettavia ilman erillista kasittelijaa. */
+  .aihe-suodatin { display: flex; flex-wrap: wrap; gap: 1.15rem; margin-bottom: 2.2rem; }
+  .aihe-nappi { background: none; border: 0; padding: 0 0 0.3rem; cursor: pointer;
+    font-family: 'Inter', sans-serif; font-size: 0.72rem; letter-spacing: var(--track-kyltti);
+    text-transform: uppercase; color: var(--muted); border-bottom: 1px solid transparent;
+    transition: color var(--t-nopea) var(--ease), border-color var(--t-nopea) var(--ease); }
+  .aihe-nappi:hover { color: var(--text); }
+  .aihe-nappi[aria-pressed="true"] { color: var(--kulta); border-bottom-color: var(--kulta); }
+  .suodatin-tyhja { color: var(--muted); font-size: 0.88rem; padding: 1.5rem 0; }
+
+  /* Edellinen ja seuraava. Rakennetaan ajossa yhdesta elementista eika
+     kopioida jokaiseen kirjoitukseen, ja jarjestys luetaan NAKYVISTA
+     listariveista, joten lohko seuraa aihesuodatinta. */
+  .post-nav { max-width: 640px; margin-top: 3rem; padding-top: 1.5rem;
+    border-top: 1px solid var(--border); display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 1.5rem; }
+  .post-nav-item { cursor: pointer; min-width: 0; }
+  .post-nav-item.next { text-align: right; }
+  .post-nav-lab { font-size: 0.68rem; letter-spacing: var(--track-kyltti);
+    text-transform: uppercase; color: var(--muted); margin-bottom: 0.4rem; }
+  .post-nav-title { font-size: 0.88rem; font-weight: 500; line-height: 1.4;
+    color: var(--accent); transition: color var(--t-nopea) var(--ease); }
+  .post-nav-item:hover .post-nav-title,
+  .post-nav-item:focus-visible .post-nav-title { color: var(--text); }
+
+  /* Mobiiliohitus on TASSA eika ylemmassa 640 px:n lohkossa: media-kysely
+     ei lisaa tarkkuutta, joten myohempi .post-nav-saanto voitti sen. */
+  @media (max-width: 640px) {
+    .post-nav { grid-template-columns: minmax(0, 1fr); gap: 1.2rem; }
+    .post-nav-item.next { text-align: left; }
+    .aihe-suodatin { gap: 0.9rem 1rem; margin-bottom: 1.8rem; }
   }
 </style>
 </head>
@@ -218,6 +266,7 @@
   <div class="wrap">
     <div id="blog-list">
       <h2 class="page-heading">Kirjoitukset</h2>
+      <div class="aihe-suodatin" id="aiheSuodatin" role="group" aria-label="Suodata aiheen mukaan"></div>
         <ul class="post-list">
 
 
@@ -773,6 +822,7 @@
         <button class="share-btn" onclick="copyLink('tampereen-pormestari')">Kopioi linkki</button>
       </div>
     </div>
+    <div id="postNav" class="post-nav" style="display:none"></div>
 
   </div>
 </div>
@@ -835,10 +885,13 @@ function openPost(id) {
   document.getElementById(id).style.display = 'block';
   var anchors = { post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
   if (anchors[id]) { window.location.hash = anchors[id]; }
+  naytaPostNav(id);
   window.scrollTo(0, 0);
 }
 
 function backToList() {
+  var pn = document.getElementById('postNav');
+  if (pn) { pn.style.display = 'none'; }
   document.getElementById('blog-list').style.display = 'block';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   window.location.hash = '';
@@ -857,6 +910,86 @@ function copyLink(anchor) {
     prompt('Kopioi linkki:', url);
   }
 }
+
+var KAIKKI_AIHEET = 'Kaikki';
+
+/* Suodatin rakennetaan listariveista, ei kovakoodatusta listasta: nain
+   FI- ja EN-tiedostot toimivat samalla koodilla ja uusi aihe ilmestyy
+   suodattimeen itsestaan kun kirjoitus lisataan. */
+function rakennaSuodatin() {
+  var host = document.getElementById('aiheSuodatin');
+  if (!host || host.children.length) { return; }
+  var rivit = [].slice.call(document.querySelectorAll('#blog-list .post-item'));
+  var aiheet = [];
+  rivit.forEach(function (li) {
+    var meta = li.querySelector('.post-item-meta');
+    var aihe = meta ? meta.textContent.split('\u00b7').pop().trim() : '';
+    li.setAttribute('data-aihe', aihe);
+    if (aihe && aiheet.indexOf(aihe) === -1) { aiheet.push(aihe); }
+  });
+  aiheet.sort(function (a, b) { return a.localeCompare(b); });
+  aiheet.unshift(KAIKKI_AIHEET);
+  aiheet.forEach(function (aihe, i) {
+    var b = document.createElement('button');
+    b.type = 'button';
+    b.className = 'aihe-nappi';
+    b.textContent = aihe;
+    b.setAttribute('aria-pressed', i === 0 ? 'true' : 'false');
+    b.addEventListener('click', function () { suodataAihe(aihe); });
+    host.appendChild(b);
+  });
+}
+
+function suodataAihe(aihe) {
+  var rivit = [].slice.call(document.querySelectorAll('#blog-list .post-item'));
+  var nakyvia = 0;
+  rivit.forEach(function (li) {
+    var osuu = (aihe === KAIKKI_AIHEET) || (li.getAttribute('data-aihe') === aihe);
+    li.style.display = osuu ? '' : 'none';
+    if (osuu) { nakyvia++; }
+  });
+  [].slice.call(document.querySelectorAll('.aihe-nappi')).forEach(function (b) {
+    b.setAttribute('aria-pressed', b.textContent === aihe ? 'true' : 'false');
+  });
+  /* Ensimmaisen NAKYVAN rivin ylaviiva: .post-item:first-child -saanto ei
+     seuraa suodatusta, koska piilotettu rivi on yha first-child. */
+  var eka = true;
+  rivit.forEach(function (li) {
+    if (li.style.display === 'none') { return; }
+    li.style.borderTop = eka ? '1px solid var(--border)' : 'none';
+    eka = false;
+  });
+}
+
+/* Edellinen ja seuraava luetaan nakyvista riveista, joten lohko noudattaa
+   aihesuodatinta. Lista on uusin ensin, joten seuraava = pienempi indeksi. */
+function naytaPostNav(id) {
+  var el = document.getElementById('postNav');
+  if (!el) { return; }
+  var rivit = [].slice.call(document.querySelectorAll('#blog-list .post-item'))
+    .filter(function (li) { return li.style.display !== 'none'; });
+  var idt = rivit.map(function (li) {
+    var m = li.getAttribute('onclick').match(/post\d+/);
+    return m ? m[0] : '';
+  });
+  var i = idt.indexOf(id);
+  if (i < 0) { el.style.display = 'none'; return; }
+  var osat = [];
+  osat.push(idt[i + 1]
+    ? '<div class="post-nav-item prev" tabindex="0" role="link" data-nap onclick="openPost(\'' + idt[i + 1] + '\')">'
+      + '<div class="post-nav-lab">Edellinen</div><div class="post-nav-title">'
+      + rivit[i + 1].querySelector('.post-item-title').textContent + '</div></div>'
+    : '<div></div>');
+  osat.push(idt[i - 1]
+    ? '<div class="post-nav-item next" tabindex="0" role="link" data-nap onclick="openPost(\'' + idt[i - 1] + '\')">'
+      + '<div class="post-nav-lab">Seuraava</div><div class="post-nav-title">'
+      + rivit[i - 1].querySelector('.post-item-title').textContent + '</div></div>'
+    : '<div></div>');
+  el.innerHTML = osat.join('');
+  el.style.display = 'grid';
+}
+
+rakennaSuodatin();
 
 (function checkHash() {
   var hash = window.location.hash.replace('#','');
