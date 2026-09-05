@@ -33,6 +33,9 @@
   :root {
     --bg: #141414; --text: #ffffff; --muted: #9b9b9b;
     --border: #222222; --accent: #d0d0d0; --max: 720px;
+    --kulta: #C4AD6E; --kulta-kirkas: #E3CB94;
+    --track-kyltti: .14em;
+    --t-nopea: .18s; --ease: cubic-bezier(.22,.61,.36,1);
   }
   body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; min-height: 100vh; }
 
@@ -41,17 +44,22 @@
   .nav-logo img { height: 28px; width: auto; opacity: 0.9; }
   .nav-logo-text { font-size: 0.95rem; font-weight: 500; }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.07em; text-transform: uppercase; transition: color 0.2s; cursor: pointer; }
-  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: var(--track-kyltti); text-transform: uppercase; transition: color var(--t-nopea) var(--ease); cursor: pointer; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--kulta); }
 
   .page { display: none; padding-top: 60px; }
   .page.active { display: block; }
 
   .hero { position: relative; height: 46vh; min-height: 320px; max-height: 520px; overflow: hidden; display: flex; align-items: flex-end; }
-  .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; filter: brightness(0.35); }
+  .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; filter: brightness(0.85); }
+  /* Peite alaosaan gradienttina, ei tasaisena suodattimena: kuvan vaaleat
+     kohdat sailyvat ylhaalla ja teksti saa taustan siella missa se istuu. */
+  .hero::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(20,20,20,0) 0%, rgba(20,20,20,0) 50.9%, rgba(20,20,20,.85) 90%, rgba(20,20,20,.85) 100%); }
   .hero-content { position: relative; z-index: 2; max-width: var(--max); margin: 0 auto; width: 100%; padding: 2.2rem 2rem; }
-  .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
-  .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 400; line-height: 1.25; max-width: 560px; }
+  .hero-eyebrow { font-size: 0.72rem; letter-spacing: var(--track-kyltti); text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+  .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 400; line-height: 1.25; max-width: 560px; letter-spacing: -0.02em; }
 
   .home-body { max-width: var(--max); margin: 0 auto; padding: 1.6rem 2rem 5rem; }
   /* Heron jalkeinen ensimmainen viiva ei tarvitse omaa ylamarginaalia: se
@@ -59,42 +67,47 @@
   .home-body > hr.divider:first-child { margin-top: 0; }
   .home-body p { color: var(--accent); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1.2rem; }
   hr.divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  /* .home-body p on (0,1,1) ja voitti .page-subin (0,1,0): etusivun kyltti
+     renderoitui 15,52 px:na ja harmaana. Sama tarkkuusluokka korjaa sen. */
+  .home-body .page-sub { color: var(--kulta); font-size: 0.82rem; line-height: 1.5; }
   .latest-link { font-size: 0.82rem; color: var(--muted); }
   .latest-link a { color: var(--accent); text-decoration: none; cursor: pointer; }
   .latest-link a:hover { color: var(--text); }
 
   .wrap { max-width: var(--max); margin: 0 auto; padding: 3rem 2rem 5rem; }
-  .page-heading { font-size: 1.4rem; font-weight: 500; margin-bottom: 0.3rem; }
-  .page-sub { color: var(--muted); font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 2.5rem; }
+  .page-heading { font-size: 1.4rem; font-weight: 500; margin-bottom: 0.3rem; letter-spacing: -0.01em; }
+  .page-sub { color: var(--kulta); font-size: 0.82rem; letter-spacing: var(--track-kyltti); text-transform: uppercase; margin-bottom: 2.5rem; }
 
   .post-list { list-style: none; }
   .post-item { padding: 1.6rem 0; border-bottom: 1px solid var(--border); cursor: pointer; }
   .post-item:first-child { border-top: 1px solid var(--border); }
-  .post-item:hover .post-item-title { color: var(--accent); }
-  .post-item-meta { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
-  .post-item-title { font-size: 1.15rem; font-weight: 500; margin-bottom: 0.5rem; transition: color 0.2s; line-height: 1.35; }
+  .post-item:hover .post-item-title,
+  .post-item:focus-visible .post-item-title { color: var(--text); }
+  .post-item-meta { font-size: 0.68rem; color: var(--muted); letter-spacing: var(--track-kyltti); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .post-item-title { font-size: 1.15rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--accent);
+    transition: color var(--t-nopea) var(--ease); line-height: 1.35; }
   .post-item-excerpt { font-size: 0.84rem; color: #787878; line-height: 1.65; }
 
   .post-full { display: none; }
-  .back-btn { background: none; border: none; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.07em; text-transform: uppercase; cursor: pointer; padding: 0; margin-bottom: 2.5rem; font-family: 'Inter', sans-serif; transition: color 0.2s; }
+  .back-btn { background: none; border: none; color: var(--muted); font-size: 0.75rem; letter-spacing: var(--track-kyltti); text-transform: uppercase; cursor: pointer; padding: 0; margin-bottom: 2.5rem; font-family: 'Inter', sans-serif; transition: color var(--t-nopea) var(--ease); }
   .back-btn:hover { color: var(--text); }
-  .post-full-title { font-size: clamp(1.3rem, 3.5vw, 1.9rem); font-weight: 500; line-height: 1.3; margin-bottom: 0.5rem; max-width: 620px; }
-  .post-full-meta { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .post-full-title { font-size: clamp(1.3rem, 3.5vw, 1.9rem); font-weight: 500; line-height: 1.3; margin-bottom: 0.5rem; max-width: 620px; letter-spacing: -0.015em; }
+  .post-full-meta { font-size: 0.72rem; color: var(--muted); letter-spacing: var(--track-kyltti); text-transform: uppercase; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
   .post-body { color: #c8c8c8; font-size: 0.97rem; line-height: 1.9; max-width: 640px; }
   .post-body p { margin-bottom: 1.3rem; }
-  .post-body a { color: inherit; text-decoration: underline; text-decoration-color: #6a6a6a; text-underline-offset: 3px; transition: text-decoration-color 0.2s; }
-  .post-body a:hover { text-decoration-color: var(--text); }
+  .post-body a { color: inherit; text-decoration: underline; text-decoration-color: var(--kulta); text-underline-offset: 3px; transition: text-decoration-color var(--t-nopea) var(--ease); }
+  .post-body a:hover { text-decoration-color: var(--kulta-kirkas); }
   .post-body a:visited { color: inherit; }
 
-  .post-image { width: 100%; max-width: 640px; border-radius: 4px; margin-bottom: 2rem; display: block; }
+  .post-image { width: 100%; height: auto; max-width: 640px; border-radius: 0; margin-bottom: 2rem; display: block; }
   .share-row { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; }
-  .share-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
-  .share-btn { background: none; border: 1px solid #333; color: var(--muted); font-size: 0.75rem; padding: 0.3rem 0.85rem; border-radius: 3px; cursor: pointer; font-family: 'Inter', sans-serif; letter-spacing: 0.04em; transition: border-color 0.2s, color 0.2s; }
+  .share-label { font-size: 0.72rem; color: var(--muted); letter-spacing: var(--track-kyltti); text-transform: uppercase; }
+  .share-btn { background: none; border: 1px solid #333; color: var(--muted); font-size: 0.75rem; padding: 0.3rem 0.85rem; border-radius: 0; cursor: pointer; font-family: 'Inter', sans-serif; letter-spacing: var(--track-kyltti); transition: border-color var(--t-nopea) var(--ease), color var(--t-nopea) var(--ease); }
   .share-btn:hover { border-color: var(--muted); color: var(--text); }
 
   .contact-block { margin-top: 1rem; }
   .contact-row { display: flex; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--border); align-items: baseline; }
-  .contact-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; width: 110px; flex-shrink: 0; }
+  .contact-label { font-size: 0.72rem; color: var(--muted); letter-spacing: var(--track-kyltti); text-transform: uppercase; width: 110px; flex-shrink: 0; }
   .contact-val { font-size: 0.95rem; color: var(--accent); }
   .contact-val a { color: inherit; text-decoration: none; }
   .contact-val a:hover { color: var(--text); }
@@ -102,20 +115,24 @@
 
 
   .home-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
-  .home-grid-item { cursor: pointer; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.2s; }
-  .home-grid-item:hover { border-color: #444; }
-  .home-grid-item:hover .home-grid-title { color: var(--accent); }
-  .home-grid-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; filter: brightness(0.85); }
-  .home-grid-body { padding: 0.9rem 1rem; }
-  .home-grid-meta { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.35rem; }
-  .home-grid-title { font-size: 0.88rem; font-weight: 500; line-height: 1.4; transition: color 0.2s; }
+  .home-grid-item { cursor: pointer; border: 0; border-radius: 0; overflow: visible; }
+  .home-grid-item:hover .home-grid-title,
+  .home-grid-item:focus-visible .home-grid-title { color: var(--text); }
+  .home-grid-img { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; display: block;
+    filter: brightness(0.92); transition: filter var(--t-nopea) var(--ease); }
+  .home-grid-item:hover .home-grid-img,
+  .home-grid-item:focus-visible .home-grid-img { filter: brightness(1); }
+  .home-grid-body { padding: 0.85rem 0 0; }
+  .home-grid-meta { font-size: 0.68rem; color: var(--muted); letter-spacing: var(--track-kyltti); text-transform: uppercase; margin-bottom: 0.35rem; }
+  .home-grid-title { font-size: 0.88rem; font-weight: 500; line-height: 1.4; color: var(--accent);
+    transition: color var(--t-nopea) var(--ease); }
   @media (max-width: 600px) { .home-grid { grid-template-columns: 1fr; } }
   @media (max-width: 640px) {
     nav { padding: 0.8rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
     .nav-logo-text { font-size: 0.85rem; }
     .nav-logo img { height: 22px; }
     .nav-links { gap: 0.9rem; }
-    .nav-links a { font-size: 0.7rem; letter-spacing: 0.04em; }
+    .nav-links a { font-size: 0.7rem; }
     .hero { height: 38vh; min-height: 240px; }
     .hero h1 { font-size: 1.5rem; }
     .hero-content, .home-body, .wrap { padding-left: 1rem; padding-right: 1rem; }
@@ -127,19 +144,32 @@
     .contact-label { width: auto; }
     .page-heading { font-size: 1.2rem; }
   }
+
+  /* Nakyva kohdistus: sivulla ei ollut yhtaan focus-tyylia ennen tata. */
+  :focus-visible { outline: 2px solid var(--kulta); outline-offset: 3px; }
+  .home-grid-item:focus-visible, .post-item:focus-visible { outline-offset: 4px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: .01ms !important;
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+  }
 </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" onclick="showPage('home')">
-    <img src="Kuvat/logo.png" alt="K">
+  <a class="nav-logo" tabindex="0" role="link" data-nap onclick="showPage('home')">
+    <img width="612" height="408" decoding="async" src="Kuvat/logo.png" alt="K">
     <span class="nav-logo-text">Tuomas Kuusisto</span>
   </a>
   <ul class="nav-links">
-    <li><a onclick="showPage('home')" id="nav-home" class="active">Etusivu</a></li>
-    <li><a onclick="showPage('blog')" id="nav-blog">Kirjoitukset</a></li>
-    <li><a onclick="showPage('contact')" id="nav-contact">Yhteystiedot</a></li>
+    <li><a tabindex="0" role="link" data-nap onclick="showPage('home')" id="nav-home" class="active" aria-current="page">Etusivu</a></li>
+    <li><a tabindex="0" role="link" data-nap onclick="showPage('blog')" id="nav-blog">Kirjoitukset</a></li>
+    <li><a tabindex="0" role="link" data-nap onclick="showPage('contact')" id="nav-contact">Yhteystiedot</a></li>
     <li><a href="/en/" title="In English">EN</a></li>
   </ul>
 </nav>
@@ -157,30 +187,29 @@
     <hr class="divider">
     <p class="page-sub" style="margin-bottom:1.2rem">Uusimmat kirjoitukset</p>
     <div class="home-grid">
-      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post17')">
-        <img class="home-grid-img" src="Kuvat/post17-kun-hysteria-palasi.jpg" alt="Kuvituskuva: 1800-luvun asuun pukeutunut nainen, silmill&auml;&auml;n side jossa lukee HYSTERIA, takanaan kolme silinterip&auml;ist&auml; miest&auml;, oikealla tyhj&auml; nykyaikaisen oikeussalin valamiehist&ouml;n aitio">
+      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post17')">
+        <img class="home-grid-img" decoding="async" width="760" height="760" src="Kuvat/post17-kun-hysteria-palasi.jpg" alt="Kuvituskuva: 1800-luvun asuun pukeutunut nainen, silmill&auml;&auml;n side jossa lukee HYSTERIA, takanaan kolme silinterip&auml;ist&auml; miest&auml;, oikealla tyhj&auml; nykyaikaisen oikeussalin valamiehist&ouml;n aitio">
         <div class="home-grid-body">
           <div class="home-grid-meta">5.9.2026 &middot; Yhteiskunta</div>
           <div class="home-grid-title">Kun hysteria palasi oikeussaliin</div>
         </div>
       </div>
-      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post16')">
-        <img class="home-grid-img" src="Kuvat/post16-robotti-juoksi.jpg" alt="Kuvituskuva: juokseva humanoidirobotti stadionilla ja hillopurkki EU-lipun edess&auml;">
+      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post16')">
+        <img class="home-grid-img" decoding="async" width="760" height="507" src="Kuvat/post16-robotti-juoksi.jpg" alt="Kuvituskuva: juokseva humanoidirobotti stadionilla ja hillopurkki EU-lipun edess&auml;">
         <div class="home-grid-body">
           <div class="home-grid-meta">3.9.2026 &middot; Teknologia</div>
           <div class="home-grid-title">Robotti juoksi. Eurooppa s&auml;&auml;nteli.</div>
         </div>
       </div>
-      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post15')">
-        <img class="home-grid-img" src="Kuvat/post15-same-lindsay.jpg" alt="Kuvituskuva: mielenosoittajia oikeustalon edess&auml; ja Same, Lindsay -trendi">
+      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post15')">
+        <img class="home-grid-img" decoding="async" width="760" height="507" src="Kuvat/post15-same-lindsay.jpg" alt="Kuvituskuva: mielenosoittajia oikeustalon edess&auml; ja Same, Lindsay -trendi">
         <div class="home-grid-body">
           <div class="home-grid-meta">1.9.2026 &middot; Yhteiskunta</div>
           <div class="home-grid-title">Lindsay Clancy. Kun empatia ohittaa oikeuden.</div>
         </div>
       </div>
-      </div>
     </div>
-    <p class="latest-link"><a onclick="showPage('blog')">Kaikki kirjoitukset &rarr;</a></p>
+    <p class="latest-link"><a tabindex="0" role="link" data-nap onclick="showPage('blog')">Kaikki kirjoitukset &rarr;</a></p>
   </div>
 </div>
 
@@ -188,54 +217,54 @@
 <div id="page-blog" class="page">
   <div class="wrap">
     <div id="blog-list">
-      <h1 class="page-heading">Kirjoitukset</h1>
+      <h2 class="page-heading">Kirjoitukset</h2>
         <ul class="post-list">
 
 
-        <li class="post-item" onclick="openPost('post17')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post17')">
           <div class="post-item-meta">5.9.2026 &middot; Yhteiskunta</div>
           <div class="post-item-title">Kun hysteria palasi oikeussaliin</div>
           <div class="post-item-excerpt">Kaksi vanhempaa tappoi kolme lastaan samana vuonna. Toisen puolesta kokoontui satoja ihmisi&auml; oikeustalon eteen, toisen puolesta ei kukaan. Ero ei ole todistusaineistossa.</div>
         </li>
-        <li class="post-item" onclick="openPost('post16')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post16')">
           <div class="post-item-meta">3.9.2026 &middot; Teknologia</div>
           <div class="post-item-title">Robotti juoksi. Eurooppa s&auml;&auml;nteli.</div>
           <div class="post-item-excerpt">Hillon hedelm&auml;pitoisuus nousi kes&auml;kuussa. Samoina kuukausina robotti juoksi sata metri&auml; 8,64 sekuntiin, teko&auml;ly vei l&auml;&auml;keaihion faasi kolmeen ja kumosi kahdeksankymment&auml; vuotta auki olleen konjektuurin. Euroopan vastaus oli lykk&auml;ys.</div>
         </li>
-        <li class="post-item" onclick="openPost('post15')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post15')">
           <div class="post-item-meta">1.9.2026 &middot; Yhteiskunta</div>
           <div class="post-item-title">Lindsay Clancy. Kun empatia ohittaa oikeuden.</div>
           <div class="post-item-excerpt">&Auml;iti kuristi kolme lastaan ja my&ouml;nt&auml;&auml; sen. Silti sadat naiset seisovat oikeustalon edess&auml; &rdquo;Believe&rdquo;-paidoissa, ja TikTokissa &auml;idit samaistuvat h&auml;neen. Kenen intressej&auml; t&auml;llainen liike palvelee?</div>
         </li>
-        <li class="post-item" onclick="openPost('post14')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post14')">
           <div class="post-item-meta">26.8.2026 &middot; Teknologia</div>
           <div class="post-item-title">Yksi tiedosto tekee tyhj&auml;ksi koko EU:n teko&auml;lys&auml;&auml;ntelyn</div>
           <div class="post-item-excerpt">Alibaban avoin teko&auml;lymalli julkaistiin 14. elokuuta. Kolmessa vuorokaudessa siit&auml; oli verkossa versio ilman turvarajoitteita. EU:n vastaus on asetus, joka velvoittaa mallien tekij&ouml;it&auml; &mdash; mutta ladatulla tiedostolla ei ole tekij&auml;&auml;.</div>
         </li>
-        <li class="post-item" onclick="openPost('post13')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post13')">
           <div class="post-item-meta">25.8.2026 &middot; Yhteiskunta</div>
           <div class="post-item-title">Py&ouml;r&ouml;ovi saa saranat &mdash; mutta ovi k&auml;y viel&auml; vapaasti</div>
           <div class="post-item-excerpt">Uusi karenssilaki rajoittaa ministerin siirtymist&auml; edunvalvojaksi &mdash; mutta se ei koske yht&auml;k&auml;&auml;n nykyist&auml; ministeri&auml;, ilmoitus tulee julkiseksi vasta j&auml;lkik&auml;teen, ja kansanedustajista laki vaikenee.</div>
         </li>
-        <li class="post-item" onclick="openPost('post12')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post12')">
           <div class="post-item-meta">21.8.2026 &middot; Yhteiskunta</div>
           <div class="post-item-title">Tasa-arvon nimiss&auml;</div>
           <div class="post-item-excerpt">Nainen vapautetaan perinteisest&auml; hoivaajan roolista, mutta hoivavietti&auml; ei poisteta. Mit&auml; tasa-arvolla oikeastaan tarkoitetaan &mdash; ja kuka m&auml;&auml;rittelee hyv&auml;ksytt&auml;v&auml;n puheen rajat?</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post10')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post10')">
           <div class="post-item-meta">15.6.2026 &middot; Ulkopolitiikka</div>
           <div class="post-item-title">1 200 000 000 000 $</div>
           <div class="post-item-excerpt">30 vuodessa l&auml;nsi on siirt&auml;nyt Afrikkaan 1,2 biljoonaa dollaria kehitysapua. Afrikka edusti 1990 14&nbsp;% maailman k&ouml;yhistä. Vuonna 2024 luku on 67&nbsp;%.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post8')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post8')">
           <div class="post-item-meta">6.6.2026 &middot; Yhteiskunta</div>
           <div class="post-item-title">Tasavalta ja vapaa maailma</div>
           <div class="post-item-excerpt">Rikkain 10&nbsp;% omistaa yli puolet kaikesta. K&ouml;yhin 50&nbsp;% omistaa 4&nbsp;%. Mik&auml;si j&auml;rjestelm&auml; ei korjaa itse&auml;&auml;n &mdash; ja mik&auml; pit&auml;&auml; sen paikallaan.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post5')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post5')">
           <div class="post-item-meta">5.6.2026 &middot; Yhteiskunta</div>
           <div class="post-item-title">Kela ja Pride: julkinen virasto poliittisen kumppanin rahoittajana</div>
           <div class="post-item-excerpt">Kela on solminut kolmivuotisen kumppanuussopimuksen Helsinki Priden kanssa &mdash; organisaation, joka sulki keskustan ja kokoomuksen ulos arvojen perusteella. Veronmaksajien rahoilla.</div>
@@ -245,43 +274,43 @@
              anna uusi id openPost('post5'), muuta teksti.
              Lisa vastaava <div id="post5"> -lohko alle. -->
 
-        <li class="post-item" onclick="openPost('post1')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post1')">
           <div class="post-item-meta">1.6.2026 &middot; Media</div>
           <div class="post-item-title">Keskustelu on p&auml;&auml;ttynyt &ndash; s&auml;&auml;st&ouml;syist&auml;</div>
           <div class="post-item-excerpt">Julkisen palvelun media vet&auml;ytyy alustalta, jonka kautta se tavoitti eniten kansalaisia. S&auml;&auml;st&ouml;t ovat perustelu, mutta eiv&auml;t selitys.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post6')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post6')">
           <div class="post-item-meta">1.6.2026 &middot; Ulkopolitiikka</div>
           <div class="post-item-title">Jaloa kaksinaismoraalia</div>
           <div class="post-item-excerpt">Arvopohjainen realismi kuulostaa hienolta. Käytännössä se tarkoittaa, että kaksoistandardit ovat järjestelmän arvot — eivät sen ulkopuolinen ongelma.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post7')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post7')">
           <div class="post-item-meta">30.5.2026 &middot; Yhteiskunta</div>
           <div class="post-item-title">Menisitkö sinä?</div>
           <div class="post-item-excerpt">Jos sinulla ei ole järjestelmän rakenteen vuoksi omaisuutta, asuntoa eikä realistista tulevaisuutta Suomessa, mitkä ovat ne konkreettiset asiat, joita lähtisit puolustamaan?</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post4')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post4')">
           <div class="post-item-meta">28.5.2026 &middot; Yhteiskunta</div>
           <div class="post-item-title">Uhripörssi: identiteettipolitiikan ristiriita</div>
           <div class="post-item-excerpt">Identiteettipolitiikan retoriikka on viehättävää — diversiteetti, monimuotoisuus, tasa-arvo. Ongelma paljastuu, kun saman sateenvarjon alle kerätyt ryhmät kantavat keskenään yhteensovittamattomia arvoja.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post11')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post11')">
           <div class="post-item-meta">25.5.2026 &middot; Yhteiskunta</div>
           <div class="post-item-title">Riemu &mdash; maailma t&auml;ynn&auml; mahdollisuuksia</div>
           <div class="post-item-excerpt">Suomessa on yli 100&nbsp;000 rekister&ouml;ity&auml; j&auml;rjest&ouml;&auml;. Riemu Finland ry sai STEAlta l&auml;hes 7 miljoonaa euroa kymmenessä vuodessa. Toiminta oli muutamia Teams-tietovisoja vuodessa.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post9')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post9')">
           <div class="post-item-meta">1.5.2026 &middot; Media</div>
           <div class="post-item-title">Yle, vallan vahtikoira</div>
           <div class="post-item-excerpt">Yle teki Tampereen vappumielenosoituksesta yli 20 juttua viikossa. Vahtikoira haukkuu poliisia nilkkaan &mdash; mutta nuolee pormestarin saappaan kun tämä polkee perusoikeuksia.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post3')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post3')">
           <div class="post-item-meta">18.3.2026 &middot; Politiikka</div>
           <div class="post-item-title">Tampereen pormestari ja mediak&auml;sittelyn kaksoisstandardi</div>
           <div class="post-item-excerpt">Kun tapahtuma on poliittisesti sopiva, se saa p&auml;&auml;kirjoitukset. Kun se ei sovi, se saa tilastot. T&auml;m&auml; ei ole sattumaa.</div>
@@ -292,9 +321,9 @@
 
     <div id="post17" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Kun hysteria palasi oikeussaliin</h1>
+      <h2 class="post-full-title">Kun hysteria palasi oikeussaliin</h2>
       <div class="post-full-meta">5.9.2026 &middot; Yhteiskunta &middot; tuomaskuusisto.fi/#kun-hysteria-palasi</div>
-      <img class="post-image" src="Kuvat/post17-kun-hysteria-palasi.jpg" alt="Kuvituskuva: 1800-luvun asuun pukeutunut nainen, silmill&auml;&auml;n side jossa lukee HYSTERIA, takanaan kolme silinterip&auml;ist&auml; miest&auml;, oikealla tyhj&auml; nykyaikaisen oikeussalin valamiehist&ouml;n aitio">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="760" src="Kuvat/post17-kun-hysteria-palasi.jpg" alt="Kuvituskuva: 1800-luvun asuun pukeutunut nainen, silmill&auml;&auml;n side jossa lukee HYSTERIA, takanaan kolme silinterip&auml;ist&auml; miest&auml;, oikealla tyhj&auml; nykyaikaisen oikeussalin valamiehist&ouml;n aitio">
       <div class="post-body">
         <p>Vuonna 2023 Yhdysvalloissa kaksi vanhempaa tappoi kolme lastaan.</p>
         <p>Tammikuussa Lindsay Clancy kuristi Massachusettsissa Coran 5, Dawsonin 3 ja Callanin 8 kk. Kes&auml;kuussa Chad Doerman ampui Ohiossa Claytonin 7, Hunterin 4 ja Chasen 3. Doerman kertoi tutkijoille tehneens&auml; sen <a href="https://www.fox10tv.com/2026/08/20/father-admits-killing-his-3-sons-god-newly-released-interview-by-sheriffs-office/" target="_blank" rel="noopener">Jumalan t&auml;hden</a>. H&auml;n sai <a href="https://en.wikipedia.org/wiki/Doerman_family_murders" target="_blank" rel="noopener">kolme per&auml;kk&auml;ist&auml; elinkautista</a>.</p>
@@ -337,9 +366,9 @@
 
     <div id="post16" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Robotti juoksi. Eurooppa s&auml;&auml;nteli.</h1>
+      <h2 class="post-full-title">Robotti juoksi. Eurooppa s&auml;&auml;nteli.</h2>
       <div class="post-full-meta">3.9.2026 &middot; Teknologia &middot; tuomaskuusisto.fi/#robotti-juoksi</div>
-      <img class="post-image" src="Kuvat/post16-robotti-juoksi.jpg" alt="Kuvituskuva: juokseva humanoidirobotti stadionilla ja hillopurkki EU-lipun edess&auml;">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="Kuvat/post16-robotti-juoksi.jpg" alt="Kuvituskuva: juokseva humanoidirobotti stadionilla ja hillopurkki EU-lipun edess&auml;">
       <div class="post-body">
         <p>Kyse on <a href="https://www.finlex.fi/fi/lainsaadanto/2025/226" target="_blank" rel="noopener">maa- ja mets&auml;talousministeri&ouml;n asetuksesta 226/2025</a>, joka tuli voimaan 14. kes&auml;kuuta 2026. Sill&auml; pannaan t&auml;yt&auml;nt&ouml;&ouml;n <a href="http://data.europa.eu/eli/dir/2024/1438/oj" target="_blank" rel="noopener">direktiivi (EU) 2024/1438</a>. Sis&auml;lt&ouml; on yksinkertainen: hillossa on oltava hedelm&auml;&auml; tai marjaa v&auml;hint&auml;&auml;n 450 grammaa kilossa. Ennen raja oli 350 grammaa. Erikoishillossa raja nousi 450 grammasta 500 grammaan. Jos tuote ei t&auml;yt&auml; rajaa, sit&auml; ei saa nimitt&auml;&auml; hilloksi.</p>
         <p>Ongelma ei ole s&auml;&auml;nt&ouml;. Ongelma on mittasuhteet.</p>
@@ -365,9 +394,9 @@
 
     <div id="post15" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Lindsay Clancy. Kun empatia ohittaa oikeuden.</h1>
+      <h2 class="post-full-title">Lindsay Clancy. Kun empatia ohittaa oikeuden.</h2>
       <div class="post-full-meta">1.9.2026 &middot; Yhteiskunta &middot; tuomaskuusisto.fi/#same-lindsay</div>
-      <img class="post-image" src="Kuvat/post15-same-lindsay.jpg" alt="Kuvituskuva: mielenosoittajia oikeustalon edess&auml; ja Same, Lindsay -trendi">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="Kuvat/post15-same-lindsay.jpg" alt="Kuvituskuva: mielenosoittajia oikeustalon edess&auml; ja Same, Lindsay -trendi">
       <div class="post-body">
         <p>Tammikuun 24. p&auml;iv&auml;n&auml; 2023 Lindsay Clancy, sairaanhoitaja Duxburysta Massachusettsista, kuristi kuntoilunauhoilla hengilt&auml; kolme lastaan: viisivuotiaan Coran, kolmevuotiaan Dawsonin ja kahdeksankuisen Callanin. Sen j&auml;lkeen h&auml;n yritti itsemurhaa hypp&auml;&auml;m&auml;ll&auml; toisen kerroksen ikkunasta ja halvaantui.</p>
         <p>Oikeudenk&auml;ynti alkoi hein&auml;kuussa 2026, ja syytt&auml;j&auml;n todistelu suunnitelmallisuudesta on julkista. Clancyn laitteilta l&ouml;ytyi hakuja muun muassa kaulavaltimon sijainnista, ja h&auml;n l&auml;hetti miehens&auml; noutoruoka- ja apteekkiasioille saadakseen noin puolen tunnin ikkunan, jonka aikana lapset kuolivat (<a href="https://www.nbcnews.com/news/us-news/lindsay-clancy-murder-trial-what-to-know-rcna593473" target="_blank" rel="noopener">NBC News</a>, <a href="https://en.wikipedia.org/wiki/Killing_of_the_Clancy_children" target="_blank" rel="noopener">Wikipedia</a>, suomeksi <a href="https://www.mtvuutiset.fi/artikkeli/aidin-kammottava-teko-jarkyttaa-yhdysvaltoja-oikeudenkayntia-seurataan-hetki-hetkelta/9378460" target="_blank" rel="noopener">MTV Uutiset</a>).</p>
@@ -389,9 +418,9 @@
     </div>
     <div id="post14" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Yksi tiedosto tekee tyhj&auml;ksi koko EU:n teko&auml;lys&auml;&auml;ntelyn</h1>
+      <h2 class="post-full-title">Yksi tiedosto tekee tyhj&auml;ksi koko EU:n teko&auml;lys&auml;&auml;ntelyn</h2>
       <div class="post-full-meta">26.8.2026 &middot; Teknologia &middot; tuomaskuusisto.fi/#yksi-tiedosto</div>
-      <img class="post-image" src="Kuvat/post14-yksi-tiedosto.jpg" alt="Henna Virkkunen A-studiossa">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="443" src="Kuvat/post14-yksi-tiedosto.jpg" alt="Henna Virkkunen A-studiossa">
       <div class="post-body">
         <p>Alibaba julkaisi 14. elokuuta teko&auml;lymallin nimelt&auml; Qwen3.8. Se toimii v&auml;h&auml;n kuin ChatGPT, mutta sill&auml; erolla ett&auml; kuka tahansa saa ladata sen omalle koneelleen. Kyse on yhdest&auml; tiedostosta, kooltaan noin 17 gigatavua. Se ei ole yhteydess&auml; mihink&auml;&auml;n palvelimeen. Se ei l&auml;het&auml; mit&auml;&auml;n kenellek&auml;&auml;n. Se on sinun koneellasi ja tekee mit&auml; k&auml;sket.</p>
         <p>Kolmessa vuorokaudessa julkaisusta verkossa oli jo versio, josta oli poistettu ne rajoitteet jotka est&auml;v&auml;t mallia auttamasta rikoksissa. Sit&auml; ei tarvinnut hakkeroida. Kun tiedosto on kerran omalla koneellasi, siit&auml; saa muokattua pois mit&auml; haluaa. Siihen riitt&auml;&auml; tavallinen pelitietokone ja yksi viikonloppu.</p>
@@ -411,9 +440,9 @@
     </div>
     <div id="post13" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Py&ouml;r&ouml;ovi saa saranat &mdash; mutta ovi k&auml;y viel&auml; vapaasti</h1>
+      <h2 class="post-full-title">Py&ouml;r&ouml;ovi saa saranat &mdash; mutta ovi k&auml;y viel&auml; vapaasti</h2>
       <div class="post-full-meta">25.8.2026 &middot; Yhteiskunta &middot; tuomaskuusisto.fi/#pyoroovi</div>
-      <img class="post-image" src="Kuvat/post13-pyoroovi.jpg" alt="Py&ouml;r&ouml;ovi saa saranat">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="428" src="Kuvat/post13-pyoroovi.jpg" alt="Py&ouml;r&ouml;ovi saa saranat">
       <div class="post-body">
         <p>Suomi sai t&auml;n&auml; kes&auml;n&auml; lain, jota valmisteltiin kahden hallituskauden ajan. Laki valtioneuvoston j&auml;senen teht&auml;v&auml;&auml;n liittyv&auml;st&auml; karenssista (738/2026) vahvistettiin hein&auml;kuussa, ja se tulee voimaan 15. syyskuuta. Ensimm&auml;ist&auml; kertaa Suomessa on laki siit&auml;, mit&auml; ministeri saa tehd&auml; heti sen j&auml;lkeen, kun h&auml;n lakkaa olemasta ministeri.</p>
         <p>Ilmi&ouml;ll&auml; on nimi: py&ouml;r&ouml;ovi. P&auml;&auml;tt&auml;j&auml; siirtyy teht&auml;v&auml;st&auml;, jossa h&auml;n valvoi jotakin alaa, saman alan palvelukseen &mdash; edunvalvojaksi, hallitukseen, konsultiksi. Ovi py&ouml;rii molempiin suuntiin, ja juuri siin&auml; on sen ongelma. Kysymys ei ole siit&auml;, ett&auml; siirtyminen olisi v&auml;&auml;rin. Ihmisell&auml; on oikeus ty&ouml;h&ouml;n, eik&auml; osaaminen katoa eron my&ouml;t&auml;. Kysymys on siit&auml;, mit&auml; siirtyj&auml; vie mukanaan: tietoa, jota muilla ei ole, ja suhteita, joita muilla ei ole.</p>
@@ -428,9 +457,9 @@
     </div>
     <div id="post12" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Tasa-arvon nimiss&auml;</h1>
+      <h2 class="post-full-title">Tasa-arvon nimiss&auml;</h2>
       <div class="post-full-meta">21.8.2026 &middot; Yhteiskunta &middot; tuomaskuusisto.fi/#tasa-arvon-nimissa</div>
-      <img class="post-image" src="Kuvat/post12-tasa-arvon-nimissa.jpg" alt="Tasa-arvon nimiss&auml;">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="906" src="Kuvat/post12-tasa-arvon-nimissa.jpg" alt="Tasa-arvon nimiss&auml;">
       <div class="post-body">
         <p>Nuorelle l&auml;nsimaiselle naiselle on vuosikymmenten ajan kerrottu, ett&auml; perheen perustaminen merkitsee alistumista, kun taas ty&ouml;el&auml;m&auml;&auml;n osallistuminen, taloudellinen itsen&auml;isyys ja urakehitys merkitsev&auml;t vapautta. Nainen ik&auml;&auml;n kuin vapautuu perinteisest&auml; perheroolistaan p&auml;&auml;tyess&auml;&auml;n ty&ouml;skentelem&auml;&auml;n monikansallisen yrityksen palveluksessa osakkeenomistajien tavoitteiden hyv&auml;ksi ja samalla valtion veronmaksajaksi.</p>
         <p>Yksi feminismin keskeisist&auml; yhteiskunnallisista seurauksista on ollut se, ett&auml; l&auml;nsimaisille yhteiskunnille vapautui valtava m&auml;&auml;r&auml; uutta ty&ouml;voimaa. Feministisen liikkeen tavoitteet ja taloudellisen j&auml;rjestelm&auml;n tarpeet ovat t&auml;ss&auml; mieless&auml; my&ouml;s sopineet varsin hyvin yhteen. Samalla naisille alettiin myyd&auml; viholliskuvastoa, jossa &ldquo;valkoiset heteromiehet&rdquo; esitet&auml;&auml;n helposti yhten&auml;isen&auml; sortavana monoliittina, vaikka kyseess&auml; on joukko kesken&auml;&auml;n hyvin erilaisia yksil&ouml;it&auml;.</p>
@@ -465,9 +494,9 @@
 
     <div id="post6" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Jaloa kaksinaismoraalia</h1>
+      <h2 class="post-full-title">Jaloa kaksinaismoraalia</h2>
       <div class="post-full-meta">1.6.2026 &middot; Ulkopolitiikka &middot; tuomaskuusisto.fi/#jaloa-kaksinaismoraalia</div>
-      <img class="post-image" src="Kuvat/post6-kaksinaismoraalia.png" alt="Jaloa kaksinaismoraalia">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="362" src="Kuvat/post6-kaksinaismoraalia.jpg" alt="Jaloa kaksinaismoraalia">
       <div class="post-body">
         <p>Arvopohjainen realismi kuulostaa hienolta. Mit&auml; se tarkoittaa k&auml;yt&auml;nn&ouml;ss&auml;?</p>
         <p>S&auml;&auml;nt&ouml;pohjaisen maailmanj&auml;rjestyksen s&auml;&auml;nt&ouml;j&auml; sovelletaan mielivaltaisesti tilanteesta riippuen. Ne ovat l&auml;ht&ouml;kohtaisesti kirjoitettu palvelemaan joidenkin tiettyjen valtaapitävien tahojen intressej&auml;. Tarkoituksena luoda illuusio vapauden tunteesta ja oikeudenmukaisuudesta.</p>
@@ -498,9 +527,9 @@
 
     <div id="post10" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">1 200 000 000 000 $</h1>
+      <h2 class="post-full-title">1 200 000 000 000 $</h2>
       <div class="post-full-meta">15.6.2026 &middot; Ulkopolitiikka &middot; tuomaskuusisto.fi/#kehitysapu</div>
-      <img class="post-image" src="Kuvat/post10-kehitysapu.png" alt="Afrikka vs Japani kehitysapu">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="416" src="Kuvat/post10-kehitysapu.jpg" alt="Afrikka vs Japani kehitysapu">
       <div class="post-body">
         <p>30 vuodessa l&auml;nsi on siirt&auml;nyt Afrikkaan 1,2 biljoonaa dollaria kehitysapua. Miljoona kaksisataatuhatta miljoonaa. Luku on niin suuri, ett&auml; sit&auml; on vaikea hahmottaa. Katsotaan mit&auml; sill&auml; on siis saatu.</p>
         <p>Vuonna 1990 Saharan etel&auml;puolinen Afrikka edusti 14 prosenttia maailman k&ouml;yhistä. Vuonna 2024 luku on 67 prosenttia. Samassa ajassa kun Aasia nosti satoja miljoonia ihmisi&auml; k&ouml;yhyydest&auml;, Afrikka j&auml;i niin pahasti j&auml;lkeen, ett&auml; alueella el&auml;&auml; nyt kaksi kolmasosaa maailman k&ouml;yhimmist&auml;. Ja lasku t&auml;st&auml; ep&auml;onnistumisesta ei j&auml;&auml; Afrikkaan.</p>
@@ -529,9 +558,9 @@
 
     <div id="post8" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Tasavalta ja vapaa maailma</h1>
+      <h2 class="post-full-title">Tasavalta ja vapaa maailma</h2>
       <div class="post-full-meta">6.6.2026 &middot; Yhteiskunta &middot; tuomaskuusisto.fi/#tasavalta</div>
-      <img class="post-image" src="Kuvat/post8-tasavalta.png" alt="Tasavalta">
+      <img class="post-image" loading="lazy" decoding="async" width="526" height="789" src="Kuvat/post8-tasavalta.jpg" alt="Tasavalta">
       <div class="post-body">
         <p>Miljon&auml;&auml;ri Seppo Pennanen kertoi medialle, ett&auml; suomalainen j&auml;rjestelm&auml; suosii rikkaita. Suomalainen j&auml;rjestelm&auml; on tietoisten valintojen seurauksena rakennettu niin, ett&auml; rikkain kymmenys omistaa yli puolet kaikesta. Pennanen ei ole maksanut lainkaan veroja yli 600&nbsp;000 euron indeksisijoituksista saamastaan tuotosta vuoden aikana. H&auml;n nostaa my&ouml;s yli 100&nbsp;000 euron vuositulot maksamatta siit&auml; sentti&auml;k&auml;&auml;n veroja.</p>
         <p>Rikkain 5&nbsp;% v&auml;est&ouml;st&auml; omistaa noin 40&nbsp;% kaikesta. K&ouml;yhin 50&nbsp;% v&auml;est&ouml;st&auml;, johon lasketaan jo iso osa &ldquo;keskiluokkaa&rdquo;, omistaa 4&nbsp;% koko Suomen nettovarallisuudesta.</p>
@@ -562,9 +591,9 @@
 
     <div id="post5" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Kela ja Pride: julkinen virasto poliittisen kumppanin rahoittajana</h1>
+      <h2 class="post-full-title">Kela ja Pride: julkinen virasto poliittisen kumppanin rahoittajana</h2>
       <div class="post-full-meta">5.6.2026 &middot; Yhteiskunta &middot; tuomaskuusisto.fi/#kela-pride</div>
-      <img class="post-image" src="Kuvat/post5-kela.png" alt="Pride-viikon Kela-aamu">
+      <img class="post-image" loading="lazy" decoding="async" width="640" height="480" src="Kuvat/post5-kela.jpg" alt="Pride-viikon Kela-aamu">
       <div class="post-body">
         <p>Kela on virallinen kumppani Helsinki Pridelle, johon on solmittu monivuotinen kumppanuussopimus 2025&ndash;2027. Sopimus kattaa Helsingin lis&auml;ksi Kuopion ja Turun Pride-tapahtumat. Kela osallistuu kulkueeseen, jalkautuu puistojuhlaan ja liputtaa p&auml;&auml;talollaan.</p>
         <p>Kelassa on 230 hengen sateenkaariverkosto, jonka toimintaa koordinoidaan osana ty&ouml;aikaa. Jos jokainen k&auml;ytt&auml;&auml; verkostotoimintaan 2 tuntia kuukaudessa (varovainen arvio), se on 5&nbsp;520 tuntia vuodessa. Julkisen sektorin tuntihinta sivukuluineen noin 50 euroa. Pelk&auml;st&auml;&auml;n verkostotoiminta maksaa arviolta 276&nbsp;000 euroa vuodessa. P&auml;&auml;lle tulevat kumppanuussopimus, materiaalit, kolmen kaupungin tapahtumat ja syksyn keskustelutilaisuus. Maltillinen kokonaislaskuarvio l&auml;hestyy 300&nbsp;000 euroa vuodessa, kolmivuotisella sopimuksella l&auml;hes miljoona euroa.</p>
@@ -587,9 +616,9 @@
 
     <div id="post7" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Menisitkö sinä?</h1>
+      <h2 class="post-full-title">Menisitkö sinä?</h2>
       <div class="post-full-meta">30.5.2026 &middot; Yhteiskunta &middot; tuomaskuusisto.fi/#menisitko-sina</div>
-      <img class="post-image" src="Kuvat/post7-menisitko.png" alt="Menisitkö sinä?">
+      <img class="post-image" loading="lazy" decoding="async" width="711" height="447" src="Kuvat/post7-menisitko.jpg" alt="Menisitkö sinä?">
       <div class="post-body">
         <p>Jos sinulla ei ole j&auml;rjestelm&auml;n rakenteen vuoksi omaisuutta, asuntoa eik&auml; realistista tulevaisuutta Suomessa, mitk&auml; ovat ne konkreettiset asiat, joita l&auml;htisit puolustamaan?</p>
         <p>Yhteiskuntasopimusteoriassa kansalaisen velvollisuudet valtiota kohtaan ovat aina olleet ehdollisia. Valtio tarjoaa turvan ja mahdollisuudet ja kansalainen antaa lojaalisuutensa ja tarvittaessa henkens&auml;. Mutta jos sopimus on yksipuolinen, onko se en&auml;&auml; sopimus?</p>
@@ -619,9 +648,9 @@
 
     <div id="post4" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Uhripörssi: identiteettipolitiikan ristiriita</h1>
+      <h2 class="post-full-title">Uhripörssi: identiteettipolitiikan ristiriita</h2>
       <div class="post-full-meta">28.5.2026 &middot; Yhteiskunta &middot; tuomaskuusisto.fi/#uhriporssi</div>
-      <img class="post-image" src="Kuvat/post4-uhriporssi.png" alt="Uhripörssi">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="450" src="Kuvat/post4-uhriporssi.jpg" alt="Uhripörssi">
       <div class="post-body">
         <p>Identiteettipolitiikan retoriikka on viehättävää: diversiteetti, monimuotoisuus, tasa-arvo, yhdenvertaisuus. Kuka näitä vastaan voisi olla? Sanat kuulostavat niin itsestään selvän hyviltä, että niitä on helppo kannattaa pohtimatta sen tarkemmin, mitä ne käytännössä tarkoittavat.</p>
         <p>Ongelma paljastuu siinä vaiheessa, kun saman sateenvarjon alle kerätyt identiteettiryhmät kantavat keskenään yhteensovittamattomia arvoja.</p>
@@ -651,9 +680,9 @@
 
     <div id="post1" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Keskustelu on p&auml;&auml;ttynyt &ndash; s&auml;&auml;st&ouml;syist&auml;</h1>
+      <h2 class="post-full-title">Keskustelu on p&auml;&auml;ttynyt &ndash; s&auml;&auml;st&ouml;syist&auml;</h2>
       <div class="post-full-meta">1.6.2026 &middot; Media &middot; tuomaskuusisto.fi/#yle-facebook</div>
-      <img class="post-image" src="Kuvat/post1-yle.png" alt="Yle julkinen keskustelutila suljettu">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="Kuvat/post1-yle.jpg" alt="Yle julkinen keskustelutila suljettu">
       <div class="post-body">
         <p>Yle-aamu sulkee Facebook-tilins&auml; ja sen mukana 45&nbsp;000 seuraajan julkisen keskustelukanavan. Jatkossa palaute toivotaan s&auml;hk&ouml;postitse. Syyksi kerrotaan s&auml;&auml;st&ouml;t, vaikka Facebook on ilmainen ja ainoa kulu on ty&ouml;aika, sama ty&ouml;aika jota k&auml;ytet&auml;&auml;n muuhunkin sis&auml;ll&ouml;ntuotantoon.</p>
         <p>Samaan aikaan Yle tuottaa somaliankielisi&auml; uutisia ohjelmapalvelulakiin vedoten. 182 jaksoa. Yhteens&auml; noin 21&nbsp;000 k&auml;ynnistyskertaa Areenassa, eli keskim&auml;&auml;rin 115 k&auml;ynnistyskertaa per jakso. Ei katsojaa, k&auml;ynnistyskertaa. Sama henkil&ouml; voi k&auml;ynnist&auml;&auml; saman jakson useasti, joten todelliset katsojaluvut ovat todenn&auml;k&ouml;isesti t&auml;t&auml;kin pienemm&auml;t. Heikoimmillaan yksitt&auml;isen jakson k&auml;ynnistyskertoja on vain 25.</p>
@@ -676,9 +705,9 @@
 
     <div id="post11" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Riemu &mdash; maailma t&auml;ynn&auml; mahdollisuuksia</h1>
+      <h2 class="post-full-title">Riemu &mdash; maailma t&auml;ynn&auml; mahdollisuuksia</h2>
       <div class="post-full-meta">25.5.2026 &middot; Yhteiskunta &middot; tuomaskuusisto.fi/#riemu</div>
-      <img class="post-image" src="Kuvat/post11-riemu.png" alt="Riemu järjestörahat">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="506" src="Kuvat/post11-riemu.jpg" alt="Riemu järjestörahat">
       <div class="post-body">
         <p>Suomessa on yli 100&nbsp;000 rekister&ouml;ity&auml; j&auml;rjest&ouml;&auml;. Niist&auml; huomattava osa el&auml;&auml; suoraan tai v&auml;lillisesti veronmaksajien rahalla, eli STEAlta, ministeri&ouml;ist&auml;, kunnilta ja EU:sta. P&auml;&auml;lle tulevat j&auml;rjest&ouml;jen kattoj&auml;rjest&ouml;t, kattoj&auml;rjest&ouml;jen kattoj&auml;rjest&ouml;t ja niiden palkkalistat.</p>
         <p>Kun mit&auml; tahansa n&auml;ist&auml; raaputtaa pintaa syvemm&auml;lt&auml;, siell&auml; paljastuu toistuvasti sama kuvio. Hyv&auml;ntekij&auml;n kaapuun puettu oman edun ajaminen.</p>
@@ -707,9 +736,9 @@
 
     <div id="post9" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Yle, vallan vahtikoira</h1>
+      <h2 class="post-full-title">Yle, vallan vahtikoira</h2>
       <div class="post-full-meta">1.5.2026 &middot; Media &middot; tuomaskuusisto.fi/#yle-vahtikoira</div>
-      <img class="post-image" src="Kuvat/post9-yle-vahtikoira.png" alt="Yle, vallan vahtikoira">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="Kuvat/post9-yle-vahtikoira.jpg" alt="Yle, vallan vahtikoira">
       <div class="post-body">
         <p>Yle teki Tampereen vappumielenosoituksesta yli 20 erillistä juttua, videota ja keskustelua viikon aikana (1.5.&ndash;8.5.) suomeksi, ruotsiksi ja englanniksi. Sosiaalisen median jakelussa luku moninkertaistuu. Volyymi vastaa terrori-iskun tai laajan kriisin käsittelyä. Taustalla on kolme tutkinnassa olevaa pahoinpitelyepäilyä, joista yksikään ei ole edennyt tuomioon.</p>
         <p>Yksi jutuista (4.5.) on otsikoitu: &ldquo;Uutta tietoa Sinimustan liikkeen vappumarssista Tampereella: poliisista kantelu oikeusasiamiehelle&rdquo;. Eli yksittäisen kansalaisen tekemä kantelu poliisin toiminnasta on Ylelle itsenäinen uutinen, oma otsikko, oma juttu. Vahtikoira haukkuu.</p>
@@ -730,7 +759,7 @@
 
     <div id="post3" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; Kaikki kirjoitukset</button>
-      <h1 class="post-full-title">Tampereen pormestari ja mediak&auml;sittelyn kaksoisstandardi</h1>
+      <h2 class="post-full-title">Tampereen pormestari ja mediak&auml;sittelyn kaksoisstandardi</h2>
       <div class="post-full-meta">18.3.2026 &middot; Politiikka &middot; tuomaskuusisto.fi/#tampereen-pormestari</div>
       <div class="post-body">
         <p>Tampereen pormestari vaati perustuslakimuutoksia yhden tapahtuman perusteella. Sama media, joka uutisoi t&auml;m&auml;n merkitt&auml;v&auml;n&auml; kannanottona, k&auml;sitteli vastaavan mittakaavan v&auml;kivaltatapahtuman toisessa yhteydess&auml; tilastoina ja uutisarvon puutteena.</p>
@@ -750,7 +779,7 @@
 
 <div id="page-contact" class="page">
   <div class="wrap">
-    <h1 class="page-heading">Yhteystiedot</h1>
+    <h2 class="page-heading">Yhteystiedot</h2>
     <p class="page-sub">Palaute &middot; Yhteisty&ouml; &middot; Kommentit</p>
     <div class="contact-block">
       <div class="contact-row">
@@ -768,6 +797,14 @@
 
 <script>
 document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') { return; }
+  var t = e.target;
+  if (!t || !t.hasAttribute || !t.hasAttribute('data-nap')) { return; }
+  e.preventDefault();
+  t.click();
+});
+
+document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     var openPost = document.querySelector('.post-full[style*="display: block"], .post-full[style*="display:block"]');
     if (openPost) {
@@ -783,9 +820,11 @@ document.addEventListener('keydown', function(e) {
 
 function showPage(name, skipReset) {
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-  document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); });
+  document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); a.removeAttribute('aria-current'); });
   document.getElementById('page-' + name).classList.add('active');
-  document.getElementById('nav-' + name).classList.add('active');
+  var navAktiivinen = document.getElementById('nav-' + name);
+  navAktiivinen.classList.add('active');
+  navAktiivinen.setAttribute('aria-current', 'page');
   if (name === 'blog' && !skipReset) { backToList(); }
   window.scrollTo(0, 0);
 }

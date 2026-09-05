@@ -33,6 +33,9 @@
   :root {
     --bg: #141414; --text: #ffffff; --muted: #9b9b9b;
     --border: #222222; --accent: #d0d0d0; --max: 720px;
+    --kulta: #C4AD6E; --kulta-kirkas: #E3CB94;
+    --track-kyltti: .14em;
+    --t-nopea: .18s; --ease: cubic-bezier(.22,.61,.36,1);
   }
   body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); font-size: 16px; line-height: 1.7; min-height: 100vh; }
 
@@ -41,17 +44,22 @@
   .nav-logo img { height: 28px; width: auto; opacity: 0.9; }
   .nav-logo-text { font-size: 0.95rem; font-weight: 500; }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
-  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: 0.07em; text-transform: uppercase; transition: color 0.2s; cursor: pointer; }
-  .nav-links a:hover, .nav-links a.active { color: var(--text); }
+  .nav-links a { color: var(--muted); text-decoration: none; font-size: 0.78rem; letter-spacing: var(--track-kyltti); text-transform: uppercase; transition: color var(--t-nopea) var(--ease); cursor: pointer; }
+  .nav-links a:hover { color: var(--text); }
+  .nav-links a.active { color: var(--kulta); }
 
   .page { display: none; padding-top: 60px; }
   .page.active { display: block; }
 
   .hero { position: relative; height: 46vh; min-height: 320px; max-height: 520px; overflow: hidden; display: flex; align-items: flex-end; }
-  .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; filter: brightness(0.35); }
+  .hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center 30%; filter: brightness(0.85); }
+  /* Peite alaosaan gradienttina, ei tasaisena suodattimena: kuvan vaaleat
+     kohdat sailyvat ylhaalla ja teksti saa taustan siella missa se istuu. */
+  .hero::after { content: ''; position: absolute; inset: 0; z-index: 1; pointer-events: none;
+    background: linear-gradient(180deg, rgba(20,20,20,0) 0%, rgba(20,20,20,0) 50.9%, rgba(20,20,20,.85) 90%, rgba(20,20,20,.85) 100%); }
   .hero-content { position: relative; z-index: 2; max-width: var(--max); margin: 0 auto; width: 100%; padding: 2.2rem 2rem; }
-  .hero-eyebrow { font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
-  .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 400; line-height: 1.25; max-width: 560px; }
+  .hero-eyebrow { font-size: 0.72rem; letter-spacing: var(--track-kyltti); text-transform: uppercase; color: var(--muted); margin-bottom: 0.8rem; }
+  .hero h1 { font-size: clamp(1.6rem, 4vw, 2.4rem); font-weight: 400; line-height: 1.25; max-width: 560px; letter-spacing: -0.02em; }
 
   .home-body { max-width: var(--max); margin: 0 auto; padding: 1.6rem 2rem 5rem; }
   /* Heron jalkeinen ensimmainen viiva ei tarvitse omaa ylamarginaalia: se
@@ -59,42 +67,47 @@
   .home-body > hr.divider:first-child { margin-top: 0; }
   .home-body p { color: var(--accent); font-size: 0.97rem; line-height: 1.85; margin-bottom: 1.2rem; }
   hr.divider { border: none; border-top: 1px solid var(--border); margin: 2rem 0; }
+  /* .home-body p on (0,1,1) ja voitti .page-subin (0,1,0): etusivun kyltti
+     renderoitui 15,52 px:na ja harmaana. Sama tarkkuusluokka korjaa sen. */
+  .home-body .page-sub { color: var(--kulta); font-size: 0.82rem; line-height: 1.5; }
   .latest-link { font-size: 0.82rem; color: var(--muted); }
   .latest-link a { color: var(--accent); text-decoration: none; cursor: pointer; }
   .latest-link a:hover { color: var(--text); }
 
   .wrap { max-width: var(--max); margin: 0 auto; padding: 3rem 2rem 5rem; }
-  .page-heading { font-size: 1.4rem; font-weight: 500; margin-bottom: 0.3rem; }
-  .page-sub { color: var(--muted); font-size: 0.82rem; letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 2.5rem; }
+  .page-heading { font-size: 1.4rem; font-weight: 500; margin-bottom: 0.3rem; letter-spacing: -0.01em; }
+  .page-sub { color: var(--kulta); font-size: 0.82rem; letter-spacing: var(--track-kyltti); text-transform: uppercase; margin-bottom: 2.5rem; }
 
   .post-list { list-style: none; }
   .post-item { padding: 1.6rem 0; border-bottom: 1px solid var(--border); cursor: pointer; }
   .post-item:first-child { border-top: 1px solid var(--border); }
-  .post-item:hover .post-item-title { color: var(--accent); }
-  .post-item-meta { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 0.5rem; }
-  .post-item-title { font-size: 1.15rem; font-weight: 500; margin-bottom: 0.5rem; transition: color 0.2s; line-height: 1.35; }
+  .post-item:hover .post-item-title,
+  .post-item:focus-visible .post-item-title { color: var(--text); }
+  .post-item-meta { font-size: 0.68rem; color: var(--muted); letter-spacing: var(--track-kyltti); text-transform: uppercase; margin-bottom: 0.5rem; }
+  .post-item-title { font-size: 1.15rem; font-weight: 500; margin-bottom: 0.5rem; color: var(--accent);
+    transition: color var(--t-nopea) var(--ease); line-height: 1.35; }
   .post-item-excerpt { font-size: 0.84rem; color: #787878; line-height: 1.65; }
 
   .post-full { display: none; }
-  .back-btn { background: none; border: none; color: var(--muted); font-size: 0.75rem; letter-spacing: 0.07em; text-transform: uppercase; cursor: pointer; padding: 0; margin-bottom: 2.5rem; font-family: 'Inter', sans-serif; transition: color 0.2s; }
+  .back-btn { background: none; border: none; color: var(--muted); font-size: 0.75rem; letter-spacing: var(--track-kyltti); text-transform: uppercase; cursor: pointer; padding: 0; margin-bottom: 2.5rem; font-family: 'Inter', sans-serif; transition: color var(--t-nopea) var(--ease); }
   .back-btn:hover { color: var(--text); }
-  .post-full-title { font-size: clamp(1.3rem, 3.5vw, 1.9rem); font-weight: 500; line-height: 1.3; margin-bottom: 0.5rem; max-width: 620px; }
-  .post-full-meta { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
+  .post-full-title { font-size: clamp(1.3rem, 3.5vw, 1.9rem); font-weight: 500; line-height: 1.3; margin-bottom: 0.5rem; max-width: 620px; letter-spacing: -0.015em; }
+  .post-full-meta { font-size: 0.72rem; color: var(--muted); letter-spacing: var(--track-kyltti); text-transform: uppercase; margin-bottom: 2.5rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border); }
   .post-body { color: #c8c8c8; font-size: 0.97rem; line-height: 1.9; max-width: 640px; }
   .post-body p { margin-bottom: 1.3rem; }
-  .post-body a { color: inherit; text-decoration: underline; text-decoration-color: #6a6a6a; text-underline-offset: 3px; transition: text-decoration-color 0.2s; }
-  .post-body a:hover { text-decoration-color: var(--text); }
+  .post-body a { color: inherit; text-decoration: underline; text-decoration-color: var(--kulta); text-underline-offset: 3px; transition: text-decoration-color var(--t-nopea) var(--ease); }
+  .post-body a:hover { text-decoration-color: var(--kulta-kirkas); }
   .post-body a:visited { color: inherit; }
 
-  .post-image { width: 100%; max-width: 640px; border-radius: 4px; margin-bottom: 2rem; display: block; }
+  .post-image { width: 100%; height: auto; max-width: 640px; border-radius: 0; margin-bottom: 2rem; display: block; }
   .share-row { margin-top: 2.5rem; padding-top: 1.5rem; border-top: 1px solid var(--border); display: flex; align-items: center; gap: 1rem; }
-  .share-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; }
-  .share-btn { background: none; border: 1px solid #333; color: var(--muted); font-size: 0.75rem; padding: 0.3rem 0.85rem; border-radius: 3px; cursor: pointer; font-family: 'Inter', sans-serif; letter-spacing: 0.04em; transition: border-color 0.2s, color 0.2s; }
+  .share-label { font-size: 0.72rem; color: var(--muted); letter-spacing: var(--track-kyltti); text-transform: uppercase; }
+  .share-btn { background: none; border: 1px solid #333; color: var(--muted); font-size: 0.75rem; padding: 0.3rem 0.85rem; border-radius: 0; cursor: pointer; font-family: 'Inter', sans-serif; letter-spacing: var(--track-kyltti); transition: border-color var(--t-nopea) var(--ease), color var(--t-nopea) var(--ease); }
   .share-btn:hover { border-color: var(--muted); color: var(--text); }
 
   .contact-block { margin-top: 1rem; }
   .contact-row { display: flex; gap: 1rem; padding: 1.1rem 0; border-bottom: 1px solid var(--border); align-items: baseline; }
-  .contact-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.06em; text-transform: uppercase; width: 110px; flex-shrink: 0; }
+  .contact-label { font-size: 0.72rem; color: var(--muted); letter-spacing: var(--track-kyltti); text-transform: uppercase; width: 110px; flex-shrink: 0; }
   .contact-val { font-size: 0.95rem; color: var(--accent); }
   .contact-val a { color: inherit; text-decoration: none; }
   .contact-val a:hover { color: var(--text); }
@@ -102,20 +115,24 @@
 
 
   .home-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem; }
-  .home-grid-item { cursor: pointer; border: 1px solid var(--border); border-radius: 4px; overflow: hidden; transition: border-color 0.2s; }
-  .home-grid-item:hover { border-color: #444; }
-  .home-grid-item:hover .home-grid-title { color: var(--accent); }
-  .home-grid-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; filter: brightness(0.85); }
-  .home-grid-body { padding: 0.9rem 1rem; }
-  .home-grid-meta { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.07em; text-transform: uppercase; margin-bottom: 0.35rem; }
-  .home-grid-title { font-size: 0.88rem; font-weight: 500; line-height: 1.4; transition: color 0.2s; }
+  .home-grid-item { cursor: pointer; border: 0; border-radius: 0; overflow: visible; }
+  .home-grid-item:hover .home-grid-title,
+  .home-grid-item:focus-visible .home-grid-title { color: var(--text); }
+  .home-grid-img { width: 100%; height: auto; aspect-ratio: 16/9; object-fit: cover; display: block;
+    filter: brightness(0.92); transition: filter var(--t-nopea) var(--ease); }
+  .home-grid-item:hover .home-grid-img,
+  .home-grid-item:focus-visible .home-grid-img { filter: brightness(1); }
+  .home-grid-body { padding: 0.85rem 0 0; }
+  .home-grid-meta { font-size: 0.68rem; color: var(--muted); letter-spacing: var(--track-kyltti); text-transform: uppercase; margin-bottom: 0.35rem; }
+  .home-grid-title { font-size: 0.88rem; font-weight: 500; line-height: 1.4; color: var(--accent);
+    transition: color var(--t-nopea) var(--ease); }
   @media (max-width: 600px) { .home-grid { grid-template-columns: 1fr; } }
   @media (max-width: 640px) {
     nav { padding: 0.8rem 1rem; flex-wrap: wrap; gap: 0.5rem; }
     .nav-logo-text { font-size: 0.85rem; }
     .nav-logo img { height: 22px; }
     .nav-links { gap: 0.9rem; }
-    .nav-links a { font-size: 0.7rem; letter-spacing: 0.04em; }
+    .nav-links a { font-size: 0.7rem; }
     .hero { height: 38vh; min-height: 240px; }
     .hero h1 { font-size: 1.5rem; }
     .hero-content, .home-body, .wrap { padding-left: 1rem; padding-right: 1rem; }
@@ -127,19 +144,32 @@
     .contact-label { width: auto; }
     .page-heading { font-size: 1.2rem; }
   }
+
+  /* Nakyva kohdistus: sivulla ei ollut yhtaan focus-tyylia ennen tata. */
+  :focus-visible { outline: 2px solid var(--kulta); outline-offset: 3px; }
+  .home-grid-item:focus-visible, .post-item:focus-visible { outline-offset: 4px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      transition-duration: .01ms !important;
+      animation-duration: .01ms !important;
+      animation-iteration-count: 1 !important;
+      scroll-behavior: auto !important;
+    }
+  }
 </style>
 </head>
 <body>
 
 <nav>
-  <a class="nav-logo" onclick="showPage('home')">
-    <img src="../Kuvat/logo.png" alt="K">
+  <a class="nav-logo" tabindex="0" role="link" data-nap onclick="showPage('home')">
+    <img width="612" height="408" decoding="async" src="../Kuvat/logo.png" alt="K">
     <span class="nav-logo-text">Tuomas Kuusisto</span>
   </a>
   <ul class="nav-links">
-    <li><a onclick="showPage('home')" id="nav-home" class="active">Home</a></li>
-    <li><a onclick="showPage('blog')" id="nav-blog">Writings</a></li>
-    <li><a onclick="showPage('contact')" id="nav-contact">Contact</a></li>
+    <li><a tabindex="0" role="link" data-nap onclick="showPage('home')" id="nav-home" class="active" aria-current="page">Home</a></li>
+    <li><a tabindex="0" role="link" data-nap onclick="showPage('blog')" id="nav-blog">Writings</a></li>
+    <li><a tabindex="0" role="link" data-nap onclick="showPage('contact')" id="nav-contact">Contact</a></li>
     <li><a href="/" title="Suomeksi">FI</a></li>
   </ul>
 </nav>
@@ -157,29 +187,29 @@
     <hr class="divider">
     <p class="page-sub" style="margin-bottom:1.2rem">Latest writings</p>
     <div class="home-grid">
-      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post16')">
-        <img class="home-grid-img" src="../Kuvat/post16-robotti-juoksi.jpg" alt="Illustration: a running humanoid robot in a stadium and a jar of jam in front of the EU flag">
+      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post16')">
+        <img class="home-grid-img" decoding="async" width="760" height="507" src="../Kuvat/post16-robotti-juoksi.jpg" alt="Illustration: a running humanoid robot in a stadium and a jar of jam in front of the EU flag">
         <div class="home-grid-body">
           <div class="home-grid-meta">September 3, 2026 &middot; Technology</div>
           <div class="home-grid-title">The robot ran. Europe regulated.</div>
         </div>
       </div>
-      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post15')">
-        <img class="home-grid-img" src="../Kuvat/post15-same-lindsay.jpg" alt="Illustration: protesters outside a courthouse and the Same, Lindsay trend">
+      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post15')">
+        <img class="home-grid-img" decoding="async" width="760" height="507" src="../Kuvat/post15-same-lindsay.jpg" alt="Illustration: protesters outside a courthouse and the Same, Lindsay trend">
         <div class="home-grid-body">
           <div class="home-grid-meta">September 1, 2026 &middot; Society</div>
           <div class="home-grid-title">Lindsay Clancy. When empathy overrides justice.</div>
         </div>
       </div>
-      <div class="home-grid-item" onclick="showPage('blog', true); openPost('post14')">
-        <img class="home-grid-img" src="../Kuvat/post14-yksi-tiedosto.jpg" alt="Henna Virkkunen on Finnish television">
+      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post14')">
+        <img class="home-grid-img" decoding="async" width="760" height="443" src="../Kuvat/post14-yksi-tiedosto.jpg" alt="Henna Virkkunen on Finnish television">
         <div class="home-grid-body">
           <div class="home-grid-meta">August 26, 2026 &middot; Technology</div>
           <div class="home-grid-title">One file nullifies the EU&rsquo;s entire AI regulation</div>
         </div>
       </div>
     </div>
-    <p class="latest-link"><a onclick="showPage('blog')">All writings &rarr;</a></p>
+    <p class="latest-link"><a tabindex="0" role="link" data-nap onclick="showPage('blog')">All writings &rarr;</a></p>
   </div>
 </div>
 
@@ -187,90 +217,90 @@
 <div id="page-blog" class="page">
   <div class="wrap">
     <div id="blog-list">
-      <h1 class="page-heading">Writings</h1>
+      <h2 class="page-heading">Writings</h2>
         <ul class="post-list">
 
-        <li class="post-item" onclick="openPost('post16')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post16')">
           <div class="post-item-meta">September 3, 2026 &middot; Technology</div>
           <div class="post-item-title">The robot ran. Europe regulated.</div>
           <div class="post-item-excerpt">The fruit content of jam went up in June. In the same months a robot ran the 100 metres in 8.64 seconds, AI carried a drug candidate into phase 3 and disproved a conjecture that had been open for eighty years. Europe's answer was a postponement.</div>
         </li>
-        <li class="post-item" onclick="openPost('post15')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post15')">
           <div class="post-item-meta">September 1, 2026 &middot; Society</div>
           <div class="post-item-title">Lindsay Clancy. When empathy overrides justice.</div>
           <div class="post-item-excerpt">A mother strangled her three children and admits it. Yet hundreds of women stand outside the courthouse in &ldquo;Believe&rdquo; shirts, and on TikTok mothers declare they identify with her. Whose interests does a movement like this serve?</div>
         </li>
-        <li class="post-item" onclick="openPost('post14')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post14')">
           <div class="post-item-meta">August 26, 2026 &middot; Technology</div>
           <div class="post-item-title">One file nullifies the EU&rsquo;s entire AI regulation</div>
           <div class="post-item-excerpt">Alibaba&rsquo;s open AI model was released on August 14. Within three days there was a version online with the safety limits stripped out. The EU&rsquo;s answer is a regulation that obligates the makers of models &mdash; but a downloaded file has no maker.</div>
         </li>
-        <li class="post-item" onclick="openPost('post13')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post13')">
           <div class="post-item-meta">August 25, 2026 &middot; Society</div>
           <div class="post-item-title">The revolving door gets hinges &mdash; but it still swings freely</div>
           <div class="post-item-excerpt">Finland&rsquo;s new cooling-off law restricts ministers from moving into lobbying &mdash; but it applies to no sitting minister, the notification becomes public only after the fact, and about members of parliament the law says nothing.</div>
         </li>
-        <li class="post-item" onclick="openPost('post12')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post12')">
           <div class="post-item-meta">August 21, 2026 &middot; Society</div>
           <div class="post-item-title">In the name of equality</div>
           <div class="post-item-excerpt">The woman is liberated from the traditional caregiver&rsquo;s role, but the caregiving instinct is not removed. What does equality actually mean &mdash; and who defines the limits of acceptable speech?</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post10')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post10')">
           <div class="post-item-meta">June 15, 2026 &middot; Foreign policy</div>
           <div class="post-item-title">$1,200,000,000,000</div>
           <div class="post-item-excerpt">In 30 years the West has transferred 1.2 trillion dollars of development aid to Africa. In 1990 Africa accounted for 14&nbsp;% of the world&rsquo;s poor. In 2024 the figure is 67&nbsp;%.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post8')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post8')">
           <div class="post-item-meta">June 6, 2026 &middot; Society</div>
           <div class="post-item-title">The republic and the free world</div>
           <div class="post-item-excerpt">The richest 10&nbsp;% own more than half of everything. The poorest 50&nbsp;% own 4&nbsp;%. Why the system does not correct itself &mdash; and what holds it in place.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post5')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post5')">
           <div class="post-item-meta">June 5, 2026 &middot; Society</div>
           <div class="post-item-title">Kela and Pride: a public agency funding a political partner</div>
           <div class="post-item-excerpt">Kela, Finland&rsquo;s social insurance institution, has signed a three-year partnership with Helsinki Pride &mdash; an organization that shut two mainstream parties out on the grounds of values. With taxpayers&rsquo; money.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post1')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post1')">
           <div class="post-item-meta">June 1, 2026 &middot; Media</div>
           <div class="post-item-title">The conversation has ended &ndash; to save money</div>
           <div class="post-item-excerpt">The public broadcaster withdraws from the platform through which it reached the most citizens. Savings are the justification, but not the explanation.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post6')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post6')">
           <div class="post-item-meta">June 1, 2026 &middot; Foreign policy</div>
           <div class="post-item-title">Noble double standards</div>
           <div class="post-item-excerpt">Values-based realism sounds fine. In practice it means that double standards are the system&rsquo;s values &mdash; not a problem outside it.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post7')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post7')">
           <div class="post-item-meta">May 30, 2026 &middot; Society</div>
           <div class="post-item-title">Would you go?</div>
           <div class="post-item-excerpt">If, because of the structure of the system, you have no property, no home and no realistic future in Finland, what exactly are the concrete things you would go and defend?</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post4')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post4')">
           <div class="post-item-meta">May 28, 2026 &middot; Society</div>
           <div class="post-item-title">The victimhood exchange: the contradiction of identity politics</div>
           <div class="post-item-excerpt">The rhetoric of identity politics is appealing &mdash; diversity, inclusion, equality. The problem appears when the groups gathered under the same umbrella carry values that cannot be reconciled.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post11')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post11')">
           <div class="post-item-meta">May 25, 2026 &middot; Society</div>
           <div class="post-item-title">Riemu &mdash; a world full of opportunities</div>
           <div class="post-item-excerpt">Finland has over 100,000 registered associations. Riemu Finland received nearly 7 million euros of public money in ten years. The activity amounted to a few Teams quizzes a year.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post9')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post9')">
           <div class="post-item-meta">May 1, 2026 &middot; Media</div>
           <div class="post-item-title">Yle, the watchdog of power</div>
           <div class="post-item-excerpt">Finland&rsquo;s public broadcaster produced over 20 stories in a week about one May Day demonstration. The watchdog snaps at the police&rsquo;s ankles &mdash; but licks the mayor&rsquo;s boot as he tramples on fundamental rights.</div>
         </li>
 
-        <li class="post-item" onclick="openPost('post3')">
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post3')">
           <div class="post-item-meta">March 18, 2026 &middot; Politics</div>
           <div class="post-item-title">The mayor of Tampere and the media&rsquo;s double standard</div>
           <div class="post-item-excerpt">When an event is politically convenient, it gets the editorials. When it is not, it gets the statistics. This is not a coincidence.</div>
@@ -281,9 +311,9 @@
 
     <div id="post16" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">The robot ran. Europe regulated.</h1>
+      <h2 class="post-full-title">The robot ran. Europe regulated.</h2>
       <div class="post-full-meta">September 3, 2026 &middot; Technology &middot; tuomaskuusisto.fi/en/#robotti-juoksi</div>
-      <img class="post-image" src="../Kuvat/post16-robotti-juoksi.jpg" alt="Illustration: a running humanoid robot in a stadium and a jar of jam in front of the EU flag">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="../Kuvat/post16-robotti-juoksi.jpg" alt="Illustration: a running humanoid robot in a stadium and a jar of jam in front of the EU flag">
       <div class="post-body">
         <p>This is about <a href="https://www.finlex.fi/fi/lainsaadanto/2025/226" target="_blank" rel="noopener">decree 226/2025 of the Finnish Ministry of Agriculture and Forestry</a>, which entered into force on June 14, 2026. It implements <a href="http://data.europa.eu/eli/dir/2024/1438/oj" target="_blank" rel="noopener">Directive (EU) 2024/1438</a>. The content is simple: jam must contain at least 450 grams of fruit or berries per kilo. The previous limit was 350 grams. For extra jam the limit rose from 450 grams to 500 grams. If a product does not meet the limit, it may not be called jam.</p>
         <p>The problem is not the rule. The problem is the proportions.</p>
@@ -309,9 +339,9 @@
 
     <div id="post15" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">Lindsay Clancy. When empathy overrides justice.</h1>
+      <h2 class="post-full-title">Lindsay Clancy. When empathy overrides justice.</h2>
       <div class="post-full-meta">September 1, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#same-lindsay</div>
-      <img class="post-image" src="../Kuvat/post15-same-lindsay.jpg" alt="Illustration: protesters outside a courthouse and the Same, Lindsay trend">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="../Kuvat/post15-same-lindsay.jpg" alt="Illustration: protesters outside a courthouse and the Same, Lindsay trend">
       <div class="post-body">
         <p>On January 24, 2023, Lindsay Clancy, a nurse from Duxbury, Massachusetts, strangled her three children to death with exercise bands: five-year-old Cora, three-year-old Dawson and eight-month-old Callan. She then attempted suicide by jumping from a second-floor window and was paralyzed.</p>
         <p>The trial began in July 2026, and the prosecution&rsquo;s evidence of premeditation is public. Searches were found on Clancy&rsquo;s devices, including for the location of the carotid artery, and she sent her husband out on takeout and pharmacy errands to create a window of roughly half an hour, during which the children died (<a href="https://www.nbcnews.com/news/us-news/lindsay-clancy-murder-trial-what-to-know-rcna593473" target="_blank" rel="noopener">NBC News</a>, <a href="https://en.wikipedia.org/wiki/Killing_of_the_Clancy_children" target="_blank" rel="noopener">Wikipedia</a>; in Finnish, <a href="https://www.mtvuutiset.fi/artikkeli/aidin-kammottava-teko-jarkyttaa-yhdysvaltoja-oikeudenkayntia-seurataan-hetki-hetkelta/9378460" target="_blank" rel="noopener">MTV Uutiset</a>).</p>
@@ -333,9 +363,9 @@
     </div>
     <div id="post14" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">One file nullifies the EU&rsquo;s entire AI regulation</h1>
+      <h2 class="post-full-title">One file nullifies the EU&rsquo;s entire AI regulation</h2>
       <div class="post-full-meta">August 26, 2026 &middot; Technology &middot; tuomaskuusisto.fi/en/#yksi-tiedosto</div>
-      <img class="post-image" src="../Kuvat/post14-yksi-tiedosto.jpg" alt="Henna Virkkunen on Finnish television">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="443" src="../Kuvat/post14-yksi-tiedosto.jpg" alt="Henna Virkkunen on Finnish television">
       <div class="post-body">
         <p>On August 14, Alibaba released an AI model called Qwen3.8. It works a bit like ChatGPT, with the difference that anyone may download it onto their own computer. It is a single file, roughly 17 gigabytes in size. It does not connect to any server. It does not send anything to anyone. It sits on your machine and does what it is told.</p>
         <p>Within three days of the release there was already a version online with the restraints removed &mdash; the ones that prevent the model from assisting in crimes. It did not need to be hacked. Once the file is on your own computer, you can edit out of it whatever you want. An ordinary gaming PC and one weekend are enough.</p>
@@ -355,9 +385,9 @@
     </div>
     <div id="post13" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">The revolving door gets hinges &mdash; but it still swings freely</h1>
+      <h2 class="post-full-title">The revolving door gets hinges &mdash; but it still swings freely</h2>
       <div class="post-full-meta">August 25, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#pyoroovi</div>
-      <img class="post-image" src="../Kuvat/post13-pyoroovi.jpg" alt="The revolving door gets hinges">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="428" src="../Kuvat/post13-pyoroovi.jpg" alt="The revolving door gets hinges">
       <div class="post-body">
         <p>This summer Finland got a law that was in preparation across two governments. The act on a cooling-off period for members of the government (738/2026) was confirmed in July and enters into force on September 15. For the first time, Finland has a law about what a minister may do immediately after ceasing to be a minister.</p>
         <p>The phenomenon has a name: the revolving door. A decision-maker moves from a position in which they supervised a sector into the service of that same sector &mdash; as a lobbyist, a board member, a consultant. The door revolves in both directions, and that is exactly its problem. The question is not that moving on would be wrong. A person has the right to work, and expertise does not vanish with resignation. The question is what the mover takes along: information others do not have, and relationships others do not have.</p>
@@ -373,9 +403,9 @@
 
     <div id="post12" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">In the name of equality</h1>
+      <h2 class="post-full-title">In the name of equality</h2>
       <div class="post-full-meta">August 21, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#tasa-arvon-nimissa</div>
-      <img class="post-image" src="../Kuvat/post12-tasa-arvon-nimissa.jpg" alt="In the name of equality">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="906" src="../Kuvat/post12-tasa-arvon-nimissa.jpg" alt="In the name of equality">
       <div class="post-body">
         <p>For decades, young Western women have been told that starting a family means submission, while participation in working life, financial independence and career advancement mean freedom. The woman is, as it were, liberated from her traditional family role by ending up working for a multinational corporation in the service of shareholders&rsquo; goals, and at the same time becoming a taxpayer for the state.</p>
         <p>One of the central social consequences of feminism has been that an enormous amount of new labor was freed up for Western societies. In this sense the goals of the feminist movement and the needs of the economic system have also fit together rather well. At the same time, women began to be sold an enemy image in which &ldquo;white heterosexual men&rdquo; are readily presented as a unified oppressive monolith, even though they are a collection of very different individuals.</p>
@@ -410,9 +440,9 @@
 
     <div id="post6" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">Noble double standards</h1>
+      <h2 class="post-full-title">Noble double standards</h2>
       <div class="post-full-meta">June 1, 2026 &middot; Foreign policy &middot; tuomaskuusisto.fi/en/#jaloa-kaksinaismoraalia</div>
-      <img class="post-image" src="../Kuvat/post6-kaksinaismoraalia.png" alt="Noble double standards">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="362" src="../Kuvat/post6-kaksinaismoraalia.jpg" alt="Noble double standards">
       <div class="post-body">
         <p>Values-based realism sounds fine. What does it mean in practice?</p>
         <p>The rules of the rules-based world order are applied arbitrarily depending on the situation. They were written from the outset to serve the interests of certain parties in power. The purpose is to create an illusion of a sense of freedom and justice.</p>
@@ -443,9 +473,9 @@
 
     <div id="post10" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">$1,200,000,000,000</h1>
+      <h2 class="post-full-title">$1,200,000,000,000</h2>
       <div class="post-full-meta">June 15, 2026 &middot; Foreign policy &middot; tuomaskuusisto.fi/en/#kehitysapu</div>
-      <img class="post-image" src="../Kuvat/post10-kehitysapu.png" alt="Africa vs Japan development aid">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="416" src="../Kuvat/post10-kehitysapu.jpg" alt="Africa vs Japan development aid">
       <div class="post-body">
         <p>In 30 years the West has transferred 1.2 trillion dollars of development aid to Africa. One million two hundred thousand million. The number is so large it is hard to grasp. Let us look at what it has bought.</p>
         <p>In 1990, sub-Saharan Africa accounted for 14 percent of the world&rsquo;s poor. In 2024 the figure is 67 percent. In the same period in which Asia lifted hundreds of millions of people out of poverty, Africa fell so far behind that two thirds of the world&rsquo;s poorest now live there. And the bill for this failure does not stay in Africa.</p>
@@ -474,9 +504,9 @@
 
     <div id="post8" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">The republic and the free world</h1>
+      <h2 class="post-full-title">The republic and the free world</h2>
       <div class="post-full-meta">June 6, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#tasavalta</div>
-      <img class="post-image" src="../Kuvat/post8-tasavalta.png" alt="The republic">
+      <img class="post-image" loading="lazy" decoding="async" width="526" height="789" src="../Kuvat/post8-tasavalta.jpg" alt="The republic">
       <div class="post-body">
         <p>The millionaire Seppo Pennanen told the media that the Finnish system favors the rich. The Finnish system has been built, through conscious choices, so that the richest tenth owns more than half of everything. Pennanen has paid no tax at all on the returns from over 600,000 euros of index investments in a year. He also draws an annual income of over 100,000 euros without paying a cent of tax on it.</p>
         <p>The richest 5&nbsp;% of the population owns about 40&nbsp;% of everything. The poorest 50&nbsp;% of the population, which already includes a large part of the &ldquo;middle class,&rdquo; owns 4&nbsp;% of Finland&rsquo;s entire net wealth.</p>
@@ -507,9 +537,9 @@
 
     <div id="post5" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">Kela and Pride: a public agency funding a political partner</h1>
+      <h2 class="post-full-title">Kela and Pride: a public agency funding a political partner</h2>
       <div class="post-full-meta">June 5, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#kela-pride</div>
-      <img class="post-image" src="../Kuvat/post5-kela.png" alt="Kela morning of Pride week">
+      <img class="post-image" loading="lazy" decoding="async" width="640" height="480" src="../Kuvat/post5-kela.jpg" alt="Kela morning of Pride week">
       <div class="post-body">
         <p>Kela, Finland&rsquo;s social insurance institution, is an official partner of Helsinki Pride, with a multi-year partnership agreement for 2025&ndash;2027. The agreement covers the Pride events of Kuopio and Turku in addition to Helsinki. Kela takes part in the parade, works the park festival, and flies the flag at its headquarters.</p>
         <p>Kela has a rainbow network of 230 employees whose activities are coordinated as part of working hours. If each spends 2 hours a month on network activities (a cautious estimate), that is 5,520 hours a year. The public sector&rsquo;s hourly cost with overheads is about 50 euros. The network activity alone costs an estimated 276,000 euros a year. On top come the partnership agreement, materials, events in three cities and an autumn panel discussion. A moderate total estimate approaches 300,000 euros a year; over the three-year agreement, nearly a million euros.</p>
@@ -532,9 +562,9 @@
 
     <div id="post7" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">Would you go?</h1>
+      <h2 class="post-full-title">Would you go?</h2>
       <div class="post-full-meta">May 30, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#menisitko-sina</div>
-      <img class="post-image" src="../Kuvat/post7-menisitko.png" alt="Would you go?">
+      <img class="post-image" loading="lazy" decoding="async" width="711" height="447" src="../Kuvat/post7-menisitko.jpg" alt="Would you go?">
       <div class="post-body">
         <p>If, because of the structure of the system, you have no property, no home and no realistic future in Finland, what exactly are the concrete things you would go and defend?</p>
         <p>In social contract theory, the citizen&rsquo;s obligations toward the state have always been conditional. The state provides safety and opportunities, and the citizen gives their loyalty and, if necessary, their life. But if the contract is one-sided, is it still a contract?</p>
@@ -564,9 +594,9 @@
 
     <div id="post4" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">The victimhood exchange: the contradiction of identity politics</h1>
+      <h2 class="post-full-title">The victimhood exchange: the contradiction of identity politics</h2>
       <div class="post-full-meta">May 28, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#uhriporssi</div>
-      <img class="post-image" src="../Kuvat/post4-uhriporssi.png" alt="The victimhood exchange">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="450" src="../Kuvat/post4-uhriporssi.jpg" alt="The victimhood exchange">
       <div class="post-body">
         <p>The rhetoric of identity politics is appealing: diversity, inclusion, equality, non-discrimination. Who could be against these? The words sound so self-evidently good that they are easy to support without considering what they mean in practice.</p>
         <p>The problem is revealed at the point where the identity groups gathered under the same umbrella carry values that cannot be reconciled with one another.</p>
@@ -596,9 +626,9 @@
 
     <div id="post1" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">The conversation has ended &ndash; to save money</h1>
+      <h2 class="post-full-title">The conversation has ended &ndash; to save money</h2>
       <div class="post-full-meta">June 1, 2026 &middot; Media &middot; tuomaskuusisto.fi/en/#yle-facebook</div>
-      <img class="post-image" src="../Kuvat/post1-yle.png" alt="Yle public discussion space closed">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="../Kuvat/post1-yle.jpg" alt="Yle public discussion space closed">
       <div class="post-body">
         <p>Yle-aamu, the morning show of Finland&rsquo;s public broadcaster Yle, is closing its Facebook account and with it a public discussion channel of 45,000 followers. From now on, feedback is requested by email. The stated reason is savings, even though Facebook is free and the only cost is working time, the same working time that is used for other content production too.</p>
         <p>At the same time, Yle produces news in Somali, citing its programming obligations under the law. 182 episodes. About 21,000 plays in total in its streaming service, an average of 115 plays per episode. Not viewers &mdash; plays. The same person can start the same episode several times, so the real viewing figures are probably even smaller. At the weakest, a single episode has only 25 plays.</p>
@@ -621,9 +651,9 @@
 
     <div id="post11" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">Riemu &mdash; a world full of opportunities</h1>
+      <h2 class="post-full-title">Riemu &mdash; a world full of opportunities</h2>
       <div class="post-full-meta">May 25, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#riemu</div>
-      <img class="post-image" src="../Kuvat/post11-riemu.png" alt="Riemu association money">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="506" src="../Kuvat/post11-riemu.jpg" alt="Riemu association money">
       <div class="post-body">
         <p>Finland has over 100,000 registered associations. A considerable share of them live directly or indirectly on taxpayers&rsquo; money &mdash; from STEA (the state&rsquo;s funding center for social and health organizations), from ministries, municipalities and the EU. On top come the associations&rsquo; umbrella organizations, the umbrella organizations&rsquo; umbrella organizations, and their payrolls.</p>
         <p>Scratch beneath the surface of any of these and the same pattern is repeatedly revealed. Self-interest dressed in a benefactor&rsquo;s cloak.</p>
@@ -652,9 +682,9 @@
 
     <div id="post9" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">Yle, the watchdog of power</h1>
+      <h2 class="post-full-title">Yle, the watchdog of power</h2>
       <div class="post-full-meta">May 1, 2026 &middot; Media &middot; tuomaskuusisto.fi/en/#yle-vahtikoira</div>
-      <img class="post-image" src="../Kuvat/post9-yle-vahtikoira.png" alt="Yle, the watchdog of power">
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="../Kuvat/post9-yle-vahtikoira.jpg" alt="Yle, the watchdog of power">
       <div class="post-body">
         <p>Yle, Finland&rsquo;s public broadcaster, produced over 20 separate stories, videos and discussions about a May Day demonstration in Tampere within one week (May 1&ndash;8), in Finnish, Swedish and English. In social media distribution the number multiplies. The volume corresponds to the coverage of a terrorist attack or a large-scale crisis. Behind it are three suspected assaults under investigation, none of which has led to a conviction.</p>
         <p>One of the stories (May 4) is headlined: &ldquo;New information on the Blue-and-Black Movement&rsquo;s May Day march in Tampere: complaint about the police to the Parliamentary Ombudsman.&rdquo; That is, a single citizen&rsquo;s complaint about police conduct is, to Yle, an independent news item, its own headline, its own story. The watchdog barks.</p>
@@ -675,7 +705,7 @@
 
     <div id="post3" class="post-full">
       <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h1 class="post-full-title">The mayor of Tampere and the media&rsquo;s double standard</h1>
+      <h2 class="post-full-title">The mayor of Tampere and the media&rsquo;s double standard</h2>
       <div class="post-full-meta">March 18, 2026 &middot; Politics &middot; tuomaskuusisto.fi/en/#tampereen-pormestari</div>
       <div class="post-body">
         <p>The mayor of Tampere demanded constitutional amendments on the basis of one event. The same media that reported this as a significant statement treated a violent event of comparable scale in another context as statistics and a lack of news value.</p>
@@ -695,7 +725,7 @@
 
 <div id="page-contact" class="page">
   <div class="wrap">
-    <h1 class="page-heading">Contact</h1>
+    <h2 class="page-heading">Contact</h2>
     <p class="page-sub">Feedback &middot; Collaboration &middot; Comments</p>
     <div class="contact-block">
       <div class="contact-row">
@@ -713,6 +743,14 @@
 
 <script>
 document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter' && e.key !== ' ' && e.key !== 'Spacebar') { return; }
+  var t = e.target;
+  if (!t || !t.hasAttribute || !t.hasAttribute('data-nap')) { return; }
+  e.preventDefault();
+  t.click();
+});
+
+document.addEventListener('keydown', function(e) {
   if (e.key === 'Escape') {
     var openPost = document.querySelector('.post-full[style*="display: block"], .post-full[style*="display:block"]');
     if (openPost) {
@@ -728,9 +766,11 @@ document.addEventListener('keydown', function(e) {
 
 function showPage(name, skipReset) {
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
-  document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); });
+  document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); a.removeAttribute('aria-current'); });
   document.getElementById('page-' + name).classList.add('active');
-  document.getElementById('nav-' + name).classList.add('active');
+  var navAktiivinen = document.getElementById('nav-' + name);
+  navAktiivinen.classList.add('active');
+  navAktiivinen.setAttribute('aria-current', 'page');
   if (name === 'blog' && !skipReset) { backToList(); }
   window.scrollTo(0, 0);
 }
