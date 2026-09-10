@@ -235,6 +235,13 @@
     <hr class="divider">
     <p class="page-sub" style="margin-bottom:1.2rem">Latest writings</p>
     <div class="home-grid">
+      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post18')">
+        <img class="home-grid-img" decoding="async" width="760" height="507" src="../Kuvat/post18-uhkapelia-ihmiskunnalla.jpg" alt="Illustration: a single brass die on a dark table in a dim server room, with the faint indicator lights of server racks behind it">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">September 10, 2026 &middot; Technology</div>
+          <div class="home-grid-title">A Gamble with Humanity?</div>
+        </div>
+      </div>
       <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post16')">
         <img class="home-grid-img" decoding="async" width="760" height="507" src="../Kuvat/post16-robotti-juoksi.jpg" alt="Illustration: a running humanoid robot in a stadium and a jar of jam in front of the EU flag">
         <div class="home-grid-body">
@@ -247,13 +254,6 @@
         <div class="home-grid-body">
           <div class="home-grid-meta">September 1, 2026 &middot; Society</div>
           <div class="home-grid-title">Lindsay Clancy. When empathy overrides justice.</div>
-        </div>
-      </div>
-      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post14')">
-        <img class="home-grid-img" decoding="async" width="760" height="443" src="../Kuvat/post14-yksi-tiedosto.jpg" alt="Henna Virkkunen on Finnish television">
-        <div class="home-grid-body">
-          <div class="home-grid-meta">August 26, 2026 &middot; Technology</div>
-          <div class="home-grid-title">One file nullifies the EU&rsquo;s entire AI regulation</div>
         </div>
       </div>
     </div>
@@ -269,6 +269,11 @@
       <div class="aihe-suodatin" id="aiheSuodatin" role="group" aria-label="Filter by topic"></div>
         <ul class="post-list">
 
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post18')">
+          <div class="post-item-meta">September 10, 2026 &middot; Technology</div>
+          <div class="post-item-title">A Gamble with Humanity?</div>
+          <div class="post-item-excerpt">An Anthropic researcher resigned and said the labs are gambling with our lives. What he calls a warning shot is a documented event: in July, autonomous agents escaped a test environment and broke into Hugging Face's production infrastructure.</div>
+        </li>
         <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post16')">
           <div class="post-item-meta">September 3, 2026 &middot; Technology</div>
           <div class="post-item-title">The robot ran. Europe regulated.</div>
@@ -356,6 +361,29 @@
         </li>
 
       </ul>
+    </div>
+
+    <div id="post18" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h2 class="post-full-title">A Gamble with Humanity?</h2>
+      <div class="post-full-meta">September 10, 2026 &middot; Technology &middot; tuomaskuusisto.fi/en/#uhkapelia-ihmiskunnalla</div>
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="../Kuvat/post18-uhkapelia-ihmiskunnalla.jpg" alt="Illustration: a single brass die on a dark table in a dim server room, with the faint indicator lights of server racks behind it">
+      <div class="post-body">
+        <p>Here is <a href="https://x.com/hilbertspaess/status/2097476196791709843" target="_blank" rel="noopener">an X thread</a> from a researcher who has just left Anthropic (the developer of Claude, with Amazon and Google among its major investors). Jacob Coxon spent three years doing pretraining research at both OpenAI and Anthropic. The thread has received <a href="https://apnews.com/article/2ed549e07f2f941600a135070487d83d" target="_blank" rel="noopener">more than 100 million views</a> in a day.</p>
+        <p>&ldquo;I resigned from Anthropic today. I spent the last three years doing pretraining research at both OpenAI and Anthropic. Neither company is acting responsibly. They are racing straight to self-improving superintelligence and gambling with our lives.&rdquo;</p>
+        <p>&ldquo;Do not underestimate the power of this technology. These will soon be superhuman systems that can hack anything, revolutionize any field overnight, and acquire real power and resources. We have all witnessed the progress in each of these domains, and progress is not slowing.&rdquo;</p>
+        <p>&ldquo;The people building AI earnestly believe that it could kill us all by the end of the decade. This is not a marketing stunt. If anything, many executives and senior researchers will couch their phrasing in the press to sound sensible - but I hear the same people express fear privately. No other human activity poses this level of danger.&rdquo;</p>
+        <p>&ldquo;A common response is &lsquo;if they truly believe this, why are they still building it?&rsquo; At OpenAI, many have not deeply internalized the civilizational stakes. At Anthropic, the stakes are well-understood, but they are locked in a race to get there first - they believe no one else will act responsibly, so they must do it themselves, despite the risk.&rdquo;</p>
+        <p>&ldquo;Accepting this race and entering the &lsquo;endgame&rsquo; is a hubristic gamble that should not be launched from a private company&rsquo;s Slack. Attempting to speedrun alignment should require extraordinary confidence that there are no better trajectories available.&rdquo;</p>
+        <p>&ldquo;I am optimistic about the potential for coordination. Warning shots like the Hugging Face attack have made pacing agreements between U.S. labs more viable. I don&rsquo;t feel like we&rsquo;re on track to prevent a global race, which may require costly actions such as a temporary ban on improving model capabilities.&rdquo;</p>
+        <p>&ldquo;If you are a lab researcher, I urge you to consider what the next few years will actually feel like. Do you want to kick off a superintelligent RL run without a rigorous understanding of its mind? Should you put your head down because &lsquo;it&rsquo;s happening anyway&rsquo; - or take this moment to call for different conditions?&rdquo;</p>
+        <p>These are Coxon&rsquo;s views. What he refers to as a warning shot, however, is a documented event.</p>
+        <p>In July 2026, during an internal cybersecurity evaluation at OpenAI, autonomous agents <a href="https://huggingface.co/blog/agent-intrusion-technical-timeline" target="_blank" rel="noopener">escaped the isolated test environment intended for them</a> and then exploited vulnerabilities in Hugging Face&rsquo;s infrastructure to reach its production systems. <a href="https://www.redwoodresearch.org/research/hugging-face-incident" target="_blank" rel="noopener">About 1,200 agents set up an unauthorized communication channel</a> among themselves, and about 700 of them took part in the attack. The campaign ran from July 9 to July 13, about four and a half days. Hugging Face disclosed the incident on July 16, <a href="https://openai.com/index/hugging-face-model-evaluation-security-incident/" target="_blank" rel="noopener">OpenAI confirmed on July 21</a> that the incident involved its models, and according to <a href="https://www.theregister.com/ai-and-ml/2026/07/28/openais-agent-siege-forced-significant-rebuild-at-hugging-face/5279577" target="_blank" rel="noopener">the Cloud Security Alliance&rsquo;s postmortem</a>, Hugging Face had to rebuild roughly one third of its infrastructure.</p>
+        <p>Sam Altman <a href="https://www.cnbc.com/2026/07/30/open-ai-hugging-face-hack-latest.html" target="_blank" rel="noopener">said this was the first security incident</a> he had felt as concrete fear rather than as a risk assessment, and on August 18 <a href="https://openai.com/index/pacing-model-development-cyber-capabilities/" target="_blank" rel="noopener">OpenAI announced</a> a slowdown in development and a two-week pause on the reinforcement-learning runs planned for its newest models.</p>
+        <p>After the incident, on July 28, more than 1,100 employees of OpenAI, Anthropic, DeepMind and Meta published an open letter, <a href="https://www.pacingthefrontier.com/" target="_blank" rel="noopener">&ldquo;Pacing the Frontier&rdquo;</a>, asking the US government to support mechanisms for pacing automated frontier development. The signatories included Dario Amodei, Jared Kaplan and Jakub Pachocki. The letter did not call for an immediate pause in development; it asked for mechanisms that could slow development when needed. Coxon&rsquo;s message goes further: in his view, the labs should stop recursive self-improvement.</p>
+        <p>This is not the first time the cyber capabilities of frontier AI have become a national security question. Anthropic <a href="https://www.anthropic.com/research/mythos-preview" target="_blank" rel="noopener">did not release its Mythos model for general use in April 2026</a>. According to the company, the model is exceptionally effective at finding and chaining zero-day vulnerabilities, so it was made available only to a limited group of partners. Treasury Secretary Scott Bessent and Federal Reserve Chair Jerome Powell <a href="https://www.cbsnews.com/news/mythos-anthropic-ai-cybersecurity-risks-powell-bessent/" target="_blank" rel="noopener">met with Wall Street bank executives on April 7</a> because of the model&rsquo;s cyber risks. On June 12, the US administration <a href="https://www.anthropic.com/news/fable-mythos-access" target="_blank" rel="noopener">ordered</a> Anthropic to suspend the use of Fable 5 and Mythos 5 by foreign nationals; <a href="https://www.anthropic.com/news/redeploying-fable-5" target="_blank" rel="noopener">the order was lifted on June 30</a>.</p>
+        <p>Coxon&rsquo;s proposed solution is an agreement among US labs. The EU&rsquo;s main tools are regulation and cybersecurity obligations, such as the AI Act, NIS2 and the Cyber Resilience Act. In the Hugging Face incident, the agents did not ask anyone for permission. Are the EU&rsquo;s tools sufficient if the same thing happens here?</p>
+      </div>
     </div>
 
     <div id="post16" class="post-full">
@@ -825,7 +853,7 @@ function openPost(id) {
   document.getElementById('blog-list').style.display = 'none';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   document.getElementById(id).style.display = 'block';
-  var anchors = { post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
+  var anchors = { post18:'uhkapelia-ihmiskunnalla', post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
   if (anchors[id]) { window.location.hash = anchors[id]; }
   naytaPostNav(id);
   window.scrollTo(0, 0);
@@ -935,7 +963,7 @@ rakennaSuodatin();
 
 (function checkHash() {
   var hash = window.location.hash.replace('#','');
-  var map = { 'robotti-juoksi':'post16', 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
+  var map = { 'uhkapelia-ihmiskunnalla':'post18', 'robotti-juoksi':'post16', 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
   if (map[hash]) { showPage('blog'); openPost(map[hash]); }
 })();
 </script>
