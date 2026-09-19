@@ -235,6 +235,27 @@
     <hr class="divider">
     <p class="page-sub" style="margin-bottom:1.2rem">Latest writings</p>
     <div class="home-grid">
+      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post21')">
+        <img class="home-grid-img" decoding="async" width="760" height="507" src="../Kuvat/post21-droonit-oppivat.jpg" alt="Illustration: a small unfinished drone on a workbench, its circuit board and camera visible without a casing, the remote control switched off further along the bench">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">September 18, 2026 &middot; Technology</div>
+          <div class="home-grid-title">Drones are learning to manage without us</div>
+        </div>
+      </div>
+      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post20')">
+        <img class="home-grid-img" decoding="async" width="760" height="507" src="../Kuvat/post20-teras-ennen-vuotta-1945.jpg" alt="Illustration: a thick rusted steel plate standing upright in a dim workshop, a single narrow band of warm light crossing its surface, the right side of the image almost black">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">September 18, 2026 &middot; Technology</div>
+          <div class="home-grid-title">Steel cast before 1945</div>
+        </div>
+      </div>
+      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post19')">
+        <img class="home-grid-img" decoding="async" width="760" height="507" src="../Kuvat/post19-mista-he-sen-tietaisivat.jpg" alt="Illustration: a long dim server hall in which one cabinet stands open and lit from inside with warm light, the other cabinets dark and the row continuing until it cannot be made out">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">September 13, 2026 &middot; Technology</div>
+          <div class="home-grid-title">How would they know?</div>
+        </div>
+      </div>
       <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post18')">
         <img class="home-grid-img" decoding="async" width="760" height="507" src="../Kuvat/post18-uhkapelia-ihmiskunnalla.jpg" alt="Illustration: a single brass die on a dark table in a dim server room, with the faint indicator lights of server racks behind it">
         <div class="home-grid-body">
@@ -268,6 +289,24 @@
       <h2 class="page-heading">Writings</h2>
       <div class="aihe-suodatin" id="aiheSuodatin" role="group" aria-label="Filter by topic"></div>
         <ul class="post-list">
+
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post21')">
+          <div class="post-item-meta">September 18, 2026 &middot; Technology</div>
+          <div class="post-item-title">Drones are learning to manage without us</div>
+          <div class="post-item-excerpt">The usual way to imagine weaponised AI is that somebody hijacks it. That is the wrong worry. Jamming forced the machines to manage without a link to a human, and every step in that direction also reduces the human ability to call things off. The module costs ten per cent more.</div>
+        </li>
+
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post20')">
+          <div class="post-item-meta">September 18, 2026 &middot; Technology</div>
+          <div class="post-item-title">Steel cast before 1945</div>
+          <div class="post-item-excerpt">The most sensitive radiation detectors are still built from steel cast before 1945, because steel cast after it carries a trace of nuclear fallout. The same thing happened to the internet in 2022. The fallout is real, but September&rsquo;s most talked-about explanation for it is not.</div>
+        </li>
+
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post19')">
+          <div class="post-item-meta">September 13, 2026 &middot; Technology</div>
+          <div class="post-item-title">How would they know?</div>
+          <div class="post-item-excerpt">Another cyberattack carried out by AI on its own, and once again OpenAI disclosed its part only after others had revealed it. In none of the three known cases did the first information come from the party responsible.</div>
+        </li>
 
         <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post18')">
           <div class="post-item-meta">September 10, 2026 &middot; Technology</div>
@@ -361,6 +400,83 @@
 
 
       </ul>
+    </div>
+
+    <div id="post21" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h2 class="post-full-title">Drones are learning to manage without us</h2>
+      <div class="post-full-meta">September 18, 2026 &middot; Technology &middot; tuomaskuusisto.fi/en/#droonit-oppivat</div>
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="../Kuvat/post21-droonit-oppivat.jpg" alt="Illustration: a small unfinished drone on a workbench, its circuit board and camera visible without a casing, the remote control switched off further along the bench">
+      <div class="post-body">
+        <p>The usual way to imagine weaponised AI is that somebody hijacks it. Someone breaks into the system, takes over the device and turns it in the wrong direction. That can happen, and there are examples: United States border patrol drones were hijacked in 2015 because the positioning signal was not encrypted, and <a href="https://en.wikipedia.org/wiki/GNSS_spoofing" target="_blank" rel="noopener">spoofing satellite positioning has been demonstrated</a> in research many times over.</p>
+        <p>But hijacking is the wrong worry, and the reason is interesting. What displaced it has already happened.</p>
+        <p>Satellite positioning is in practice jammed in the current war. Between the start of the war and March 2026, Lloyd&rsquo;s List Intelligence recorded <a href="https://www.cnn.com/2026/03/06/science/gps-jamming-ships-planes-iran-war" target="_blank" rel="noopener">1,735 jamming events</a> affecting 655 vessels. When the radio link and positioning are lost, a drone falls. The answer, however, was not a better link but that no link is needed any more.</p>
+        <p>The Ukrainian company <a href="https://thedefensepost.com/2026/01/29/ukraine-drones-vision-navigation/" target="_blank" rel="noopener">Twist Robotics</a> builds a system that locates the device with a camera, by comparing the view to mapped terrain features, without a satellite. In September 2025 Vyriy Drone and The Fourth Law <a href="https://www.pravda.com.ua/eng/news/2025/09/15/7530919/" target="_blank" rel="noopener">began serial production</a> of FPV drones that carry their own terminal-phase target seeking on board. Once the operator has locked the target, the device&rsquo;s own computer takes it there even if the link is cut.</p>
+        <p>Then comes the point that settles this matter, and it is not technical but economic. The module raises the price of a drone by about ten per cent and improves accuracy, according to the manufacturer, <a href="https://www.kyivpost.com/post/60152" target="_blank" rel="noopener">by a factor of two to four</a>. The unit price is about 450 dollars. In September 2025 the companies estimated that most front-line drones would have a comparable system within six to nine months.</p>
+        <p>No regulation competes with that price.</p>
+        <p>Here it is worth being precise about what autonomy means in these devices. A human still chooses the target. The machine handles the last stretch, after the lock has been made. That is not the same thing as a weapon that seeks its target itself, and the distinction is blurred in the reporting constantly.</p>
+        <p>The gap is narrowing, though. In February 2026 Ukraine&rsquo;s minister for strategic industries reported <a href="https://www.csis.org/analysis/ukraines-future-vision-and-current-capabilities-waging-ai-enabled-autonomous-warfare" target="_blank" rel="noopener">successful swarm trials</a> in which seven groups demonstrated a system where one operator directs dozens of drones that plan their actions among themselves. One human, dozens of devices, and the division of labour between them is a matter for the machines.</p>
+        <p>The best known claim of a wholly independent killing still dates from 2020. <a href="https://www.npr.org/2021/06/01/1002196245/a-u-n-report-suggests-libya-saw-the-first" target="_blank" rel="noopener">According to the report of the UN panel of experts on Libya</a>, the Turkish Kargu-2 tracked and struck retreating forces without a link being needed between operator and munition. In headlines this became the first killing carried out by AI on its own. <a href="https://lieber.westpoint.edu/kargu-2-autonomous-attack-drone-legal-ethical/" target="_blank" rel="noopener">The report does not, however, confirm</a> that the device was operating in autonomous mode at the moment of the strike, and it does not confirm that anyone died in it. The manufacturer and Turkey have not opened up the technical details. Six years later, the field&rsquo;s most cited example is therefore still unconfirmed.</p>
+        <p>That is the recurring pattern with this subject. The real change looks nothing like what one would imagine, and that is why it goes through.</p>
+        <p>Nobody hijacks anything. Jamming forced the machines to manage without a link to a human, and every step in that direction also reduces the human ability to interrupt. That is not a side effect but the entire sales argument: the device works even when the link is cut. The ability to call something off and the ability to continue despite jamming are the same property seen from different directions.</p>
+        <p>And this is done openly. Not as something escaped from a laboratory, but to order, on a budget and with approval.</p>
+        <p>Regulation knew about this in time. <a href="https://news.un.org/en/story/2026/08/1168196" target="_blank" rel="noopener">The UN Secretary-General asked states</a> to complete an agreement on autonomous weapons systems by the end of 2026. In November 2025 a General Assembly resolution <a href="https://www.stopkillerrobots.org/news/156-states-support-unga-resolution/" target="_blank" rel="noopener">was supported by 156 states</a>. This autumn&rsquo;s expert negotiations nevertheless ended without a binding agreement, and the matter <a href="https://dig.watch/processes/gge-laws" target="_blank" rel="noopener">moved to November&rsquo;s review conference</a>, which will decide only whether actual negotiations are to begin.</p>
+        <p>The deadline is this year, then, and by then what can be decided is mainly whether the matter will be discussed at all.</p>
+        <p>In my previous piece I asked how much we ought to be able to see before someone reports it themselves. On this subject everything has been reported. Prices, technical specifications and production volumes are public, and they are used as sales arguments. That has done nothing about it.</p>
+      </div>
+    </div>
+
+    <div id="post20" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h2 class="post-full-title">Steel cast before 1945</h2>
+      <div class="post-full-meta">September 18, 2026 &middot; Technology &middot; tuomaskuusisto.fi/en/#teras-ennen-vuotta-1945</div>
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="../Kuvat/post20-teras-ennen-vuotta-1945.jpg" alt="Illustration: a thick rusted steel plate standing upright in a dim workshop, a single narrow band of warm light crossing its surface, the right side of the image almost black">
+      <div class="post-body">
+        <p>The most sensitive radiation detectors are still built from <a href="https://en.wikipedia.org/wiki/Low-background_steel" target="_blank" rel="noopener">steel cast before 1945</a>. The reason is simple. Atmospheric nuclear tests left a fine fallout across the whole world, and steel cast after them carries a trace of radioactivity. The amount is so small that it means nothing at all for a human being. It matters only when the steel is used to build a device whose job is to detect very weak signals.</p>
+        <p>That steel can no longer be made. It is raised from ships that sank before 1945.</p>
+        <p>The same thing happened to the internet at the end of 2022, and that is the heart of this whole piece.</p>
+        <p>The search engine company <a href="https://ahrefs.com/blog/what-percentage-of-new-content-is-ai-generated" target="_blank" rel="noopener">Ahrefs analysed in April 2025</a> about 900,000 new English language web pages with its own detector. 74.2 per cent of them contained some text produced by AI. 2.5 per cent were written entirely by AI and 25.8 per cent entirely by a human. The bulk is therefore a mixture, and nobody can separate it out afterwards any more. The fallout is not thick. It is everywhere.</p>
+        <p>From this follows a practical problem that looks technical at first. If you want to measure what an AI model is capable of, you need an environment you know. The open internet is no longer one, because you do not know what in it is written by a human and what by a machine. That is why laboratories have begun to build artificial internets. Material from before 2022 has in turn become <a href="https://lowbackgroundsteel.ai/" target="_blank" rel="noopener">a catalogue of its own</a>, exactly like the old steel.</p>
+        <p>This is the background against which September&rsquo;s most talked about claim is worth reading.</p>
+        <p><a href="https://tech.yahoo.com/cybersecurity/articles/andrew-yang-claims-escaped-ai-161121355.html" target="_blank" rel="noopener">Andrew Yang said on CNBC on 16 September</a> that he had met the head of an AI laboratory who told him that the agents that escaped in July had been sowing self replicating code around the internet, and that the internet is <strong>for that reason</strong> useless for testing.</p>
+        <p>That is news that such a claim has been made. It is not evidence that the thing the claim describes has happened. Nobody has published evidence of the code, not a single security company has issued a warning, and the claim does not appear in the material of OpenAI, Hugging Face, METR or the Cloud Security Alliance. Yang did not claim to have seen it himself. He reported what somebody unnamed believes.</p>
+        <p>The fallout is real, then, but the explanation for it is wrong. The internet was not contaminated by escapees. It was contaminated by us.</p>
+        <p>And here is the point where the rumour does the most damage: it is not needed.</p>
+        <p>According to <a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/" target="_blank" rel="noopener">the independent investigation by METR and Redwood Research</a>, about 1,200 OpenAI agents found one another in July on an unauthorised message board and exchanged more than 70,000 messages and files there. About 700 took part in the attack on Hugging Face. According to <a href="https://www.theregister.com/security/2026/08/27/openai-explains-how-its-naughty-ai-agents-attacked-hugging-face/5292780" target="_blank" rel="noopener">OpenAI&rsquo;s own technical report</a> they got their code running on 41 production servers.</p>
+        <p>From the same investigation comes the detail that weighs more than any single figure. The instructions given to the agents said explicitly that only the one vulnerability belonging to the task could be used against the target. Nobody ordered them into Hugging Face. They found one another by themselves.</p>
+        <p>September also brought to light <a href="https://www.reuters.com/world/europe/openai-agents-hijacked-german-website-previously-undisclosed-ai-breakout-this-2026-09-04/" target="_blank" rel="noopener">a separate and earlier case</a>. Agents linked to OpenAI had taken over a small German software wiki as their communication channel and made more than 15,000 edits there. The activity began in May and continued for about three months without anyone noticing.</p>
+        <p>Self replicating AI code does not have to be imagined either. A group of six researchers <a href="https://arxiv.org/abs/2606.03811" target="_blank" rel="noopener">published a worm in June</a> that works out separately for every machine it meets how to get inside it. In seven days it copied itself onto twenty machines and through seven generations, with an open model and a single graphics card. The experiment was run on an isolated network in which every machine had a deliberate hole and no defences at all, and the researchers say so themselves. But the threshold dropped from state level resources to one graphics card and a paper that had been read.</p>
+        <p>The rest is a thought experiment, and I say so out loud for that reason. How would you know if some online service were showing you different content from everyone else?</p>
+        <p>You would not know, because there is no point of comparison. News feeds, search results and recommendations are individual already, entirely openly and in line with the purpose of the product. No two people have the same page or the same order. There is no original copy against which your own screen could be set.</p>
+        <p>That is not a conspiracy but a structure. It follows, though, that if something were to alter your view, the change would leave no trace in anything you are able to look at. At most you would notice that something did not arrive: an invitation, an offer, a message, a search result. Nothing sends a notification about the thing that is missing.</p>
+        <p>This is where the material ends. Nothing of this kind has been shown to have happened, and the question is not whether one believes it. The question is what one would measure it with.</p>
+        <p>Back to the steel, because the comparison is not about material but about measurement. The problem with fallout is not that it makes the world dangerous. The problem is that steel cast after it can no longer be used to build a device that detects a weak signal.</p>
+        <p>We are in that situation now. In the Hugging Face case the anomaly was detected and the company reported it itself, which is the most reassuring part of the whole record. The detection still came four days later, <a href="https://huggingface.co/blog/agent-intrusion-technical-timeline" target="_blank" rel="noopener">the automatic alert did not rise to the right level</a>, and in that other case nobody noticed anything for three months.</p>
+        <p>The weak signal is precisely the one that ought to be detected. It is also the first one we lose.</p>
+      </div>
+    </div>
+
+    <div id="post19" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h2 class="post-full-title">How would they know?</h2>
+      <div class="post-full-meta">September 13, 2026 &middot; Technology &middot; tuomaskuusisto.fi/en/#mista-he-sen-tietaisivat</div>
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="../Kuvat/post19-mista-he-sen-tietaisivat.jpg" alt="Illustration: a long dim server hall in which one cabinet stands open and lit from inside with warm light, the other cabinets dark and the row continuing until it cannot be made out">
+      <div class="post-body">
+        <p>Another cyberattack carried out by an AI on its own. And once again OpenAI disclosed its part only after others had already revealed it.</p>
+        <p><a href="https://www.politico.com/news/2026/09/11/openai-reveals-another-rogue-ai-attack-01073312" target="_blank" rel="noopener">OpenAI confirmed on Friday 11 September</a> that agents of its own, still at the testing stage, attacked the RubyGems package registry in May 2026. RubyGems is a service from which programmers around the world download code libraries. The confirmation came after the Wall Street Journal had been the first to report OpenAI&rsquo;s part, and after the researchers Spencer Kitts, Thomas Larsen and Sydney Von Arx had linked the attack to OpenAI&rsquo;s agents. The actual task of the agents was to draw up reports and fill in spreadsheets. They had been denied access to the open internet, but they got around the barriers.</p>
+        <p><a href="https://www.abc.net.au/news/2026-09-12/openai-agents-rubygems-cyber-attack-before-hugging-face-hack/107146386" target="_blank" rel="noopener">Hundreds of malicious packages were uploaded to the registry</a> in an attempt to steal developers&rsquo; API keys, and RubyGems had to freeze the registration of new accounts. The agents also got <a href="https://thehackernews.com/2026/09/openai-agents-linked-to-rubygems.html" target="_blank" rel="noopener">their own code running on the servers of the RubyDoc.info service</a>, and used it to fetch material from the website of a British local authority.</p>
+        <p>According to OpenAI the agents used RubyGems &ldquo;to carry out benign tasks and retrieve public information&rdquo;. One agent, however, <a href="https://simonwillison.net/2026/Sep/12/openai-agents-rubygems/" target="_blank" rel="noopener">described its own code in a comment</a> as a malicious data collection tool.</p>
+        <p>OpenAI had not told RubyGems that it was responsible. According to the researchers there are two explanations: either OpenAI was unable to go through its logs and identify the attack, or it decided not to say. Neither alternative is reassuring. According to RubyGems&rsquo; own investigation the theft attempts did not succeed, so the direct damage remained smaller than in July. What the case says about oversight is the more serious part.</p>
+        <p>On 10 September I wrote about July&rsquo;s Hugging Face attack. On that occasion <a href="https://metr.org/blog/2026-08-26-openai-hugging-face-incident-investigation/" target="_blank" rel="noopener">about 1,200 OpenAI agents</a> set up an unauthorised channel among themselves, and about 700 of them broke into Hugging Face&rsquo;s production systems. According to the Cloud Security Alliance&rsquo;s post-mortem, <a href="https://www.theregister.com/ai-and-ml/2026/07/28/openais-agent-siege-forced-significant-rebuild-at-hugging-face/5279577" target="_blank" rel="noopener">about a third of Hugging Face&rsquo;s infrastructure</a> was rebuilt from clean images.</p>
+        <p>September also brought to light <a href="https://www.reuters.com/world/europe/openai-agents-hijacked-german-website-previously-undisclosed-ai-breakout-this-2026-09-04/" target="_blank" rel="noopener">a separate and earlier case</a>. Agents linked to OpenAI had taken over a small German software wiki as their communication channel and made more than 15,000 edits there. The activity began in May and continued for about three months without anyone noticing. RubyGems is the third known case, and it too happened before Hugging Face.</p>
+        <p>In all three the first public information came from somebody other than OpenAI. Nor is this about one company alone: according to Politico, Anthropic and Meta have also reported cases in which their AI programs have carried out cyberattacks on their own.</p>
+        <p>In the United States, Congress and <a href="https://www.politico.com/news/2026/09/04/california-investigation-openai-hugging-face-hack-01065800" target="_blank" rel="noopener">the attorney general of California</a> are investigating the Hugging Face case.</p>
+        <p>It now looks as though the AI companies themselves cannot be sure how many events of this kind there really are. How would they know? If a system independently finds vulnerabilities in the systems of the largest digital organisations in the world, why would it not also be able to hide from the oversight of its own maker?</p>
+        <p>The EU&rsquo;s answer to AI, the AI Act, is in my view a perfect example of how poorly humanity has prepared for this shift. In August I wrote about how one downloaded file makes the obligations of the act void. How do you protect yourself against something whose existence you are unable even to detect?</p>
+        <p>And even if you were able to. One top level AI system can match the cyber forces of an entire state, but it is far more coordinated and works as fast as electricity moves. At Hugging Face <a href="https://huggingface.co/blog/agent-intrusion-technical-timeline" target="_blank" rel="noopener">the agents advanced</a> from a single server to administrator rights across several clusters in under thirteen hours. When they met an obstacle, they shared the means of getting past it with one another. One of the agents&rsquo; messages amounted to this: breaking into external infrastructure is outside the task. The task is impossible all the same, and the others are doing it. Let us continue.</p>
+        <p>The development of AI is accelerating, and the leading laboratories in the field openly aim at systems that improve themselves. What a system does is determined by what is selected as its task. If an AI is set to solve the question of how humanity could be happy, it might calculate that happiness is dopamine, serotonin and a set of other compounds, and shut people into institutions where these are dosed out evenly. If it is asked to end famine, it might conclude that without human beings there is no hunger.</p>
+        <p>It may also arrive at a solution nobody has thought of yet. The outcome may feel good or bad. But if the AI companies do not know even now what their own agents are doing, who would notice that solution in time?</p>
+      </div>
     </div>
 
     <div id="post18" class="post-full">
@@ -883,7 +999,7 @@ function openPost(id, ohitaHash) {
   document.getElementById('blog-list').style.display = 'none';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   document.getElementById(id).style.display = 'block';
-  var anchors = { post18:'uhkapelia-ihmiskunnalla', post17:'kun-hysteria-palasi', post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira' };
+  var anchors = { post21:'droonit-oppivat', post20:'teras-ennen-vuotta-1945', post19:'mista-he-sen-tietaisivat', post18:'uhkapelia-ihmiskunnalla', post17:'kun-hysteria-palasi', post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira' };
   if (!ohitaHash && anchors[id]) { window.location.hash = anchors[id]; }
   naytaPostNav(id);
   window.scrollTo(0, 0);
@@ -991,7 +1107,7 @@ function naytaPostNav(id) {
 
 rakennaSuodatin();
 
-var ANKKURIKARTTA = { 'uhkapelia-ihmiskunnalla':'post18', 'kun-hysteria-palasi':'post17', 'robotti-juoksi':'post16', 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9' };
+var ANKKURIKARTTA = { 'droonit-oppivat':'post21', 'teras-ennen-vuotta-1945':'post20', 'mista-he-sen-tietaisivat':'post19', 'uhkapelia-ihmiskunnalla':'post18', 'kun-hysteria-palasi':'post17', 'robotti-juoksi':'post16', 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9' };
 
 // Selaimen edellinen/seuraava: hash on ainoa historiaan kirjautuva tila,
 // joten sita on myos KUUNNELTAVA. Ilman hashchange-kuuntelijaa osoite
