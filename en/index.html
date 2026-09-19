@@ -359,11 +359,6 @@
           <div class="post-item-excerpt">Finland&rsquo;s public broadcaster produced over 20 stories in a week about one May Day demonstration. The watchdog snaps at the police&rsquo;s ankles &mdash; but licks the mayor&rsquo;s boot as he tramples on fundamental rights.</div>
         </li>
 
-        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post3')">
-          <div class="post-item-meta">March 18, 2026 &middot; Politics</div>
-          <div class="post-item-title">The mayor of Tampere and the media&rsquo;s double standard</div>
-          <div class="post-item-excerpt">When an event is politically convenient, it gets the editorials. When it is not, it gets the statistics. This is not a coincidence.</div>
-        </li>
 
       </ul>
     </div>
@@ -830,22 +825,7 @@
       </div>
     </div>
 
-    <div id="post3" class="post-full">
-      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
-      <h2 class="post-full-title">The mayor of Tampere and the media&rsquo;s double standard</h2>
-      <div class="post-full-meta">March 18, 2026 &middot; Politics &middot; tuomaskuusisto.fi/en/#tampereen-pormestari</div>
-      <div class="post-body">
-        <p>The mayor of Tampere demanded constitutional amendments on the basis of one event. The same media that reported this as a significant statement treated a violent event of comparable scale in another context as statistics and a lack of news value.</p>
-        <p>This is not an individual journalist&rsquo;s choice. This is an editorial line that repeats regularly. When it repeats enough times, it stops being coincidence and becomes structure.</p>
-        <p>The structure is that some events justify a diagnosis of society and others do not. The division does not follow the severity of the event. It follows whose arguments the event reinforces.</p>
-        <p>The disproportion in media treatment does not mean journalists are dishonest. It means journalism is unable to examine the grounds of its own choices. This is a structural problem, not an individual one.</p>
-      </div>
-      <div class="share-row">
-        <span class="share-label">Share:</span>
-        <button class="share-btn" onclick="shareFacebook('tampereen-pormestari')">Facebook</button>
-        <button class="share-btn" onclick="copyLink('tampereen-pormestari')">Copy link</button>
-      </div>
-    </div>
+
     <div id="postNav" class="post-nav" style="display:none"></div>
 
   </div>
@@ -899,22 +879,22 @@ function showPage(name, skipReset) {
   window.scrollTo(0, 0);
 }
 
-function openPost(id) {
+function openPost(id, ohitaHash) {
   document.getElementById('blog-list').style.display = 'none';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   document.getElementById(id).style.display = 'block';
-  var anchors = { post18:'uhkapelia-ihmiskunnalla', post17:'kun-hysteria-palasi', post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira', post3:'tampereen-pormestari' };
-  if (anchors[id]) { window.location.hash = anchors[id]; }
+  var anchors = { post18:'uhkapelia-ihmiskunnalla', post17:'kun-hysteria-palasi', post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira' };
+  if (!ohitaHash && anchors[id]) { window.location.hash = anchors[id]; }
   naytaPostNav(id);
   window.scrollTo(0, 0);
 }
 
-function backToList() {
+function backToList(ohitaHash) {
   var pn = document.getElementById('postNav');
   if (pn) { pn.style.display = 'none'; }
   document.getElementById('blog-list').style.display = 'block';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
-  window.location.hash = '';
+  if (!ohitaHash) { window.location.hash = ''; }
 }
 
 function shareFacebook(anchor) {
@@ -1011,10 +991,21 @@ function naytaPostNav(id) {
 
 rakennaSuodatin();
 
-(function checkHash() {
+var ANKKURIKARTTA = { 'uhkapelia-ihmiskunnalla':'post18', 'kun-hysteria-palasi':'post17', 'robotti-juoksi':'post16', 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9' };
+
+// Selaimen edellinen/seuraava: hash on ainoa historiaan kirjautuva tila,
+// joten sita on myos KUUNNELTAVA. Ilman hashchange-kuuntelijaa osoite
+// vaihtui mutta nakyma ei liikkunut. ohitaHash estaa hashin
+// uudelleenkirjoituksen, jotta historia ei kasva kun siirtyma tulee
+// historiasta itsestaan.
+function naytaHashinMukaan(ekaLataus) {
   var hash = window.location.hash.replace('#','');
-  var map = { 'uhkapelia-ihmiskunnalla':'post18', 'kun-hysteria-palasi':'post17', 'robotti-juoksi':'post16', 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9', 'tampereen-pormestari':'post3' };
-  if (map[hash]) { showPage('blog'); openPost(map[hash]); }
-})();
+  if (ANKKURIKARTTA[hash]) { showPage('blog', true); openPost(ANKKURIKARTTA[hash], true); return; }
+  if (ekaLataus) { return; }
+  backToList(true);
+}
+
+naytaHashinMukaan(true);
+window.addEventListener('hashchange', function() { naytaHashinMukaan(false); });
 </script>
 </body>
