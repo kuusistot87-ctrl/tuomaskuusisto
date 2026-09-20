@@ -985,14 +985,15 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
-function showPage(name, skipReset) {
+function showPage(name, skipReset, ohitaOsoite) {
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
   document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); a.removeAttribute('aria-current'); });
   document.getElementById('page-' + name).classList.add('active');
   var navAktiivinen = document.getElementById('nav-' + name);
   navAktiivinen.classList.add('active');
   navAktiivinen.setAttribute('aria-current', 'page');
-  if (name === 'blog' && !skipReset) { backToList(); }
+  if (name === 'blog' && !skipReset) { backToList(ohitaOsoite); }
+  if (name !== 'blog') { backToList(true); if (!ohitaOsoite) { paivitaOsoite('', name); } }
   window.scrollTo(0, 0);
 }
 
@@ -1001,7 +1002,7 @@ function openPost(id, ohitaHash) {
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   document.getElementById(id).style.display = 'block';
   var anchors = { post21:'droonit-oppivat', post20:'teras-ennen-vuotta-1945', post19:'mista-he-sen-tietaisivat', post18:'uhkapelia-ihmiskunnalla', post17:'kun-hysteria-palasi', post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira' };
-  if (!ohitaHash && anchors[id]) { window.location.hash = anchors[id]; }
+  if (!ohitaHash && anchors[id]) { paivitaOsoite(anchors[id], 'blog'); }
   naytaPostNav(id);
   window.scrollTo(0, 0);
 }
@@ -1011,7 +1012,7 @@ function backToList(ohitaHash) {
   if (pn) { pn.style.display = 'none'; }
   document.getElementById('blog-list').style.display = 'block';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
-  if (!ohitaHash) { window.location.hash = ''; }
+  if (!ohitaHash) { paivitaOsoite('', 'blog'); }
 }
 
 function shareFacebook(anchor) {
@@ -1110,20 +1111,36 @@ rakennaSuodatin();
 
 var ANKKURIKARTTA = { 'droonit-oppivat':'post21', 'teras-ennen-vuotta-1945':'post20', 'mista-he-sen-tietaisivat':'post19', 'uhkapelia-ihmiskunnalla':'post18', 'kun-hysteria-palasi':'post17', 'robotti-juoksi':'post16', 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9' };
 
-// Selaimen edellinen/seuraava: hash on ainoa historiaan kirjautuva tila,
-// joten sita on myos KUUNNELTAVA. Ilman hashchange-kuuntelijaa osoite
-// vaihtui mutta nakyma ei liikkunut. ohitaHash estaa hashin
-// uudelleenkirjoituksen, jotta historia ei kasva kun siirtyma tulee
-// historiasta itsestaan.
-function naytaHashinMukaan(ekaLataus) {
+// Osoiterivi on OSA NAKYMAA. Jos hash jaa osoittamaan kirjoitukseen jota ei
+// enaa nayteta, sivun paivitys tai jaettu linkki avaa eri sivun kuin mita
+// kayttaja katsoo. Siksi jokainen nakyman vaihto kirjoittaa osoitteen, ja
+// jokainen historiasiirtyma luetaan takaisin nakymaksi.
+//
+// paivitaOsoite kirjoittaa vain kun osoite oikeasti muuttuu, jottei
+// historiaan kerry samaa osoitetta moneen kertaan (silloin Takaisin ei tekisi
+// mitaan). Sivun nimi talletetaan history.state-kenttaan, jotta Takaisin
+// osaa palauttaa myos Etusivun ja Yhteystiedot, joilla ei ole omaa hashia.
+function paivitaOsoite(uusiHash, sivu) {
+  var kohde = uusiHash ? '#' + uusiHash : '';
+  if (window.location.hash === kohde) { return; }
+  if (window.history && window.history.pushState) {
+    window.history.pushState({ sivu: sivu || 'blog' }, '', window.location.pathname + window.location.search + kohde);
+  } else {
+    window.location.hash = kohde;
+  }
+}
+
+function naytaHashinMukaan(ekaLataus, tila) {
   var hash = window.location.hash.replace('#','');
-  if (ANKKURIKARTTA[hash]) { showPage('blog', true); openPost(ANKKURIKARTTA[hash], true); return; }
+  if (ANKKURIKARTTA[hash]) { showPage('blog', true, true); openPost(ANKKURIKARTTA[hash], true); return; }
   if (ekaLataus) { return; }
+  if (tila && tila.sivu && tila.sivu !== 'blog') { showPage(tila.sivu, true, true); return; }
   backToList(true);
 }
 
 naytaHashinMukaan(true);
-window.addEventListener('hashchange', function() { naytaHashinMukaan(false); });
+window.addEventListener('hashchange', function () { naytaHashinMukaan(false, window.history.state); });
+window.addEventListener('popstate', function (e) { naytaHashinMukaan(false, e.state); });
 </script>
 </body>
 </html>
