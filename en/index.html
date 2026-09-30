@@ -235,6 +235,13 @@
     <hr class="divider">
     <p class="page-sub" style="margin-bottom:1.2rem">Latest writings</p>
     <div class="home-grid">
+      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post22')">
+        <img class="home-grid-img" decoding="async" width="760" height="507" src="../Kuvat/post22-kaada-ensin.jpg" alt="Illustration (AI-generated, not Muhos): a wide clear-cut with stumps and forestry machine tyre tracks, spruce forest in the background">
+        <div class="home-grid-body">
+          <div class="home-grid-meta">September 30, 2026 &middot; Society</div>
+          <div class="home-grid-title">Cut first, assess later</div>
+        </div>
+      </div>
       <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post21')">
         <img class="home-grid-img" decoding="async" width="760" height="507" src="../Kuvat/post21-droonit-oppivat.jpg" alt="Illustration: a small unfinished drone on a workbench, its circuit board and camera visible without a casing, the remote control switched off further along the bench">
         <div class="home-grid-body">
@@ -270,13 +277,6 @@
           <div class="home-grid-title">When Hysteria Returned to the Courtroom</div>
         </div>
       </div>
-      <div class="home-grid-item" tabindex="0" role="link" data-nap onclick="showPage('blog', true); openPost('post16')">
-        <img class="home-grid-img" decoding="async" width="760" height="507" src="../Kuvat/post16-robotti-juoksi.jpg" alt="Illustration: a running humanoid robot in a stadium and a jar of jam in front of the EU flag">
-        <div class="home-grid-body">
-          <div class="home-grid-meta">September 3, 2026 &middot; Technology</div>
-          <div class="home-grid-title">The robot ran. Europe regulated.</div>
-        </div>
-      </div>
     </div>
     <p class="latest-link"><a tabindex="0" role="link" data-nap onclick="showPage('blog')">All writings &rarr;</a></p>
   </div>
@@ -289,6 +289,12 @@
       <h2 class="page-heading">Writings</h2>
       <div class="aihe-suodatin" id="aiheSuodatin" role="group" aria-label="Filter by topic"></div>
         <ul class="post-list">
+
+        <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post22')">
+          <div class="post-item-meta">September 30, 2026 &middot; Society</div>
+          <div class="post-item-title">Cut first, assess later</div>
+          <div class="post-item-excerpt">A Google subsidiary had about 330 hectares of forest in Muhos, Finland, cut down before an environmental impact assessment had been done. The law has only one coercive measure, and only work still in progress can be suspended.</div>
+        </li>
 
         <li class="post-item" tabindex="0" role="link" data-nap onclick="openPost('post21')">
           <div class="post-item-meta">September 18, 2026 &middot; Technology</div>
@@ -400,6 +406,27 @@
 
 
       </ul>
+    </div>
+
+    <div id="post22" class="post-full">
+      <button class="back-btn" onclick="backToList()">&larr; All writings</button>
+      <h2 class="post-full-title">Cut first, assess later</h2>
+      <div class="post-full-meta">September 30, 2026 &middot; Society &middot; tuomaskuusisto.fi/en/#kaada-ensin</div>
+      <img class="post-image" loading="lazy" decoding="async" width="760" height="507" src="../Kuvat/post22-kaada-ensin.jpg" alt="Illustration (AI-generated, not Muhos): a wide clear-cut with stumps and forestry machine tyre tracks, spruce forest in the background">
+      <div class="post-body">
+        <p>Tuike Finland, Google&rsquo;s Finnish subsidiary, had about 330 hectares of forest in Muhos cut down to make way for a data centre before an environmental impact assessment (EIA) had been carried out. <a href="https://www.finlex.fi/fi/lainsaadanto/2017/252" target="_blank" rel="noopener">The law requires an assessment</a> when trees are permanently removed from a contiguous area of more than 200 hectares.</p>
+        <p>The timeline says more about this than any statement.</p>
+        <p>In October 2025 Google told the Finnish government that its Muhos investment was <a href="https://yle.fi/a/74-20189941" target="_blank" rel="noopener">on hold</a>. In March 2026 the forest began to fall, and most of it was cut <a href="https://suomenluonto.fi/uutiset/luonnon-monimuotoisuudelle-tarkeat-alueet-saastettiin-aluksi-googlen-muhoksen-hakkuissa-kesalla-nekin-hakattiin/" target="_blank" rel="noopener">in March and April</a>.</p>
+        <p>On the last day of April the company asked the authority for a case-by-case decision on whether an assessment was needed for the early phase of the project. <a href="https://www.kaleva.fi/hs-google-yritti-saada-poikkeusluvan-muhoksen-hakk/13686840" target="_blank" rel="noopener">According to the request, as seen by the newspaper Helsingin Sanomat</a>, no assessment would be needed for the 330 hectares of felling, because the timber would not be recovered for sale. According to Helsingin Sanomat, the timber has nevertheless been sold. <a href="https://www.sss.fi/2026/09/googlen-datakeskushankkeen-hakkuille-muhoksella-ei-herunut-poikkeuslupaa-mutta-hakkuut-tehtiin-silti/" target="_blank" rel="noopener">In May the authority replied</a> that no such decision was needed. Permanent removal of trees from more than 200 hectares is listed in the law, so an assessment is required in any case.</p>
+        <p>The felling continued nevertheless until August. In July four nature sites that had been left standing in the spring were also cut down.</p>
+        <p>Google announced its <a href="https://yle.fi/a/74-20245271" target="_blank" rel="noopener">13 billion euro investment</a> on 9 September. Reporting on the felling began just over a week later.</p>
+        <p>By then the forest was gone.</p>
+        <p>The purpose of an assessment is to establish the impacts before a project is carried out. The law, however, has only one coercive measure: under certain conditions the authority can order a project to be suspended, on pain of a fine, until the assessment has been done. But only what is still in progress can be suspended. The law contains no penalty for failing to carry out an assessment.</p>
+        <p>The assessment cannot be skipped, because a permit to carry out the project may not be granted until the assessment is complete. It is being done now, but for an area that no longer has any forest left to assess.</p>
+        <p>Whose machines were in the forest, and who bought the timber? That has not been disclosed. Google <a href="https://yle.fi/a/74-20247023" target="_blank" rel="noopener">denies</a> acting unlawfully and relies on the Forest Act and the building legislation. The question, however, concerns the environmental impact assessment. The investigation by Finland&rsquo;s Permit and Supervision Authority is ongoing, and no unlawfulness has been established.</p>
+        <p>The law was known. The request in April alone shows that. If a large and irreversible job can be finished before the authority steps in, and nothing follows from the failure, the system teaches every large project the same lesson: cut first, assess later.</p>
+        <p><em>The image is an AI-generated illustration, not a photograph of Muhos.</em></p>
+      </div>
     </div>
 
     <div id="post21" class="post-full">
@@ -994,7 +1021,7 @@ function openPost(id, ohitaHash) {
   document.getElementById('blog-list').style.display = 'none';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   document.getElementById(id).style.display = 'block';
-  var anchors = { post21:'droonit-oppivat', post20:'teras-ennen-vuotta-1945', post19:'mista-he-sen-tietaisivat', post18:'uhkapelia-ihmiskunnalla', post17:'kun-hysteria-palasi', post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira' };
+  var anchors = { post22:'kaada-ensin', post21:'droonit-oppivat', post20:'teras-ennen-vuotta-1945', post19:'mista-he-sen-tietaisivat', post18:'uhkapelia-ihmiskunnalla', post17:'kun-hysteria-palasi', post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira' };
   if (!ohitaHash && anchors[id]) { paivitaOsoite(anchors[id], 'blog'); }
   naytaPostNav(id);
   window.scrollTo(0, 0);
@@ -1102,7 +1129,7 @@ function naytaPostNav(id) {
 
 rakennaSuodatin();
 
-var ANKKURIKARTTA = { 'droonit-oppivat':'post21', 'teras-ennen-vuotta-1945':'post20', 'mista-he-sen-tietaisivat':'post19', 'uhkapelia-ihmiskunnalla':'post18', 'kun-hysteria-palasi':'post17', 'robotti-juoksi':'post16', 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9' };
+var ANKKURIKARTTA = { 'kaada-ensin':'post22', 'droonit-oppivat':'post21', 'teras-ennen-vuotta-1945':'post20', 'mista-he-sen-tietaisivat':'post19', 'uhkapelia-ihmiskunnalla':'post18', 'kun-hysteria-palasi':'post17', 'robotti-juoksi':'post16', 'same-lindsay':'post15', 'yksi-tiedosto':'post14', 'pyoroovi':'post13', 'tasa-arvon-nimissa':'post12', 'kehitysapu':'post10', 'tasavalta':'post8', 'kela-pride':'post5', 'jaloa-kaksinaismoraalia':'post6', 'menisitko-sina':'post7', 'uhriporssi':'post4', 'riemu':'post11', 'yle-facebook':'post1', 'yle-vahtikoira':'post9' };
 
 // Osoiterivi on OSA NAKYMAA. Jos hash jaa osoittamaan kirjoitukseen jota ei
 // enaa nayteta, sivun paivitys tai jaettu linkki avaa eri sivun kuin mita
