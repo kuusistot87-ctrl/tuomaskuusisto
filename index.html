@@ -1192,6 +1192,8 @@ function openPost(id, ohitaHash) {
   if (!ohitaHash && anchors[id]) { paivitaOsoite(anchors[id], 'blog'); }
   naytaPostNav(id);
   synkkaaPiilotus();
+  var otsikko = document.getElementById(id).querySelector('.post-full-title');
+  if (otsikko) { document.title = otsikko.textContent + ' — Tuomas Kuusisto'; }
   window.scrollTo(0, 0);
 }
 
@@ -1202,6 +1204,7 @@ function backToList(ohitaHash) {
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   if (!ohitaHash) { paivitaOsoite('', 'blog'); }
   synkkaaPiilotus();
+  if (window.SIVUN_OTSIKKO) { document.title = window.SIVUN_OTSIKKO; }
 }
 
 function shareFacebook(anchor) {
@@ -1327,6 +1330,7 @@ function naytaHashinMukaan(ekaLataus, tila) {
   backToList(true);
 }
 
+window.SIVUN_OTSIKKO = document.title;
 naytaHashinMukaan(true);
 synkkaaPiilotus();
 window.addEventListener('hashchange', function () { naytaHashinMukaan(false, window.history.state); });
