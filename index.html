@@ -1156,6 +1156,21 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+// Lukunakyma ja ruudunlukijat eivat nae CSS-luokkia. Piilotetut nakymat merkitaan
+// siksi myos hidden-attribuutilla, jotta vain avoin kirjoitus tai sivu jaa nakyviin.
+function synkkaaPiilotus() {
+  document.querySelectorAll('.page').forEach(function (p) {
+    var pois = !p.classList.contains('active');
+    p.hidden = pois; p.setAttribute('aria-hidden', pois ? 'true' : 'false');
+  });
+  document.querySelectorAll('.post-full').forEach(function (p) {
+    var pois = p.style.display !== 'block';
+    p.hidden = pois; p.setAttribute('aria-hidden', pois ? 'true' : 'false');
+  });
+  var lista = document.getElementById('blog-list');
+  if (lista) { var listaPois = lista.style.display === 'none'; lista.hidden = listaPois; lista.setAttribute('aria-hidden', listaPois ? 'true' : 'false'); }
+}
+
 function showPage(name, skipReset, ohitaOsoite) {
   document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
   document.querySelectorAll('.nav-links a').forEach(function(a) { a.classList.remove('active'); a.removeAttribute('aria-current'); });
@@ -1165,6 +1180,7 @@ function showPage(name, skipReset, ohitaOsoite) {
   navAktiivinen.setAttribute('aria-current', 'page');
   if (name === 'blog' && !skipReset) { backToList(ohitaOsoite); }
   if (name !== 'blog') { backToList(true); if (!ohitaOsoite) { paivitaOsoite('', name); } }
+  synkkaaPiilotus();
   window.scrollTo(0, 0);
 }
 
@@ -1175,6 +1191,7 @@ function openPost(id, ohitaHash) {
   var anchors = { post26:'oikeusvaltio-joka-vaikeni', post25:'ranska-palaa', post24:'vihollisen-asianajaja', post23:'valtion-poydalla', post22:'kaada-ensin', post20:'teras-ennen-vuotta-1945', post19:'mista-he-sen-tietaisivat', post18:'uhkapelia-ihmiskunnalla', post17:'kun-hysteria-palasi', post16:'robotti-juoksi', post15:'same-lindsay', post14:'yksi-tiedosto', post13:'pyoroovi', post12:'tasa-arvon-nimissa', post10:'kehitysapu', post8:'tasavalta', post5:'kela-pride', post6:'jaloa-kaksinaismoraalia', post7:'menisitko-sina', post4:'uhriporssi', post11:'riemu', post1:'yle-facebook', post9:'yle-vahtikoira' };
   if (!ohitaHash && anchors[id]) { paivitaOsoite(anchors[id], 'blog'); }
   naytaPostNav(id);
+  synkkaaPiilotus();
   window.scrollTo(0, 0);
 }
 
@@ -1184,6 +1201,7 @@ function backToList(ohitaHash) {
   document.getElementById('blog-list').style.display = 'block';
   document.querySelectorAll('.post-full').forEach(function(p) { p.style.display = 'none'; });
   if (!ohitaHash) { paivitaOsoite('', 'blog'); }
+  synkkaaPiilotus();
 }
 
 function shareFacebook(anchor) {
@@ -1310,6 +1328,7 @@ function naytaHashinMukaan(ekaLataus, tila) {
 }
 
 naytaHashinMukaan(true);
+synkkaaPiilotus();
 window.addEventListener('hashchange', function () { naytaHashinMukaan(false, window.history.state); });
 window.addEventListener('popstate', function (e) { naytaHashinMukaan(false, e.state); });
 </script>
