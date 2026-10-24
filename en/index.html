@@ -1201,8 +1201,18 @@ function synkkaaPiilotus() {
     var pois = !p.classList.contains('active');
     p.hidden = pois; p.setAttribute('aria-hidden', pois ? 'true' : 'false');
   });
+  // Edgen lukunakyma ei valita hidden-merkinnasta, vaan kokoaa otsikon ja tekstin
+  // eri kirjoituksista. Siksi piilotettujen kirjoitusten sisalto siirretaan pois
+  // DOMista ja palautetaan, kun kirjoitus avataan. HTML-lahde pysyy ennallaan.
   document.querySelectorAll('.post-full').forEach(function (p) {
     var pois = p.style.display !== 'block';
+    if (pois && p.firstChild) {
+      var varasto = document.createDocumentFragment();
+      while (p.firstChild) { varasto.appendChild(p.firstChild); }
+      p._sisalto = varasto;
+    } else if (!pois && p._sisalto) {
+      p.appendChild(p._sisalto); p._sisalto = null;
+    }
     p.hidden = pois; p.setAttribute('aria-hidden', pois ? 'true' : 'false');
   });
   var lista = document.getElementById('blog-list');
